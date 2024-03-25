@@ -1,0 +1,117 @@
+@prefix : <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+@prefix Add: <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/addition#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@base <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+
+<http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/addition> rdf:type owl:Ontology ;
+                                                                          owl:imports <https://w3id.org/hsu-aut/cask/2.5.2> .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Definition
+DINEN61360:Definition rdf:type owl:AnnotationProperty .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#has_Data_Element
+DINEN61360:has_Data_Element rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#hasInput
+VDI3682:hasInput rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#hasOutput
+VDI3682:hasOutput rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#shortName
+VDI3682:shortName rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/addition#Addition
+Add:Addition rdf:type owl:NamedIndividual ,
+                      VDI3682:ProcessOperator ,
+                      CSS:Capability ;
+             VDI3682:hasInput Add:Addition_a ,
+                              Add:Addition_b ;
+             VDI3682:hasOutput Add:Addition_c .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/addition#Addition_a
+Add:Addition_a rdf:type owl:NamedIndividual ,
+                        VDI3682:Information ;
+               DINEN61360:has_Data_Element Add:Addition_a_DE .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/addition#Addition_a_DE
+Add:Addition_a_DE rdf:type owl:NamedIndividual ,
+                           CSS:Property ;
+                  DINEN61360:has_Instance_Description Add:Addition_a_ID ;
+                  DINEN61360:has_Type_Description Add:IntegerType .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/addition#Addition_a_ID
+Add:Addition_a_ID rdf:type owl:NamedIndividual ,
+                           DINEN61360:Instance_Description ;
+                  DINEN61360:Logic_Interpretation "=" .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/addition#Addition_b
+Add:Addition_b rdf:type owl:NamedIndividual ,
+                        VDI3682:Information ;
+               DINEN61360:has_Data_Element Add:Addition_b_DE .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/addition#Addition_b_DE
+Add:Addition_b_DE rdf:type owl:NamedIndividual ,
+                           CSS:Property ;
+                  DINEN61360:has_Instance_Description Add:Addition_b_ID ;
+                  DINEN61360:has_Type_Description Add:IntegerType .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/addition#Addition_b_ID
+Add:Addition_b_ID rdf:type owl:NamedIndividual ,
+                           DINEN61360:Instance_Description ;
+                  DINEN61360:Logic_Interpretation "=" .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/addition#Addition_c
+Add:Addition_c rdf:type owl:NamedIndividual ,
+                        VDI3682:Information ;
+               DINEN61360:has_Data_Element Add:Addition_c_DE .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/addition#Addition_c_DE
+Add:Addition_c_DE rdf:type owl:NamedIndividual ,
+                           CSS:Property ;
+                  DINEN61360:has_Instance_Description Add:Addition_c_ID ;
+                  DINEN61360:has_Type_Description Add:IntegerType .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/addition#Addition_c_ID
+Add:Addition_c_ID rdf:type owl:NamedIndividual ,
+                           DINEN61360:Instance_Description ;
+						   DINEN61360:Logic_Interpretation "=" .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/addition#IntegerType
+Add:IntegerType rdf:type owl:NamedIndividual ,
+                         DINEN61360:Type_Description ;
+                DINEN61360:Definition "Base type description of plain integer numbers" ;
+                VDI3682:shortName "integer" .
+
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
