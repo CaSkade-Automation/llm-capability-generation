@@ -4,7 +4,9 @@
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
 @prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
 @base <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
 
 <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation> rdf:type owl:Ontology ;
