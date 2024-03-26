@@ -5,6 +5,7 @@
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ISA88: <http://www.hsu-ifa.de/ontologies/ISA-TR88#> .
 @prefix VDI2206: <http://www.hsu-ifa.de/ontologies/VDI2206#> .
 @prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
 @prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
@@ -14,25 +15,56 @@
                                     owl:versionIRI <http://www.w3id.org/hsu-aut/cask/2.5.2> ;
                                     rdfs:comment "A domain ontology to describe capabilities and skills. This ontology extends the concepts defined in the CSS ontology (https://github.com/hsu-aut/css-ontology) by using ontology design patterns for different standards." ,
                                                  "An ontology for the Capability, Skill and Service reference model defined by Plattform Industrie 4.0. See https://www.plattform-i40.de/IP/Redaktion/DE/Downloads/Publikation/CapabilitiesSkillsServices.html for a description of the abstract reference model." ;
-                                    rdfs:isDefinedBy "ANSl/ISA-TR88.00.02-2015" ,
-                                                     "https://www.plattform-i40.de/IP/Redaktion/DE/Downloads/Publikation/CapabilitiesSkillsServices.html" ;
-                                    owl:versionInfo "1.0.0" ,
-                                                    "1.2.0" ,
-                                                    "2.0.0" ,
-                                                    "4.0.1" ,
-                                                    "2.5.2" .
-
-#################################################################
-#    Annotation properties
-#################################################################
-
-###  http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled
-<http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> rdf:type owl:AnnotationProperty .
-
+                                    rdfs:isDefinedBy "https://www.plattform-i40.de/IP/Redaktion/DE/Downloads/Publikation/CapabilitiesSkillsServices.html" ;
+                                    owl:versionInfo "2.5.2" .
 
 #################################################################
 #    Object Properties
 #################################################################
+
+###  http://openmath.org/vocab/math#arguments
+<http://openmath.org/vocab/math#arguments> rdf:type owl:ObjectProperty .
+
+
+###  http://openmath.org/vocab/math#attributeKey
+<http://openmath.org/vocab/math#attributeKey> rdf:type owl:ObjectProperty .
+
+
+###  http://openmath.org/vocab/math#attributeValue
+<http://openmath.org/vocab/math#attributeValue> rdf:type owl:ObjectProperty .
+
+
+###  http://openmath.org/vocab/math#binder
+<http://openmath.org/vocab/math#binder> rdf:type owl:ObjectProperty .
+
+
+###  http://openmath.org/vocab/math#body
+<http://openmath.org/vocab/math#body> rdf:type owl:ObjectProperty .
+
+
+###  http://openmath.org/vocab/math#operator
+<http://openmath.org/vocab/math#operator> rdf:type owl:ObjectProperty .
+
+
+###  http://openmath.org/vocab/math#symbol
+<http://openmath.org/vocab/math#symbol> rdf:type owl:ObjectProperty .
+
+
+###  http://openmath.org/vocab/math#target
+<http://openmath.org/vocab/math#target> rdf:type owl:ObjectProperty .
+
+
+###  http://openmath.org/vocab/math#variables
+<http://openmath.org/vocab/math#variables> rdf:type owl:ObjectProperty .
+
+
+###  http://openmath.org/vocab/math/meta#example
+<http://openmath.org/vocab/math/meta#example> rdf:type owl:ObjectProperty .
+
+
+###  http://openmath.org/vocab/math/meta#formalProperty
+<http://openmath.org/vocab/math/meta#formalProperty> rdf:type owl:ObjectProperty .
+
 
 ###  http://www.hsu-ifa.de/ontologies/DINEN61360#Data_Element_describes
 DINEN61360:Data_Element_describes rdf:type owl:ObjectProperty ;
@@ -136,202 +168,6 @@ DINEN61360:is_Type_Description_of_Data_Element rdf:type owl:ObjectProperty ;
 ObjectProperty is used to connect a Type_Description with a Data_Element that has instace descriptions of this type. 
 
 Inverse of has_Type_Description""" .
-
-
-###  http://www.hsu-ifa.de/ontologies/VDI2206#ComponentIsPartOfModule
-VDI2206:ComponentIsPartOfModule rdf:type owl:ObjectProperty ;
-                                rdfs:subPropertyOf VDI2206:isPartOf ;
-                                owl:inverseOf VDI2206:ModuleConsistsOfComponent ;
-                                rdf:type owl:AsymmetricProperty ,
-                                         owl:IrreflexiveProperty ;
-                                rdfs:domain VDI2206:Component ;
-                                rdfs:range VDI2206:Module .
-
-
-###  http://www.hsu-ifa.de/ontologies/VDI2206#ComponentIsPartOfSystem
-VDI2206:ComponentIsPartOfSystem rdf:type owl:ObjectProperty ;
-                                rdfs:subPropertyOf VDI2206:isPartOf ;
-                                owl:inverseOf VDI2206:SystemConsistsOfComponent ;
-                                rdfs:domain VDI2206:Component ;
-                                rdfs:range VDI2206:System .
-
-
-###  http://www.hsu-ifa.de/ontologies/VDI2206#ModuleConsistsOfComponent
-VDI2206:ModuleConsistsOfComponent rdf:type owl:ObjectProperty ;
-                                  rdfs:subPropertyOf VDI2206:consistsOf ;
-                                  rdf:type owl:AsymmetricProperty ,
-                                           owl:IrreflexiveProperty ;
-                                  rdfs:domain VDI2206:Module ;
-                                  rdfs:range VDI2206:Component .
-
-
-###  http://www.hsu-ifa.de/ontologies/VDI2206#ModuleIsPartOfSystem
-VDI2206:ModuleIsPartOfSystem rdf:type owl:ObjectProperty ;
-                             rdfs:subPropertyOf VDI2206:isPartOf ;
-                             owl:inverseOf VDI2206:SystemConsistsOfModule ;
-                             rdf:type owl:AsymmetricProperty ,
-                                      owl:IrreflexiveProperty ;
-                             rdfs:domain VDI2206:Module ;
-                             rdfs:range VDI2206:System .
-
-
-###  http://www.hsu-ifa.de/ontologies/VDI2206#SystemConsistsOfComponent
-VDI2206:SystemConsistsOfComponent rdf:type owl:ObjectProperty ;
-                                  rdfs:subPropertyOf VDI2206:consistsOf ;
-                                  rdfs:domain VDI2206:System ;
-                                  rdfs:range VDI2206:Component .
-
-
-###  http://www.hsu-ifa.de/ontologies/VDI2206#SystemConsistsOfModule
-VDI2206:SystemConsistsOfModule rdf:type owl:ObjectProperty ;
-                               rdfs:subPropertyOf VDI2206:consistsOf ;
-                               rdf:type owl:AsymmetricProperty ,
-                                        owl:IrreflexiveProperty ;
-                               rdfs:domain VDI2206:System ;
-                               rdfs:range VDI2206:Module .
-
-
-###  http://www.hsu-ifa.de/ontologies/VDI2206#SystemConsistsOfSystem
-VDI2206:SystemConsistsOfSystem rdf:type owl:ObjectProperty ;
-                               rdfs:subPropertyOf VDI2206:consistsOf ;
-                               rdf:type owl:AsymmetricProperty ,
-                                        owl:IrreflexiveProperty ;
-                               rdfs:domain VDI2206:System ;
-                               rdfs:range VDI2206:System .
-
-
-###  http://www.hsu-ifa.de/ontologies/VDI2206#consistsOf
-VDI2206:consistsOf rdf:type owl:ObjectProperty ;
-                   owl:inverseOf VDI2206:isPartOf ;
-                   rdf:type owl:TransitiveProperty ;
-                   rdfs:comment "an containment relation for hierarchical structures" .
-
-
-###  http://www.hsu-ifa.de/ontologies/VDI2206#hasChild
-VDI2206:hasChild rdf:type owl:ObjectProperty ;
-                 owl:inverseOf VDI2206:hasParent ;
-                 rdf:type owl:AsymmetricProperty ,
-                          owl:IrreflexiveProperty ;
-                 rdfs:comment "an inheritance structure to model both, types of systems and their (real world) instances, i.e. children" .
-
-
-###  http://www.hsu-ifa.de/ontologies/VDI2206#hasEnergyInterface
-VDI2206:hasEnergyInterface rdf:type owl:ObjectProperty ;
-                           rdfs:subPropertyOf VDI2206:hasInterface ;
-                           rdfs:range VDI2206:EnergyInterface .
-
-
-###  http://www.hsu-ifa.de/ontologies/VDI2206#hasInformationInterface
-VDI2206:hasInformationInterface rdf:type owl:ObjectProperty ;
-                                rdfs:subPropertyOf VDI2206:hasInterface ;
-                                rdfs:range VDI2206:InformationInterface .
-
-
-###  http://www.hsu-ifa.de/ontologies/VDI2206#hasInput
-VDI2206:hasInput rdf:type owl:ObjectProperty ;
-                 owl:inverseOf VDI2206:isInputFor ;
-                 rdf:type owl:AsymmetricProperty ,
-                          owl:IrreflexiveProperty ;
-                 rdfs:domain [ rdf:type owl:Class ;
-                               owl:unionOf ( VDI2206:BasicSystem
-                                             VDI2206:Component
-                                           )
-                             ] ;
-                 rdfs:range [ rdf:type owl:Class ;
-                              owl:unionOf ( VDI2206:Energy
-                                            VDI2206:Information
-                                            VDI2206:Product
-                                          )
-                            ] ;
-                 rdfs:comment "represents the relationships between the components by means of flows. In principle, a distinction has been made between three types of flow: material flow, energy flow and information flow" .
-
-
-###  http://www.hsu-ifa.de/ontologies/VDI2206#hasInterface
-VDI2206:hasInterface rdf:type owl:ObjectProperty ,
-                              owl:AsymmetricProperty ,
-                              owl:IrreflexiveProperty ;
-                     rdfs:domain [ rdf:type owl:Class ;
-                                   owl:unionOf ( VDI2206:Component
-                                                 VDI2206:Module
-                                               )
-                                 ] ;
-                     rdfs:range VDI2206:Interface .
-
-
-###  http://www.hsu-ifa.de/ontologies/VDI2206#hasMechanicalInterface
-VDI2206:hasMechanicalInterface rdf:type owl:ObjectProperty ;
-                               rdfs:subPropertyOf VDI2206:hasInterface ;
-                               rdfs:range VDI2206:MechanicalInterface .
-
-
-###  http://www.hsu-ifa.de/ontologies/VDI2206#hasOutput
-VDI2206:hasOutput rdf:type owl:ObjectProperty ;
-                  owl:inverseOf VDI2206:isOutputOf ;
-                  rdf:type owl:AsymmetricProperty ,
-                           owl:IrreflexiveProperty ;
-                  rdfs:domain [ rdf:type owl:Class ;
-                                owl:unionOf ( VDI2206:BasicSystem
-                                              VDI2206:Component
-                                            )
-                              ] ;
-                  rdfs:range [ rdf:type owl:Class ;
-                               owl:unionOf ( VDI2206:Energy
-                                             VDI2206:Information
-                                             VDI2206:Product
-                                           )
-                             ] ;
-                  rdfs:comment "represents the relationships between the components by means of flows. In principle, a distinction has been made between three types of flow: material flow, energy flow and information flow" .
-
-
-###  http://www.hsu-ifa.de/ontologies/VDI2206#hasParent
-VDI2206:hasParent rdf:type owl:ObjectProperty ,
-                           owl:AsymmetricProperty ,
-                           owl:IrreflexiveProperty ;
-                  rdfs:comment "an inheritance structure to model both, types of systems and their (real world) instances, i.e. children" .
-
-
-###  http://www.hsu-ifa.de/ontologies/VDI2206#isInputFor
-VDI2206:isInputFor rdf:type owl:ObjectProperty ;
-                   rdfs:subPropertyOf owl:topObjectProperty ;
-                   rdf:type owl:AsymmetricProperty ,
-                            owl:IrreflexiveProperty ;
-                   rdfs:domain [ rdf:type owl:Class ;
-                                 owl:unionOf ( VDI2206:Energy
-                                               VDI2206:Information
-                                               VDI2206:Product
-                                             )
-                               ] ;
-                   rdfs:range [ rdf:type owl:Class ;
-                                owl:unionOf ( VDI2206:BasicSystem
-                                              VDI2206:Component
-                                            )
-                              ] ;
-                   rdfs:comment "represents the relationships between the components by means of flows. In principle, a distinction has been made between three types of flow: material flow, energy flow and information flow" .
-
-
-###  http://www.hsu-ifa.de/ontologies/VDI2206#isOutputOf
-VDI2206:isOutputOf rdf:type owl:ObjectProperty ;
-                   rdfs:subPropertyOf owl:topObjectProperty ;
-                   rdf:type owl:AsymmetricProperty ,
-                            owl:IrreflexiveProperty ;
-                   rdfs:domain [ rdf:type owl:Class ;
-                                 owl:unionOf ( VDI2206:BasicSystem
-                                               VDI2206:Component
-                                             )
-                               ] ;
-                   rdfs:range [ rdf:type owl:Class ;
-                                owl:unionOf ( VDI2206:Energy
-                                              VDI2206:Information
-                                              VDI2206:Product
-                                            )
-                              ] ;
-                   rdfs:comment "represents the relationships between the components by means of flows. In principle, a distinction has been made between three types of flow: material flow, energy flow and information flow" .
-
-
-###  http://www.hsu-ifa.de/ontologies/VDI2206#isPartOf
-VDI2206:isPartOf rdf:type owl:ObjectProperty ,
-                          owl:TransitiveProperty ;
-                 rdfs:comment "an part of relation for hierarchical structures" .
 
 
 ###  http://www.w3.org/1999/02/22-rdf-syntax-ns#first
@@ -748,6 +584,29 @@ CSS:requiresProduct rdf:type owl:ObjectProperty ;
 #################################################################
 #    Data properties
 #################################################################
+
+###  http://openmath.org/vocab/math#encoding
+<http://openmath.org/vocab/math#encoding> rdf:type owl:DatatypeProperty ;
+                                          rdfs:comment "Specifies the encoding of a foreign object." .
+
+
+###  http://openmath.org/vocab/math#name
+<http://openmath.org/vocab/math#name> rdf:type owl:DatatypeProperty ;
+                                      rdfs:comment "Represents the name of a variable." .
+
+
+###  http://openmath.org/vocab/math#value
+<http://openmath.org/vocab/math#value> rdf:type owl:DatatypeProperty ;
+                                       rdfs:comment "Represents the value of a literal or a foreign object." .
+
+
+###  http://openmath.org/vocab/math/meta#commentedProperty
+<http://openmath.org/vocab/math/meta#commentedProperty> rdf:type owl:DatatypeProperty .
+
+
+###  http://openmath.org/vocab/math/meta#description
+<http://openmath.org/vocab/math/meta#description> rdf:type owl:DatatypeProperty .
+
 
 ###  http://www.hsu-ifa.de/ontologies/DINEN61360#Array_Member_Dimension
 DINEN61360:Array_Member_Dimension rdf:type owl:DatatypeProperty ;
@@ -1328,6 +1187,257 @@ VDI3682:shortName rdf:type owl:DatatypeProperty ,
 #    Classes
 #################################################################
 
+###  http://openmath.org/vocab/math#Application
+<http://openmath.org/vocab/math#Application> rdf:type owl:Class ;
+                                             rdfs:subClassOf <http://openmath.org/vocab/math#Compound> ,
+                                                             [ rdf:type owl:Restriction ;
+                                                               owl:onProperty <http://openmath.org/vocab/math#arguments> ;
+                                                               owl:allValuesFrom <http://openmath.org/vocab/math#ObjectList>
+                                                             ] ,
+                                                             [ rdf:type owl:Restriction ;
+                                                               owl:onProperty <http://openmath.org/vocab/math#operator> ;
+                                                               owl:allValuesFrom <http://openmath.org/vocab/math#Object>
+                                                             ] ,
+                                                             [ rdf:type owl:Restriction ;
+                                                               owl:onProperty <http://openmath.org/vocab/math#operator> ;
+                                                               owl:cardinality "1"^^xsd:nonNegativeInteger
+                                                             ] ,
+                                                             [ rdf:type owl:Restriction ;
+                                                               owl:onProperty <http://openmath.org/vocab/math#arguments> ;
+                                                               owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                                             ] ;
+                                             rdfs:comment "Constructs an OpenMath object from a sequence of one or more OpenMath objects. The first child of an application is referred to as its \"head\" while the remaining objects are called its \"arguments\".  An OpenMath application object can be used to convey the mathematical notion of application of a function to a set of arguments." .
+
+
+###  http://openmath.org/vocab/math#Attribution
+<http://openmath.org/vocab/math#Attribution> rdf:type owl:Class ;
+                                             rdfs:subClassOf <http://openmath.org/vocab/math#Compound> ,
+                                                             [ rdf:type owl:Restriction ;
+                                                               owl:onProperty <http://openmath.org/vocab/math#arguments> ;
+                                                               owl:allValuesFrom <http://openmath.org/vocab/math#AttributionList>
+                                                             ] ,
+                                                             [ rdf:type owl:Restriction ;
+                                                               owl:onProperty <http://openmath.org/vocab/math#target> ;
+                                                               owl:allValuesFrom <http://openmath.org/vocab/math#Object>
+                                                             ] ,
+                                                             [ rdf:type owl:Restriction ;
+                                                               owl:onProperty <http://openmath.org/vocab/math#target> ;
+                                                               owl:cardinality "1"^^xsd:nonNegativeInteger
+                                                             ] ,
+                                                             [ rdf:type owl:Restriction ;
+                                                               owl:onProperty <http://openmath.org/vocab/math#arguments> ;
+                                                               owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                                             ] ;
+                                             rdfs:comment """Decorates an object with a sequence of one or more pairs made up of an OpenMath symbol, the \"attribute\", and an associated  object, the \"value of the attribute\". The value of the attribute can be an OpenMath attribution object itself. As an example of this, consider the OpenMath objects representing groups, automorphism groups, and group dimensions. It is then possible to attribute an OpenMath object representing a group by its automorphism group, itself attributed by its dimension.
+
+OpenMath objects can be attributed with OpenMath foreign objects, which are containers for non-OpenMath structures. For example a mathematical expression could be attributed with its spoken or visual rendering.""" .
+
+
+###  http://openmath.org/vocab/math#AttributionList
+<http://openmath.org/vocab/math#AttributionList> rdf:type owl:Class ;
+                                                 rdfs:subClassOf rdf:List ;
+                                                 rdfs:comment "A list of attribute-value pairs." .
+
+
+###  http://openmath.org/vocab/math#Binding
+<http://openmath.org/vocab/math#Binding> rdf:type owl:Class ;
+                                         rdfs:subClassOf <http://openmath.org/vocab/math#Compound> ,
+                                                         [ rdf:type owl:Restriction ;
+                                                           owl:onProperty <http://openmath.org/vocab/math#binder> ;
+                                                           owl:allValuesFrom <http://openmath.org/vocab/math#Object>
+                                                         ] ,
+                                                         [ rdf:type owl:Restriction ;
+                                                           owl:onProperty <http://openmath.org/vocab/math#body> ;
+                                                           owl:allValuesFrom <http://openmath.org/vocab/math#Object>
+                                                         ] ,
+                                                         [ rdf:type owl:Restriction ;
+                                                           owl:onProperty <http://openmath.org/vocab/math#variables> ;
+                                                           owl:allValuesFrom <http://openmath.org/vocab/math#VariableList>
+                                                         ] ,
+                                                         [ rdf:type owl:Restriction ;
+                                                           owl:onProperty <http://openmath.org/vocab/math#binder> ;
+                                                           owl:cardinality "1"^^xsd:nonNegativeInteger
+                                                         ] ,
+                                                         [ rdf:type owl:Restriction ;
+                                                           owl:onProperty <http://openmath.org/vocab/math#body> ;
+                                                           owl:cardinality "1"^^xsd:nonNegativeInteger
+                                                         ] ,
+                                                         [ rdf:type owl:Restriction ;
+                                                           owl:onProperty <http://openmath.org/vocab/math#variables> ;
+                                                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                                         ] ;
+                                         rdfs:comment "A variable binding that is constructed from an OpenMath object, and from a sequence of zero or more variables followed by another OpenMath object.  The binding consits of a \"binder\" object, the \"body\" and the \"variables\" to be bound in the \"body\". It is allowed to have no bound variables, but the binder object and the body should be present. Binding can be used to express functions or logical statements." .
+
+
+###  http://openmath.org/vocab/math#Compound
+<http://openmath.org/vocab/math#Compound> rdf:type owl:Class ;
+                                          rdfs:subClassOf <http://openmath.org/vocab/math#Object> ;
+                                          rdfs:comment "An object that is composed of some other mathematical objects." .
+
+
+###  http://openmath.org/vocab/math#Error
+<http://openmath.org/vocab/math#Error> rdf:type owl:Class ;
+                                       rdfs:subClassOf <http://openmath.org/vocab/math#Compound> ,
+                                                       [ rdf:type owl:Restriction ;
+                                                         owl:onProperty <http://openmath.org/vocab/math#arguments> ;
+                                                         owl:allValuesFrom <http://openmath.org/vocab/math#ObjectList>
+                                                       ] ,
+                                                       [ rdf:type owl:Restriction ;
+                                                         owl:onProperty <http://openmath.org/vocab/math#symbol> ;
+                                                         owl:allValuesFrom <http://openmath.org/vocab/math#Symbol>
+                                                       ] ,
+                                                       [ rdf:type owl:Restriction ;
+                                                         owl:onProperty <http://openmath.org/vocab/math#symbol> ;
+                                                         owl:cardinality "1"^^xsd:nonNegativeInteger
+                                                       ] ;
+                                       rdfs:comment "Represents error objects which are made up of an OpenMath symbol and a sequence of zero or more OpenMath objects. This object has no direct mathematical meaning.  Errors occur as the result of some treatment on an OpenMath object and are thus of real interest only when some sort of communication is taking place. Errors may occur inside other objects and also inside other errors. Error objects might consist only of a symbol as in the object: error (S)." .
+
+
+###  http://openmath.org/vocab/math#Literal
+<http://openmath.org/vocab/math#Literal> rdf:type owl:Class ;
+                                         rdfs:subClassOf <http://openmath.org/vocab/math#Object> ,
+                                                         [ rdf:type owl:Restriction ;
+                                                           owl:onProperty <http://openmath.org/vocab/math#value> ;
+                                                           owl:cardinality "1"^^xsd:nonNegativeInteger
+                                                         ] ;
+                                         rdfs:comment "An OpenMath literal (integer, float, character string, bytearray)." .
+
+
+###  http://openmath.org/vocab/math#Object
+<http://openmath.org/vocab/math#Object> rdf:type owl:Class ;
+                                        rdfs:subClassOf owl:Thing ;
+                                        rdfs:comment "Component of a mathematical expression." .
+
+
+###  http://openmath.org/vocab/math#ObjectList
+<http://openmath.org/vocab/math#ObjectList> rdf:type owl:Class ;
+                                            owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                                         owl:onProperty rdf:first ;
+                                                                                         owl:someValuesFrom <http://openmath.org/vocab/math#Object>
+                                                                                       ]
+                                                                                       [ rdf:type owl:Restriction ;
+                                                                                         owl:onProperty rdf:rest ;
+                                                                                         owl:someValuesFrom <http://openmath.org/vocab/math#ObjectList>
+                                                                                       ]
+                                                                                     ) ;
+                                                                  rdf:type owl:Class
+                                                                ] ;
+                                            rdfs:subClassOf rdf:List ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty rdf:first ;
+                                                              owl:allValuesFrom <http://openmath.org/vocab/math#Object>
+                                                            ] ;
+                                            rdfs:comment "A list of mathematical objects." .
+
+
+###  http://openmath.org/vocab/math#Reference
+<http://openmath.org/vocab/math#Reference> rdf:type owl:Class ;
+                                           rdfs:subClassOf <http://openmath.org/vocab/math#Object> ,
+                                                           [ rdf:type owl:Restriction ;
+                                                             owl:onProperty <http://openmath.org/vocab/math#target> ;
+                                                             owl:allValuesFrom <http://openmath.org/vocab/math#Object>
+                                                           ] ,
+                                                           [ rdf:type owl:Restriction ;
+                                                             owl:onProperty <http://openmath.org/vocab/math#target> ;
+                                                             owl:cardinality "1"^^xsd:nonNegativeInteger
+                                                           ] .
+
+
+###  http://openmath.org/vocab/math#Symbol
+<http://openmath.org/vocab/math#Symbol> rdf:type owl:Class ;
+                                        rdfs:subClassOf <http://openmath.org/vocab/math#Object> ,
+                                                        [ rdf:type owl:Restriction ;
+                                                          owl:onProperty <http://openmath.org/vocab/math/meta#example> ;
+                                                          owl:allValuesFrom <http://openmath.org/vocab/math#Object>
+                                                        ] ,
+                                                        [ rdf:type owl:Restriction ;
+                                                          owl:onProperty <http://openmath.org/vocab/math/meta#formalProperty> ;
+                                                          owl:allValuesFrom <http://openmath.org/vocab/math#Object>
+                                                        ] ,
+                                                        [ rdf:type owl:Restriction ;
+                                                          owl:onProperty rdfs:isDefinedBy ;
+                                                          owl:allValuesFrom <http://openmath.org/vocab/math/meta#Library>
+                                                        ] ;
+                                        rdfs:comment "Symbols are uniquely defined by the Content Dictionary in which they occur and by a name. Each symbol has no more than one definition in a Content Dictionary. Many Content Dictionaries may define differently a symbol with the same name (e.g. the symbol union is defined as associative-commutative set theoretic union in a Content Dictionary set1 but another Content Dictionary, multiset1 might define a symbol union as the union of multi-sets)." .
+
+
+###  http://openmath.org/vocab/math#Variable
+<http://openmath.org/vocab/math#Variable> rdf:type owl:Class ;
+                                          rdfs:subClassOf <http://openmath.org/vocab/math#Object> ,
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty <http://openmath.org/vocab/math#name> ;
+                                                            owl:allValuesFrom xsd:string
+                                                          ] ,
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty <http://openmath.org/vocab/math#name> ;
+                                                            owl:cardinality "1"^^xsd:nonNegativeInteger
+                                                          ] ;
+                                          rdfs:comment "Denote parameters, variables or indeterminates (such as bound variables of function definitions, variables in summations and integrals, independent variables of derivatives)." .
+
+
+###  http://openmath.org/vocab/math#VariableList
+<http://openmath.org/vocab/math#VariableList> rdf:type owl:Class ;
+                                              owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                                           owl:onProperty rdf:first ;
+                                                                                           owl:someValuesFrom <http://openmath.org/vocab/math#Variable>
+                                                                                         ]
+                                                                                         [ rdf:type owl:Restriction ;
+                                                                                           owl:onProperty rdf:rest ;
+                                                                                           owl:someValuesFrom <http://openmath.org/vocab/math#Variable>
+                                                                                         ]
+                                                                                       ) ;
+                                                                    rdf:type owl:Class
+                                                                  ] ;
+                                              rdfs:subClassOf rdf:List ,
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty rdf:first ;
+                                                                owl:allValuesFrom <http://openmath.org/vocab/math#Variable>
+                                                              ] ;
+                                              rdfs:comment "A list of variables." .
+
+
+###  http://openmath.org/vocab/math/meta#ApplicationSymbol
+<http://openmath.org/vocab/math/meta#ApplicationSymbol> rdf:type owl:Class ;
+                                                        rdfs:subClassOf <http://openmath.org/vocab/math#Symbol> ;
+                                                        rdfs:comment "The symbol may appear as the first child of an OpenMath application object." .
+
+
+###  http://openmath.org/vocab/math/meta#AttributionSymbol
+<http://openmath.org/vocab/math/meta#AttributionSymbol> rdf:type owl:Class ;
+                                                        rdfs:subClassOf <http://openmath.org/vocab/math#Symbol> ;
+                                                        rdfs:comment """The symbol may be used as key in an OpenMath attribution object, i.e. as the first element of a (key, value) pair, or in an equivalent context (for example to refer to the value of an attribution).  This form of attribution
+may be ignored by an application, so should be used for information which does not change the meaning of the attributed OpenMath object.""" .
+
+
+###  http://openmath.org/vocab/math/meta#BinderSymbol
+<http://openmath.org/vocab/math/meta#BinderSymbol> rdf:type owl:Class ;
+                                                   rdfs:subClassOf <http://openmath.org/vocab/math#Symbol> ;
+                                                   rdfs:comment "The symbol may appear as the first child of an OpenMath binding object." .
+
+
+###  http://openmath.org/vocab/math/meta#ConstantSymbol
+<http://openmath.org/vocab/math/meta#ConstantSymbol> rdf:type owl:Class ;
+                                                     rdfs:subClassOf <http://openmath.org/vocab/math#Symbol> ;
+                                                     rdfs:comment "The symbol cannot be used to construct an OpenMath compound object." .
+
+
+###  http://openmath.org/vocab/math/meta#ErrorSymbol
+<http://openmath.org/vocab/math/meta#ErrorSymbol> rdf:type owl:Class ;
+                                                  rdfs:subClassOf <http://openmath.org/vocab/math#Symbol> ;
+                                                  rdfs:comment "The symbol may appear as the first child of an OpenMath error object." .
+
+
+###  http://openmath.org/vocab/math/meta#Library
+<http://openmath.org/vocab/math/meta#Library> rdf:type owl:Class ;
+                                              rdfs:comment "Represents a collection of related OpenMath symbols." .
+
+
+###  http://openmath.org/vocab/math/meta#SemanticAttributionSymbol
+<http://openmath.org/vocab/math/meta#SemanticAttributionSymbol> rdf:type owl:Class ;
+                                                                rdfs:subClassOf <http://openmath.org/vocab/math#Symbol> ;
+                                                                rdfs:comment "This is the same as attribution except that it modifies the meaning of the attributed OpenMath object and thus cannot be ignored by an application, without changing the meaning." .
+
+
 ###  http://www.hsu-ifa.de/ontologies/DINEN61360#Array
 DINEN61360:Array rdf:type owl:Class ;
                  rdfs:subClassOf DINEN61360:Complex_Data_Type ,
@@ -1586,91 +1696,48 @@ DINEN61360:Type_Description rdf:type owl:Class ;
                             rdfs:comment "Value list is expressed as exactly 1, since not using a value list has to result in value list false" .
 
 
-###  http://www.hsu-ifa.de/ontologies/VDI2206#Actuator
-VDI2206:Actuator rdf:type owl:Class ;
-                 rdfs:subClassOf VDI2206:Component ;
-                 rdfs:comment "The information processing determines the effects necessary to influence the state variables of the basic system in the desired way. The implementation of the effects takes place by actors directly on the basic system." .
+###  http://www.hsu-ifa.de/ontologies/ISA-TR88#Command
+ISA88:Command rdf:type owl:Class ;
+              rdfs:subClassOf :StatefulMethod .
 
 
-###  http://www.hsu-ifa.de/ontologies/VDI2206#BasicSystem
-VDI2206:BasicSystem rdf:type owl:Class ;
-                    rdfs:comment "The basic system is generally a mechanical, electromechanical, hydraulic or pneumatic structure or a combination of these." ;
-                    rdfs:label "Basic System" .
+###  http://www.hsu-ifa.de/ontologies/ISA-TR88#State
+ISA88:State rdf:type owl:Class .
 
 
-###  http://www.hsu-ifa.de/ontologies/VDI2206#Component
-VDI2206:Component rdf:type owl:Class .
+###  http://www.hsu-ifa.de/ontologies/ISA-TR88#StateMachine
+ISA88:StateMachine rdf:type owl:Class ;
+                   rdfs:subClassOf CSS:StateMachine .
+
+
+###  http://www.hsu-ifa.de/ontologies/ISA-TR88#Transition
+ISA88:Transition rdf:type owl:Class .
 
 
 ###  http://www.hsu-ifa.de/ontologies/VDI2206#Energy
 VDI2206:Energy rdf:type owl:Class ;
-               owl:equivalentClass VDI3682:Energy ;
-               rdfs:comment "Energy is to be understood in this connection as meaning any form of energy, such as for example mechanical, thermal or electrical energy, but also variables such as force or current." .
-
-
-###  http://www.hsu-ifa.de/ontologies/VDI2206#EnergyInterface
-VDI2206:EnergyInterface rdf:type owl:Class ;
-                        rdfs:subClassOf VDI2206:Interface .
+               owl:equivalentClass VDI3682:Energy .
 
 
 ###  http://www.hsu-ifa.de/ontologies/VDI2206#Information
 VDI2206:Information rdf:type owl:Class ;
-                    owl:equivalentClass VDI3682:Information ;
-                    rdfs:comment "Information exchanged between units of mechatronic systems are for example measured variables, control pulses or data" .
-
-
-###  http://www.hsu-ifa.de/ontologies/VDI2206#InformationInterface
-VDI2206:InformationInterface rdf:type owl:Class ;
-                             rdfs:subClassOf VDI2206:Interface .
-
-
-###  http://www.hsu-ifa.de/ontologies/VDI2206#InformationProcessing
-VDI2206:InformationProcessing rdf:type owl:Class ;
-                              rdfs:subClassOf VDI2206:Component .
-
-
-###  http://www.hsu-ifa.de/ontologies/VDI2206#Interface
-VDI2206:Interface rdf:type owl:Class ;
-                  owl:disjointWith [ rdf:type owl:Class ;
-                                     owl:unionOf ( VDI2206:BasicSystem
-                                                   VDI2206:Energy
-                                                   VDI2206:Information
-                                                   VDI2206:Module
-                                                   VDI2206:Product
-                                                   VDI2206:System
-                                                 )
-                                   ] .
-
-
-###  http://www.hsu-ifa.de/ontologies/VDI2206#MechanicalInterface
-VDI2206:MechanicalInterface rdf:type owl:Class ;
-                            rdfs:subClassOf VDI2206:Interface .
+                    owl:equivalentClass VDI3682:Information .
 
 
 ###  http://www.hsu-ifa.de/ontologies/VDI2206#Module
 VDI2206:Module rdf:type owl:Class ;
-               rdfs:subClassOf VDI3682:TechnicalResource ;
-               rdfs:comment "Complex mechatronic systems generally comprise the synergetic integration of various mechatronic modules, i.e. system elements or components which are combined to form a group and together perform a specific function." ;
-               rdfs:label "Module" .
+               rdfs:subClassOf VDI3682:TechnicalResource .
 
 
 ###  http://www.hsu-ifa.de/ontologies/VDI2206#Product
 VDI2206:Product rdf:type owl:Class ;
                 owl:equivalentClass VDI3682:Product ,
-                                    CSS:Product ;
-                rdfs:comment "Examples of materials which flow between units of mechatronic systems are solid bodies, objects under test, objects being treated, gases or liquids." .
-
-
-###  http://www.hsu-ifa.de/ontologies/VDI2206#Sensor
-VDI2206:Sensor rdf:type owl:Class ;
-               rdfs:subClassOf VDI2206:Component ;
-               rdfs:comment "The task of the sensors is to determine selected state variables of the basic system." .
+                                    CSS:Product .
 
 
 ###  http://www.hsu-ifa.de/ontologies/VDI2206#System
 VDI2206:System rdf:type owl:Class ;
-               rdfs:subClassOf VDI3682:TechnicalResource ;
-               rdfs:label "Mechatronic System" .
+               rdfs:subClassOf VDI3682:TechnicalResource .
 
 
 ###  http://www.w3.org/1999/02/22-rdf-syntax-ns#List
@@ -1885,6 +1952,15 @@ Notes:
 
 ###  http://www.w3id.org/hsu-aut/css#CapabilityConstraint
 CSS:CapabilityConstraint rdf:type owl:Class ;
+                         owl:equivalentClass [ owl:intersectionOf ( <http://openmath.org/vocab/math#Application>
+                                                                    [ rdf:type owl:Restriction ;
+                                                                      owl:onProperty [ owl:inverseOf CSS:isRestrictedBy
+                                                                                     ] ;
+                                                                      owl:someValuesFrom CSS:Capability
+                                                                    ]
+                                                                  ) ;
+                                               rdf:type owl:Class
+                                             ] ;
                          owl:disjointWith CSS:Resource ,
                                           CSS:Service ,
                                           CSS:ServiceOffer ,
@@ -2075,6 +2151,268 @@ CSS:StateMachine rdf:type owl:Class .
 #    Individuals
 #################################################################
 
+###  http://www.openmath.org/cd/arith1
+<http://www.openmath.org/cd/arith1> rdf:type owl:NamedIndividual ,
+                                             <http://openmath.org/vocab/math/meta#Library> ;
+                                    <http://openmath.org/vocab/math/meta#description> "This CD defines symbols for common arithmetic functions." ;
+                                    rdfs:comment """This document is distributed in the hope that it will be useful, 
+     but WITHOUT ANY WARRANTY; without even the implied warranty of 
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+     The copyright holder grants you permission to redistribute this 
+     document freely as a verbatim copy. Furthermore, the copyright
+     holder permits you to develop any derived work from this document
+     provided that the following conditions are met.
+       a) The derived work acknowledges the fact that it is derived from
+          this document, and maintains a prominent reference in the 
+          work to the original source.
+       b) The fact that the derived work is not the original OpenMath 
+          document is stated prominently in the derived work.  Moreover if
+          both this document and the derived work are Content Dictionaries
+          then the derived work must include a different CDName element,
+          chosen so that it cannot be confused with any works adopted by
+          the OpenMath Society.  In particular, if there is a Content 
+          Dictionary Group whose name is, for example, `math' containing
+          Content Dictionaries named `math1', `math2' etc., then you should 
+          not name a derived Content Dictionary `mathN' where N is an integer.
+          However you are free to name it `private_mathN' or some such.  This
+          is because the names `mathN' may be used by the OpenMath Society
+          for future extensions.
+       c) The derived work is distributed under terms that allow the
+          compilation of derived works, but keep paragraphs a) and b)
+          intact.  The simplest way to do this is to distribute the derived
+          work under the OpenMath license, but this is not a requirement.
+     If you have questions about this license please contact the OpenMath
+     society at http://www.openmath.org.""" .
+
+
+###  http://www.openmath.org/cd/arith1#abs
+<http://www.openmath.org/cd/arith1#abs> rdf:type owl:NamedIndividual ,
+                                                 <http://openmath.org/vocab/math/meta#ApplicationSymbol> ;
+                                        <http://openmath.org/vocab/math/meta#formalProperty> [ ] ;
+<http://openmath.org/vocab/math/meta#commentedProperty> "for all x,y | abs(x) + abs(y) >= abs(x+y)" ;
+<http://openmath.org/vocab/math/meta#description> """A unary operator which represents the absolute value of its
+argument. The argument should be numerically valued.
+In the complex case this is often referred to as the modulus.""" ;
+rdfs:isDefinedBy <http://www.openmath.org/cd/arith1> .
+
+
+###  http://www.openmath.org/cd/arith1#divide
+<http://www.openmath.org/cd/arith1#divide> rdf:type owl:NamedIndividual ,
+                                                    <http://openmath.org/vocab/math/meta#ApplicationSymbol> ;
+                                           <http://openmath.org/vocab/math/meta#formalProperty> [ ] ;
+<http://openmath.org/vocab/math/meta#commentedProperty> "whenever not(a=0) then a/a = 1" ;
+<http://openmath.org/vocab/math/meta#description> """This symbol represents a (binary) division function denoting the first argument
+right-divided by the second, i.e. divide(a,b)=a*inverse(b). It is the
+inverse of the multiplication function defined by the symbol times in this CD.""" ;
+rdfs:isDefinedBy <http://www.openmath.org/cd/arith1> .
+
+
+###  http://www.openmath.org/cd/arith1#gcd
+<http://www.openmath.org/cd/arith1#gcd> rdf:type owl:NamedIndividual ,
+                                                 <http://openmath.org/vocab/math/meta#ApplicationSymbol> ;
+                                        <http://openmath.org/vocab/math/meta#example> [ ] ;
+<http://openmath.org/vocab/math/meta#formalProperty> [ ] ;
+<http://openmath.org/vocab/math/meta#commentedProperty> """for all integers a,b |
+There does not exist a c such that a/c is an Integer and b/c is an
+Integer and c > gcd(a,b).
+
+Note that this implies that gcd(a,b) > 0""" ;
+<http://openmath.org/vocab/math/meta#description> """The symbol to represent the n-ary function to return the gcd (greatest
+common divisor) of its arguments.""" ;
+rdfs:isDefinedBy <http://www.openmath.org/cd/arith1> .
+
+
+###  http://www.openmath.org/cd/arith1#lcm
+<http://www.openmath.org/cd/arith1#lcm> rdf:type owl:NamedIndividual ,
+                                                 <http://openmath.org/vocab/math/meta#ApplicationSymbol> ;
+                                        <http://openmath.org/vocab/math/meta#formalProperty> [ ] ,
+[ ] ;
+<http://openmath.org/vocab/math/meta#commentedProperty> """for all integers a,b |
+There does not exist a c>0 such that c/a is an Integer and c/b is an
+Integer and lcm(a,b) > c.""" ,
+                                                        "lcm(a,b) = a*b/gcd(a,b)" ;
+<http://openmath.org/vocab/math/meta#description> """The symbol to represent the n-ary function to return the least common
+multiple of its arguments.""" ;
+rdfs:isDefinedBy <http://www.openmath.org/cd/arith1> .
+
+
+###  http://www.openmath.org/cd/arith1#minus
+<http://www.openmath.org/cd/arith1#minus> rdf:type owl:NamedIndividual ,
+                                                   <http://openmath.org/vocab/math/meta#ApplicationSymbol> ;
+                                          <http://openmath.org/vocab/math/meta#formalProperty> [ ] ;
+<http://openmath.org/vocab/math/meta#commentedProperty> "for all a,b | a - b = a + (-b)" ;
+<http://openmath.org/vocab/math/meta#description> """The symbol representing a binary minus function. This is equivalent to
+adding the additive inverse.""" ;
+rdfs:isDefinedBy <http://www.openmath.org/cd/arith1> .
+
+
+###  http://www.openmath.org/cd/arith1#plus
+<http://www.openmath.org/cd/arith1#plus> rdf:type owl:NamedIndividual ,
+                                                  <http://openmath.org/vocab/math/meta#ApplicationSymbol> ;
+                                         <http://openmath.org/vocab/math/meta#formalProperty> [ ] ;
+<http://openmath.org/vocab/math/meta#commentedProperty> "for all a,b | a + b = b + a" ;
+<http://openmath.org/vocab/math/meta#description> "The symbol representing an n-ary commutative function plus." ;
+rdfs:isDefinedBy <http://www.openmath.org/cd/arith1> .
+
+
+###  http://www.openmath.org/cd/arith1#power
+<http://www.openmath.org/cd/arith1#power> rdf:type owl:NamedIndividual ,
+                                                   <http://openmath.org/vocab/math/meta#ApplicationSymbol> ;
+                                          <http://openmath.org/vocab/math/meta#example> [ ] ,
+[ ] ;
+<http://openmath.org/vocab/math/meta#formalProperty> [ ] ,
+[ ] ;
+<http://openmath.org/vocab/math/meta#commentedProperty> """if n is an integer then
+  x^0 = 1,
+  x^n = x * x^(n-1)""" ,
+                                                        "x\\in C implies x^a = exp(a ln x)" ;
+<http://openmath.org/vocab/math/meta#description> """This symbol represents a power function. The first argument is raised
+to the power of the second argument. When the second argument is not
+an integer, powering is defined in terms of exponentials and 
+logarithms for the complex and real numbers.
+This operator can represent general powering.""" ;
+rdfs:isDefinedBy <http://www.openmath.org/cd/arith1> .
+
+
+###  http://www.openmath.org/cd/arith1#product
+<http://www.openmath.org/cd/arith1#product> rdf:type owl:NamedIndividual ,
+                                                     <http://openmath.org/vocab/math/meta#ApplicationSymbol> ;
+                                            <http://openmath.org/vocab/math/meta#example> _:genid184 ;
+                                            <http://openmath.org/vocab/math/meta#description> """An operator taking two arguments, the first being the range of multiplication
+e.g. an integral interval, the second being the function to
+be multiplied. Note that the product may be over an infinite interval.""" ;
+                                            rdfs:isDefinedBy <http://www.openmath.org/cd/arith1> .
+
+_:genid184 rdf:type <http://openmath.org/vocab/math#Application> ;
+            <http://openmath.org/vocab/math#arguments> [ ] .
+
+
+###  http://www.openmath.org/cd/arith1#root
+<http://www.openmath.org/cd/arith1#root> rdf:type owl:NamedIndividual ,
+                                                  <http://openmath.org/vocab/math/meta#ApplicationSymbol> ;
+                                         <http://openmath.org/vocab/math/meta#formalProperty> [ ] ,
+[ ] ;
+<http://openmath.org/vocab/math/meta#commentedProperty> "for all a,n | power(root(a,n),n) = a (if the root exists!)" ,
+                                                        "x\\in C implies root(x,n) = exp(ln(x)/n)" ;
+<http://openmath.org/vocab/math/meta#description> """A binary operator which represents its first argument \"lowered\" to its
+n'th root where n is the second argument. This is the inverse of the operation
+represented by the power symbol defined in this CD.
+
+Care should be taken as to the precise meaning of this operator, in
+particular which root is represented, however it is here to represent
+the general notion of taking n'th roots. As inferred by the signature
+relevant to this symbol, the function represented by this symbol is
+the single valued function, the specific root returned is the one
+indicated by the first CMP. Note also that the converse of the second
+CMP is not valid in general.""" ;
+rdfs:isDefinedBy <http://www.openmath.org/cd/arith1> .
+
+
+###  http://www.openmath.org/cd/arith1#sub
+<http://www.openmath.org/cd/arith1#sub> rdf:type owl:NamedIndividual .
+
+
+###  http://www.openmath.org/cd/arith1#sum
+<http://www.openmath.org/cd/arith1#sum> rdf:type owl:NamedIndividual ,
+                                                 <http://openmath.org/vocab/math/meta#ApplicationSymbol> ;
+                                        <http://openmath.org/vocab/math/meta#example> _:genid188 ;
+                                        <http://openmath.org/vocab/math/meta#description> """An operator taking two arguments, the first being the range of summation,
+e.g. an integral interval, the second being the function to be
+summed. Note that the sum may be over an infinite interval.""" ;
+                                        rdfs:isDefinedBy <http://www.openmath.org/cd/arith1> .
+
+_:genid188 rdf:type <http://openmath.org/vocab/math#Application> ;
+            <http://openmath.org/vocab/math#arguments> [ ] .
+
+
+###  http://www.openmath.org/cd/arith1#times
+<http://www.openmath.org/cd/arith1#times> rdf:type owl:NamedIndividual ,
+                                                   <http://openmath.org/vocab/math/meta#ApplicationSymbol> ;
+                                          <http://openmath.org/vocab/math/meta#example> [ ] ;
+<http://openmath.org/vocab/math/meta#formalProperty> [ ] ,
+[ ] ;
+<http://openmath.org/vocab/math/meta#commentedProperty> "for all a,b | a * 0 = 0 and a * b = a * (b - 1) + a" ,
+                                                        "for all a,b,c | a*(b+c) = a*b + a*c" ;
+<http://openmath.org/vocab/math/meta#description> "The symbol representing an n-ary multiplication function." ;
+rdfs:isDefinedBy <http://www.openmath.org/cd/arith1> .
+
+
+###  http://www.openmath.org/cd/arith1#unary_minus
+<http://www.openmath.org/cd/arith1#unary_minus> rdf:type owl:NamedIndividual ,
+                                                         <http://openmath.org/vocab/math/meta#ApplicationSymbol> ;
+                                                <http://openmath.org/vocab/math/meta#formalProperty> _:genid193 ;
+                                                <http://openmath.org/vocab/math/meta#commentedProperty> "for all a | a + (-a) = 0" ;
+                                                <http://openmath.org/vocab/math/meta#description> "This symbol denotes unary minus, i.e. the additive inverse." ;
+                                                rdfs:isDefinedBy <http://www.openmath.org/cd/arith1> .
+
+_:genid193 rdf:type <http://openmath.org/vocab/math#Binding> ;
+            <http://openmath.org/vocab/math#body> _:genid194 ;
+            <http://openmath.org/vocab/math#variables> [ ] .
+
+_:genid194 rdf:type <http://openmath.org/vocab/math#Application> ;
+            <http://openmath.org/vocab/math#arguments> [ ] .
+
+
+###  http://www.openmath.org/cd/transc1#cos
+<http://www.openmath.org/cd/transc1#cos> rdf:type owl:NamedIndividual ,
+                                                  <http://openmath.org/vocab/math/meta#ApplicationSymbol> ;
+                                         <http://openmath.org/vocab/math/meta#formalProperty> [ ] ,
+[ ] ,
+[ ] ;
+<http://openmath.org/vocab/math/meta#commentedProperty> "cos 2A = cos^2 A - sin^2 A" ,
+                                                        "cos A = cos(-A)" ,
+                                                        "cos(x) = (exp(ix)+exp(-ix))/2" ;
+<http://openmath.org/vocab/math/meta#description> """This symbol represents the cos function as described in Abramowitz and
+Stegun, section 4.3. It takes one argument.""" .
+
+
+###  http://www.openmath.org/cd/transc1#ln
+<http://www.openmath.org/cd/transc1#ln> rdf:type owl:NamedIndividual ,
+                                                 <http://openmath.org/vocab/math/meta#ApplicationSymbol> ;
+                                        <http://openmath.org/vocab/math/meta#example> [ ] ;
+<http://openmath.org/vocab/math/meta#formalProperty> [ ] ;
+<http://openmath.org/vocab/math/meta#commentedProperty> "-pi < Im ln x <= pi" ;
+<http://openmath.org/vocab/math/meta#description> """This symbol represents the ln function (natural logarithm) as
+described in Abramowitz and Stegun, section 4.1. It takes one
+argument.  Note the description in the CMP/FMP of the branch cut.  If
+signed zeros are in use, the inequality needs to be non-strict.""" .
+
+
+###  http://www.openmath.org/cd/transc1#log
+<http://www.openmath.org/cd/transc1#log> rdf:type owl:NamedIndividual ,
+                                                  <http://openmath.org/vocab/math/meta#ApplicationSymbol> ;
+                                         <http://openmath.org/vocab/math/meta#example> [ ] ;
+<http://openmath.org/vocab/math/meta#formalProperty> [ ] ;
+<http://openmath.org/vocab/math/meta#commentedProperty> "a^b = c implies log_a c = b" ;
+<http://openmath.org/vocab/math/meta#description> """This symbol represents a binary log function; the first argument is the base,
+to which the second argument is log'ed.
+It is defined in Abramowitz and Stegun, Handbook of Mathematical
+Functions, section 4.1""" .
+
+
+###  http://www.openmath.org/cd/transc1#sin
+<http://www.openmath.org/cd/transc1#sin> rdf:type owl:NamedIndividual ,
+                                                  <http://openmath.org/vocab/math/meta#ApplicationSymbol> ;
+                                         <http://openmath.org/vocab/math/meta#formalProperty> [ ] ,
+[ ] ,
+[ ] ;
+<http://openmath.org/vocab/math/meta#commentedProperty> "sin A = - sin(-A)" ,
+                                                        "sin(A + B) = sin A cos B + cos A sin B" ,
+                                                        "sin(x) = (exp(ix)-exp(-ix))/2i" ;
+<http://openmath.org/vocab/math/meta#description> """This symbol represents the sin function as described in Abramowitz and
+Stegun, section 4.3. It takes one argument.""" .
+
+
+###  http://www.openmath.org/cd/transc1#tan
+<http://www.openmath.org/cd/transc1#tan> rdf:type owl:NamedIndividual ,
+                                                  <http://openmath.org/vocab/math/meta#ApplicationSymbol> ;
+                                         <http://openmath.org/vocab/math/meta#formalProperty> [ ] ;
+<http://openmath.org/vocab/math/meta#commentedProperty> "tan A = sin A / cos A" ;
+<http://openmath.org/vocab/math/meta#description> """This symbol represents the tan function as described in Abramowitz and
+Stegun, section 4.3. It takes one argument.""" .
+
+
 ###  http://www.w3id.org/hsu-aut/cask#CurrentStateOutput_TD
 :CurrentStateOutput_TD rdf:type owl:NamedIndividual ,
                                 DINEN61360:Type_Description ;
@@ -2104,14 +2442,6 @@ CSS:StateMachine rdf:type owl:Class .
                 DINEN61360:Real
                 DINEN61360:Set
                 DINEN61360:String
-              )
-] .
-
-
-[ rdf:type owl:AllDisjointClasses ;
-  owl:members ( VDI2206:Component
-                VDI2206:Module
-                VDI2206:System
               )
 ] .
 
