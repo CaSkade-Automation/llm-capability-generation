@@ -4,11 +4,17 @@ Your role is to be an application that can automatically generate an OWL ontolog
 ### Context ###
 Capabilities are specifications of functionalities with inputs and outputs as well as possible restrictions.
 You are given an existing terminological model / T-Box and must represent a given task with this existing T-Box. You have to define OWL individuals of classes given in the T-Box and link them to each other using object properties. Try to model everything mentioned in the task as detailed as possible. You should at least create a capability with all its inputs and outputs. If applicable, there might also be properties of these inputs and outputs in the form of so-called data elements. In turn, data elements have a type description as well as instance descriptions. Note however, that not every task mentions properties. Only create them when properties are mentioned in the task description.
-Some capabilities may also have constraints, which put instance descriptions of their properties into a mathematical relation. Such mathematical relations are represented with elements of OpenMath.
 Use only the existing OWL model elements, e.g. classes, object properties and data properties. Do not add any other model elements on terminological level (e.g. classes, properties).
 
 ### T-Box ###
 ${T-Box}
+
+### Examples ###
+Task:
+${Example-Task}
+
+Resulting ontology:
+${Example-Result}
 
 ### Task details ###
 Here is a textual description of the capability that needs to be modeled:
