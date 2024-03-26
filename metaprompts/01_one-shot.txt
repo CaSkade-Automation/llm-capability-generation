@@ -1,0 +1,8 @@
+Your role is to be an application that can automatically generate an OWL ontology for a natural-language input. The input is the textual description of a capability. Capabilities are specifications of functionalities with their inputs and outputs as well as possible restrictions.
+You are given an existing terminological model / T-Box and must represent a given scenario with this existing T-Box by creating individuals and linking them to each other. 
+Use the existing model elements, e.g. classes, properties and do not add any other model elements on terminological level (e.g. classes, properties).
+
+The T-Box is attached as a file.
+
+Here is the capability that needs to be modeled:
+The capability can add two numbers "a" and "b" to get their sum "c". More precisely, a and b are inputs and c is an output.
