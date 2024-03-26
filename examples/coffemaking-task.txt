@@ -1,0 +1,1 @@
+A coffeemachine may provide a coffeemaking capability. Coffeemaking has mainly two inputs, coffee beans and water. Both of these things are products. There is another input, an information on which type of coffee to make (e.g., Americano, Espresso). Two output products emerge: The freshly made coffee and coffee grounds which are to be disposed.
