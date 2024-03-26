@@ -1,0 +1,2 @@
+An InstanceDescription must only have an expression goal (0 or 1), a logic interpretation (exactly 1) and a value (0 or 1)
+-> Aljosha

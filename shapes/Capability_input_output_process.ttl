@@ -1,0 +1,25 @@
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix : <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/math#>	.# Prefix der aktuellen Ontologie, muss angepasst werden
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+
+:MeineRessourceShape
+  a sh:NodeShape ;
+  sh:targetClass CSS:Capability;  # Zielklasse der Ressourcen, die validiert werden sollen
+  sh:ignoredProperties ( rdf:type ) ;  # Ignoriert rdf:type und andere gewünschte Eigenschaften, die nicht eingeschränkt werden sollen
+  sh:closed true ;  # Schließt die Ressource, sodass nur die explizit aufgeführten sh:property Eigenschaften verwendet werden dürfen
+  sh:property [
+    sh:path VDI3682:hasInput;  # Erlaubt explizit Verbindungen über 'hatVerbindungA'
+    sh:minCount 0 ;  # Optional: Begrenzt die Anzahl der Verbindungen
+  ];
+  sh:property [
+    sh:path VDI3682:hasOutput;  # Erlaubt explizit Verbindungen über 'hatVerbindungA'
+    sh:minCount 0 ;  # Optional: Begrenzt die Anzahl der Verbindungen
+  ];
+  sh:property [
+    sh:path ( sh:inversePath CSS:requiresCapability );  # Erlaubt explizit Verbindungen über 'hatVerbindungA'
+    sh:minCount 1 ;  # Optional: Begrenzt die Anzahl der Verbindungen
+  ].
