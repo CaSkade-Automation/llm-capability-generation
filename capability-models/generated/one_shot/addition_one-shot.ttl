@@ -1,0 +1,39 @@
+@prefix : <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix Math: <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/math#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@base <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+
+<http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/math> rdf:type owl:Ontology ;
+                                                                      owl:imports <https://w3id.org/hsu-aut/cask/2.5.2> .
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/math#NumberA
+Math:NumberA rdf:type owl:NamedIndividual ,
+                      VDI3682:Information .
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/math#NumberB
+Math:NumberB rdf:type owl:NamedIndividual ,
+                      VDI3682:Information .
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/math#SumC
+Math:SumC rdf:type owl:NamedIndividual ,
+                   VDI3682:Information .
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/math#Addition
+Math:Addition rdf:type owl:NamedIndividual ,
+                        VDI3682:ProcessOperator ,
+                        CSS:Capability ;
+               VDI3682:hasInput Math:NumberA ,
+                                Math:NumberB ;
+               VDI3682:hasOutput Math:SumC ;
+				VDI3682:xyz Math:SumC			   .
