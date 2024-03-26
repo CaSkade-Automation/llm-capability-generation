@@ -1,0 +1,1 @@
+The capability can add two numbers "a" and "b" to get their sum "c". More precisely, a and b are inputs and c is an output.
