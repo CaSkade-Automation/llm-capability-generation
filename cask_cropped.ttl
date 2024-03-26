@@ -1,0 +1,2119 @@
+@prefix : <http://www.w3id.org/hsu-aut/cask#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix VDI2206: <http://www.hsu-ifa.de/ontologies/VDI2206#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@base <http://www.w3id.org/hsu-aut/cask#> .
+
+<http://www.w3id.org/hsu-aut/cask> rdf:type owl:Ontology ;
+                                    owl:versionIRI <http://www.w3id.org/hsu-aut/cask/2.5.2> ;
+                                    rdfs:comment "A domain ontology to describe capabilities and skills. This ontology extends the concepts defined in the CSS ontology (https://github.com/hsu-aut/css-ontology) by using ontology design patterns for different standards." ,
+                                                 "An ontology for the Capability, Skill and Service reference model defined by Plattform Industrie 4.0. See https://www.plattform-i40.de/IP/Redaktion/DE/Downloads/Publikation/CapabilitiesSkillsServices.html for a description of the abstract reference model." ;
+                                    rdfs:isDefinedBy "ANSl/ISA-TR88.00.02-2015" ,
+                                                     "https://www.plattform-i40.de/IP/Redaktion/DE/Downloads/Publikation/CapabilitiesSkillsServices.html" ;
+                                    owl:versionInfo "1.0.0" ,
+                                                    "1.2.0" ,
+                                                    "2.0.0" ,
+                                                    "4.0.1" ,
+                                                    "2.5.2" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled
+<http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Data_Element_describes
+DINEN61360:Data_Element_describes rdf:type owl:ObjectProperty ;
+                                  owl:inverseOf DINEN61360:has_Data_Element ;
+                                  rdfs:domain DINEN61360:Data_Element ;
+                                  rdfs:comment """Description:
+This ObjectProperty is used to connect a data element with any kind of entity that is described by the data element""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Instance_Description_has_Type
+DINEN61360:Instance_Description_has_Type rdf:type owl:ObjectProperty ;
+                                         owl:inverseOf DINEN61360:Type_Description_has_Instance ;
+                                         rdfs:domain DINEN61360:Instance_Description ;
+                                         rdfs:range DINEN61360:Type_Description .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Type_Description_has_Instance
+DINEN61360:Type_Description_has_Instance rdf:type owl:ObjectProperty ;
+                                         rdfs:domain DINEN61360:Type_Description ;
+                                         rdfs:range DINEN61360:Instance_Description .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#complex_Data_Type_has_Member
+DINEN61360:complex_Data_Type_has_Member rdf:type owl:ObjectProperty ;
+                                        owl:inverseOf DINEN61360:is_Member_of_Complex_Data_Type ;
+                                        rdfs:domain [ owl:intersectionOf ( DINEN61360:Instance_Description
+                                                                           [ rdf:type owl:Restriction ;
+                                                                             owl:onProperty DINEN61360:Instance_Description_has_Type ;
+                                                                             owl:allValuesFrom DINEN61360:Complex_Data_Type
+                                                                           ]
+                                                                         ) ;
+                                                      rdf:type owl:Class
+                                                    ] ;
+                                        rdfs:range DINEN61360:Complex_Data_Type_Member ;
+                                        rdfs:comment """Description:
+ObjectProperty that is used to connect an instance of a complex data type with corresponding members of the complex data type. These members are connected to types and instances of other (complex) data types""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#has_Data_Element
+DINEN61360:has_Data_Element rdf:type owl:ObjectProperty ;
+                            rdfs:range DINEN61360:Data_Element ;
+                            rdfs:comment """Description:
+This ObjectProperty is used to connect any kind of entity with a data element that is used for its description.""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#has_Instance_Description
+DINEN61360:has_Instance_Description rdf:type owl:ObjectProperty ;
+                                    owl:inverseOf DINEN61360:is_Instance_Description_of_Data_Element ;
+                                    rdf:type owl:InverseFunctionalProperty ;
+                                    rdfs:domain [ rdf:type owl:Class ;
+                                                  owl:unionOf ( DINEN61360:Complex_Data_Type_Member
+                                                                DINEN61360:Data_Element
+                                                              )
+                                                ] ;
+                                    rdfs:range DINEN61360:Instance_Description ;
+                                    rdfs:comment """Description:
+ObjectProperty is used to connect an individual that needs to be described by DataProperties with the Instance Description of that properties.""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#has_Type_Description
+DINEN61360:has_Type_Description rdf:type owl:ObjectProperty ;
+                                owl:inverseOf DINEN61360:is_Type_Description_of_Data_Element ;
+                                rdf:type owl:FunctionalProperty ;
+                                rdfs:domain [ rdf:type owl:Class ;
+                                              owl:unionOf ( DINEN61360:Complex_Data_Type_Member
+                                                            DINEN61360:Data_Element
+                                                          )
+                                            ] ;
+                                rdfs:range DINEN61360:Type_Description ;
+                                rdfs:comment """Description:
+ObjectProperty is used to connect an individual that needs to be described by DataProperties with the Type Description of that properties.
+
+Functional:
+Any indivudual representing a property, can have only one Type Description""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#is_Instance_Description_of_Data_Element
+DINEN61360:is_Instance_Description_of_Data_Element rdf:type owl:ObjectProperty ;
+                                                   rdfs:comment """Description:
+ObjectProperty is used to connect an Instance Description with the Data_Element that it describes.
+
+Inverse of has_Instance_Description""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#is_Member_of_Complex_Data_Type
+DINEN61360:is_Member_of_Complex_Data_Type rdf:type owl:ObjectProperty ;
+                                          rdfs:domain DINEN61360:Complex_Data_Type_Member ;
+                                          rdfs:range [ owl:intersectionOf ( DINEN61360:Instance_Description
+                                                                            [ rdf:type owl:Restriction ;
+                                                                              owl:onProperty DINEN61360:Instance_Description_has_Type ;
+                                                                              owl:allValuesFrom DINEN61360:Complex_Data_Type
+                                                                            ]
+                                                                          ) ;
+                                                       rdf:type owl:Class
+                                                     ] .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#is_Type_Description_of_Data_Element
+DINEN61360:is_Type_Description_of_Data_Element rdf:type owl:ObjectProperty ;
+                                               rdfs:comment """Description:
+ObjectProperty is used to connect a Type_Description with a Data_Element that has instace descriptions of this type. 
+
+Inverse of has_Type_Description""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#ComponentIsPartOfModule
+VDI2206:ComponentIsPartOfModule rdf:type owl:ObjectProperty ;
+                                rdfs:subPropertyOf VDI2206:isPartOf ;
+                                owl:inverseOf VDI2206:ModuleConsistsOfComponent ;
+                                rdf:type owl:AsymmetricProperty ,
+                                         owl:IrreflexiveProperty ;
+                                rdfs:domain VDI2206:Component ;
+                                rdfs:range VDI2206:Module .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#ComponentIsPartOfSystem
+VDI2206:ComponentIsPartOfSystem rdf:type owl:ObjectProperty ;
+                                rdfs:subPropertyOf VDI2206:isPartOf ;
+                                owl:inverseOf VDI2206:SystemConsistsOfComponent ;
+                                rdfs:domain VDI2206:Component ;
+                                rdfs:range VDI2206:System .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#ModuleConsistsOfComponent
+VDI2206:ModuleConsistsOfComponent rdf:type owl:ObjectProperty ;
+                                  rdfs:subPropertyOf VDI2206:consistsOf ;
+                                  rdf:type owl:AsymmetricProperty ,
+                                           owl:IrreflexiveProperty ;
+                                  rdfs:domain VDI2206:Module ;
+                                  rdfs:range VDI2206:Component .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#ModuleIsPartOfSystem
+VDI2206:ModuleIsPartOfSystem rdf:type owl:ObjectProperty ;
+                             rdfs:subPropertyOf VDI2206:isPartOf ;
+                             owl:inverseOf VDI2206:SystemConsistsOfModule ;
+                             rdf:type owl:AsymmetricProperty ,
+                                      owl:IrreflexiveProperty ;
+                             rdfs:domain VDI2206:Module ;
+                             rdfs:range VDI2206:System .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#SystemConsistsOfComponent
+VDI2206:SystemConsistsOfComponent rdf:type owl:ObjectProperty ;
+                                  rdfs:subPropertyOf VDI2206:consistsOf ;
+                                  rdfs:domain VDI2206:System ;
+                                  rdfs:range VDI2206:Component .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#SystemConsistsOfModule
+VDI2206:SystemConsistsOfModule rdf:type owl:ObjectProperty ;
+                               rdfs:subPropertyOf VDI2206:consistsOf ;
+                               rdf:type owl:AsymmetricProperty ,
+                                        owl:IrreflexiveProperty ;
+                               rdfs:domain VDI2206:System ;
+                               rdfs:range VDI2206:Module .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#SystemConsistsOfSystem
+VDI2206:SystemConsistsOfSystem rdf:type owl:ObjectProperty ;
+                               rdfs:subPropertyOf VDI2206:consistsOf ;
+                               rdf:type owl:AsymmetricProperty ,
+                                        owl:IrreflexiveProperty ;
+                               rdfs:domain VDI2206:System ;
+                               rdfs:range VDI2206:System .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#consistsOf
+VDI2206:consistsOf rdf:type owl:ObjectProperty ;
+                   owl:inverseOf VDI2206:isPartOf ;
+                   rdf:type owl:TransitiveProperty ;
+                   rdfs:comment "an containment relation for hierarchical structures" .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#hasChild
+VDI2206:hasChild rdf:type owl:ObjectProperty ;
+                 owl:inverseOf VDI2206:hasParent ;
+                 rdf:type owl:AsymmetricProperty ,
+                          owl:IrreflexiveProperty ;
+                 rdfs:comment "an inheritance structure to model both, types of systems and their (real world) instances, i.e. children" .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#hasEnergyInterface
+VDI2206:hasEnergyInterface rdf:type owl:ObjectProperty ;
+                           rdfs:subPropertyOf VDI2206:hasInterface ;
+                           rdfs:range VDI2206:EnergyInterface .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#hasInformationInterface
+VDI2206:hasInformationInterface rdf:type owl:ObjectProperty ;
+                                rdfs:subPropertyOf VDI2206:hasInterface ;
+                                rdfs:range VDI2206:InformationInterface .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#hasInput
+VDI2206:hasInput rdf:type owl:ObjectProperty ;
+                 owl:inverseOf VDI2206:isInputFor ;
+                 rdf:type owl:AsymmetricProperty ,
+                          owl:IrreflexiveProperty ;
+                 rdfs:domain [ rdf:type owl:Class ;
+                               owl:unionOf ( VDI2206:BasicSystem
+                                             VDI2206:Component
+                                           )
+                             ] ;
+                 rdfs:range [ rdf:type owl:Class ;
+                              owl:unionOf ( VDI2206:Energy
+                                            VDI2206:Information
+                                            VDI2206:Product
+                                          )
+                            ] ;
+                 rdfs:comment "represents the relationships between the components by means of flows. In principle, a distinction has been made between three types of flow: material flow, energy flow and information flow" .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#hasInterface
+VDI2206:hasInterface rdf:type owl:ObjectProperty ,
+                              owl:AsymmetricProperty ,
+                              owl:IrreflexiveProperty ;
+                     rdfs:domain [ rdf:type owl:Class ;
+                                   owl:unionOf ( VDI2206:Component
+                                                 VDI2206:Module
+                                               )
+                                 ] ;
+                     rdfs:range VDI2206:Interface .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#hasMechanicalInterface
+VDI2206:hasMechanicalInterface rdf:type owl:ObjectProperty ;
+                               rdfs:subPropertyOf VDI2206:hasInterface ;
+                               rdfs:range VDI2206:MechanicalInterface .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#hasOutput
+VDI2206:hasOutput rdf:type owl:ObjectProperty ;
+                  owl:inverseOf VDI2206:isOutputOf ;
+                  rdf:type owl:AsymmetricProperty ,
+                           owl:IrreflexiveProperty ;
+                  rdfs:domain [ rdf:type owl:Class ;
+                                owl:unionOf ( VDI2206:BasicSystem
+                                              VDI2206:Component
+                                            )
+                              ] ;
+                  rdfs:range [ rdf:type owl:Class ;
+                               owl:unionOf ( VDI2206:Energy
+                                             VDI2206:Information
+                                             VDI2206:Product
+                                           )
+                             ] ;
+                  rdfs:comment "represents the relationships between the components by means of flows. In principle, a distinction has been made between three types of flow: material flow, energy flow and information flow" .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#hasParent
+VDI2206:hasParent rdf:type owl:ObjectProperty ,
+                           owl:AsymmetricProperty ,
+                           owl:IrreflexiveProperty ;
+                  rdfs:comment "an inheritance structure to model both, types of systems and their (real world) instances, i.e. children" .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#isInputFor
+VDI2206:isInputFor rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf owl:topObjectProperty ;
+                   rdf:type owl:AsymmetricProperty ,
+                            owl:IrreflexiveProperty ;
+                   rdfs:domain [ rdf:type owl:Class ;
+                                 owl:unionOf ( VDI2206:Energy
+                                               VDI2206:Information
+                                               VDI2206:Product
+                                             )
+                               ] ;
+                   rdfs:range [ rdf:type owl:Class ;
+                                owl:unionOf ( VDI2206:BasicSystem
+                                              VDI2206:Component
+                                            )
+                              ] ;
+                   rdfs:comment "represents the relationships between the components by means of flows. In principle, a distinction has been made between three types of flow: material flow, energy flow and information flow" .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#isOutputOf
+VDI2206:isOutputOf rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf owl:topObjectProperty ;
+                   rdf:type owl:AsymmetricProperty ,
+                            owl:IrreflexiveProperty ;
+                   rdfs:domain [ rdf:type owl:Class ;
+                                 owl:unionOf ( VDI2206:BasicSystem
+                                               VDI2206:Component
+                                             )
+                               ] ;
+                   rdfs:range [ rdf:type owl:Class ;
+                                owl:unionOf ( VDI2206:Energy
+                                              VDI2206:Information
+                                              VDI2206:Product
+                                            )
+                              ] ;
+                   rdfs:comment "represents the relationships between the components by means of flows. In principle, a distinction has been made between three types of flow: material flow, energy flow and information flow" .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#isPartOf
+VDI2206:isPartOf rdf:type owl:ObjectProperty ,
+                          owl:TransitiveProperty ;
+                 rdfs:comment "an part of relation for hierarchical structures" .
+
+
+###  http://www.w3.org/1999/02/22-rdf-syntax-ns#first
+rdf:first rdf:type owl:ObjectProperty .
+
+
+###  http://www.w3.org/1999/02/22-rdf-syntax-ns#rest
+rdf:rest rdf:type owl:ObjectProperty .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#consistsOf
+VDI3682:consistsOf rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf owl:topObjectProperty ;
+                   rdfs:domain VDI3682:Process ;
+                   rdfs:range [ rdf:type owl:Class ;
+                                owl:unionOf ( VDI3682:ProcessOperator
+                                              VDI3682:State
+                                              VDI3682:SystemLimit
+                                            )
+                              ] ;
+                   rdfs:comment "Describes containment of process elements (state, process operator, system limit) within a process"@en .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#dependency
+VDI3682:dependency rdf:type owl:ObjectProperty ;
+                   rdfs:domain VDI3682:State ;
+                   rdfs:range VDI3682:State ;
+                   rdfs:comment """This ObjectProperty is not explicitly contained within the VDI 3682. It is used to describe dependencies of In- and Outputs. Due to open world assumption (OWA) the case that more than one In- or Outputs occur does always mean an alternative Input. For the case, that In- and Outputs are depending on each other, the ObjectProperty Dependency can be used. It can be interpreted as an \"AND\" constructor between In- and/or Outputs of a process.
+
+E.g.: A process has two Inputs. If they are alternatives, then this fact must not  be explcitly modelled. If both Inputs have to go into the process, then the \"Dependency\" ObjectProperty is assigned between them.
+
+More complex example: Input A and B have to go into a process, while Input C and D are alternatives for A and B. The Inputs have to go as groups in the process. This equals: A AND B OR C AND D. The Dependency Operator is used between A and B as well as between C and D.
+
+Furthermore, the Operator can be used to express dependencies between In- and Outputs. If A and B are alternative Inputs that result in the Ouputs C for A or D for B then this equals: A AND C or D AND B. The ObjectProperty can be used between both, In- and/or Outputs."""@en .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#flow
+VDI3682:flow rdf:type owl:ObjectProperty ;
+             rdfs:comment "most generic concept for flows taken from VDI3682 and refined by semantics that is used in graphical notation" .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#hasAlternativeInput
+VDI3682:hasAlternativeInput rdf:type owl:ObjectProperty ;
+                            rdfs:subPropertyOf VDI3682:hasInput .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#hasAlternativeOutput
+VDI3682:hasAlternativeOutput rdf:type owl:ObjectProperty ;
+                             rdfs:subPropertyOf VDI3682:hasOutput .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#hasInput
+VDI3682:hasInput rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf VDI3682:flow ;
+                 rdfs:domain [ rdf:type owl:Class ;
+                               owl:unionOf ( VDI3682:Process
+                                             VDI3682:ProcessOperator
+                                           )
+                             ] ;
+                 rdfs:range VDI3682:State ;
+                 rdfs:comment "ObjectProperty that is used to link a ProcessOperator with an Input, i.e. Energy or Information or Product." .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#hasOutput
+VDI3682:hasOutput rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf VDI3682:flow ;
+                  rdfs:domain [ rdf:type owl:Class ;
+                                owl:unionOf ( VDI3682:Process
+                                              VDI3682:ProcessOperator
+                                            )
+                              ] ;
+                  rdfs:range VDI3682:State ;
+                  rdfs:comment "ObjectProperty that is used to link a ProcessOperator with an Output, i.e. Energy or Information or Product." .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#hasParallelInput
+VDI3682:hasParallelInput rdf:type owl:ObjectProperty ;
+                         rdfs:subPropertyOf VDI3682:hasInput .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#hasParallelOutput
+VDI3682:hasParallelOutput rdf:type owl:ObjectProperty ;
+                          rdfs:subPropertyOf VDI3682:hasOutput .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#hasPredecessor
+VDI3682:hasPredecessor rdf:type owl:ObjectProperty ;
+                       owl:inverseOf VDI3682:hasSuccessor ;
+                       rdf:type owl:TransitiveProperty ;
+                       rdfs:domain VDI3682:ProcessOperator ;
+                       rdfs:range VDI3682:ProcessOperator ;
+                       owl:propertyChainAxiom ( VDI3682:hasInput
+                                                [ owl:inverseOf VDI3682:hasOutput
+                                                ]
+                                              ) ;
+                       rdfs:comment "an object property that is used to infer a predecessing relationship between entities" .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#hasSubProcess
+VDI3682:hasSubProcess rdf:type owl:ObjectProperty ,
+                               owl:TransitiveProperty ;
+                      rdfs:domain [ rdf:type owl:Class ;
+                                    owl:unionOf ( VDI3682:Process
+                                                  VDI3682:ProcessOperator
+                                                )
+                                  ] ;
+                      rdfs:range VDI3682:Process ;
+                      owl:propertyChainAxiom ( VDI3682:isComposedOf
+                                               [ owl:inverseOf VDI3682:consistsOf
+                                               ]
+                                             ) ;
+                      rdfs:comment "Is used to find the complete decomposed process of a process operatore. Note: This is syntactic sugar as a subprocess can be found by following \"isComposedOf\" and the inverse of \"consistsOf\"." .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#hasSuccessor
+VDI3682:hasSuccessor rdf:type owl:ObjectProperty ,
+                              owl:TransitiveProperty ;
+                     rdfs:domain VDI3682:ProcessOperator ;
+                     rdfs:range VDI3682:ProcessOperator ;
+                     owl:propertyChainAxiom ( VDI3682:hasOutput
+                                              [ owl:inverseOf VDI3682:hasInput
+                                              ]
+                                            ) ;
+                     rdfs:comment "an object property that is used to infer a successing relationshipt between entities" .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#hasUpperProcess
+VDI3682:hasUpperProcess rdf:type owl:ObjectProperty ;
+                        rdfs:domain [ rdf:type owl:Class ;
+                                      owl:unionOf ( VDI3682:Process
+                                                    VDI3682:ProcessOperator
+                                                  )
+                                    ] ;
+                        rdfs:range VDI3682:Process ;
+                        owl:propertyChainAxiom ( [ owl:inverseOf VDI3682:isComposedOf
+                                                 ]
+                                                 [ owl:inverseOf VDI3682:consistsOf
+                                                 ]
+                                               ) ;
+                        rdfs:comment "Is used to find the parent (upper) process of a lower level process operator. Note: This is syntactic sugar as a parent process can be found by following the inverse of \"isComposedOf\" and the inverse of \"consistsOf\"." .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#isAssignedTo
+VDI3682:isAssignedTo rdf:type owl:ObjectProperty ;
+                     rdfs:domain VDI3682:ProcessOperator ;
+                     rdfs:range VDI3682:TechnicalResource ;
+                     rdfs:comment "ObjectProperty that is used to indicate that a process operator is performed by a technical resource." .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#isCharacterizedBy
+VDI3682:isCharacterizedBy rdf:type owl:ObjectProperty ;
+                          rdfs:range VDI3682:Characteristic .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#isComposedOf
+VDI3682:isComposedOf rdf:type owl:ObjectProperty ;
+                     rdfs:domain VDI3682:ProcessOperator ;
+                     rdfs:range VDI3682:ProcessOperator ;
+                     rdfs:comment "Used for decomposition. A process operator can be composed of multiple more detailed process operators." .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#isIdentifiedBy
+VDI3682:isIdentifiedBy rdf:type owl:ObjectProperty ;
+                       rdfs:range VDI3682:Identification .
+
+
+###  http://www.w3id.org/hsu-aut/cask#exposesSkillMethod
+:exposesSkillMethod rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf CSS:exposes ;
+                    rdfs:domain CSS:SkillInterface ;
+                    rdfs:range :SkillMethod .
+
+
+###  http://www.w3id.org/hsu-aut/cask#exposesSkillOutput
+:exposesSkillOutput rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf :exposesSkillVariable ;
+                    rdfs:domain CSS:SkillInterface ;
+                    rdfs:range :SkillOutput .
+
+
+###  http://www.w3id.org/hsu-aut/cask#exposesSkillParameter
+:exposesSkillParameter rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf :exposesSkillVariable ;
+                       rdfs:domain CSS:SkillInterface ;
+                       rdfs:range CSS:SkillParameter .
+
+
+###  http://www.w3id.org/hsu-aut/cask#exposesSkillVariable
+:exposesSkillVariable rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf CSS:exposes ;
+                      rdfs:domain CSS:SkillInterface ;
+                      rdfs:range :SkillVariable .
+
+
+###  http://www.w3id.org/hsu-aut/cask#exposesStateMachine
+:exposesStateMachine rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf CSS:exposes ;
+                     rdfs:domain CSS:SkillInterface ;
+                     rdfs:range CSS:StateMachine .
+
+
+###  http://www.w3id.org/hsu-aut/cask#hasCurrentState
+:hasCurrentState rdf:type owl:ObjectProperty ,
+                          owl:FunctionalProperty ,
+                          owl:AsymmetricProperty ;
+                 rdfs:domain CSS:Skill ;
+                 rdfs:range ISA88:State .
+
+
+###  http://www.w3id.org/hsu-aut/cask#hasCurrentStateOutput
+:hasCurrentStateOutput rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf :hasSkillOutput .
+
+
+###  http://www.w3id.org/hsu-aut/cask#hasSkillCommand
+:hasSkillCommand rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf CSS:hasParameter ;
+                 rdfs:domain CSS:Skill ;
+                 rdfs:range :SkillCommand .
+
+
+###  http://www.w3id.org/hsu-aut/cask#hasSkillMethod
+:hasSkillMethod rdf:type owl:ObjectProperty ;
+                rdfs:domain CSS:Skill ;
+                rdfs:range :SkillMethod .
+
+
+###  http://www.w3id.org/hsu-aut/cask#hasSkillOutput
+:hasSkillOutput rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf :hasSkillVariable ;
+                rdfs:domain CSS:Skill ;
+                rdfs:range :SkillOutput .
+
+
+###  http://www.w3id.org/hsu-aut/cask#hasSkillVariable
+:hasSkillVariable rdf:type owl:ObjectProperty ;
+                  rdfs:domain CSS:Skill ;
+                  rdfs:range :SkillVariable .
+
+
+###  http://www.w3id.org/hsu-aut/cask#invokes
+:invokes rdf:type owl:ObjectProperty ;
+         owl:inverseOf :isInvokedBy ;
+         rdfs:domain :SkillMethod ;
+         rdfs:range ISA88:Transition .
+
+
+###  http://www.w3id.org/hsu-aut/cask#isInvokedBy
+:isInvokedBy rdf:type owl:ObjectProperty .
+
+
+###  http://www.w3id.org/hsu-aut/css#accessibleThrough
+CSS:accessibleThrough rdf:type owl:ObjectProperty ;
+                      rdfs:domain CSS:Skill ;
+                      rdfs:range CSS:SkillInterface .
+
+
+###  http://www.w3id.org/hsu-aut/css#assures
+CSS:assures rdf:type owl:ObjectProperty ;
+            rdfs:domain CSS:Service ;
+            rdfs:range CSS:Product .
+
+
+###  http://www.w3id.org/hsu-aut/css#behaviorConformsTo
+CSS:behaviorConformsTo rdf:type owl:ObjectProperty ;
+                       rdfs:domain CSS:Resource ,
+                                   CSS:Skill ;
+                       rdfs:range CSS:StateMachine .
+
+
+###  http://www.w3id.org/hsu-aut/css#controls
+CSS:controls rdf:type owl:ObjectProperty ;
+             rdfs:domain CSS:Skill ;
+             rdfs:range CSS:Process .
+
+
+###  http://www.w3id.org/hsu-aut/css#demands
+CSS:demands rdf:type owl:ObjectProperty ;
+            rdfs:domain CSS:ServiceRequester ;
+            rdfs:range CSS:Service .
+
+
+###  http://www.w3id.org/hsu-aut/css#exposes
+CSS:exposes rdf:type owl:ObjectProperty ;
+            rdfs:domain CSS:SkillInterface ;
+            rdfs:range :SkillMethod ,
+                       CSS:SkillParameter ,
+                       CSS:StateMachine .
+
+
+###  http://www.w3id.org/hsu-aut/css#hasInput
+CSS:hasInput rdf:type owl:ObjectProperty ;
+             rdfs:domain CSS:Process ;
+             rdfs:range CSS:Product .
+
+
+###  http://www.w3id.org/hsu-aut/css#hasOutput
+CSS:hasOutput rdf:type owl:ObjectProperty ;
+              rdfs:domain CSS:Process ;
+              rdfs:range CSS:Product .
+
+
+###  http://www.w3id.org/hsu-aut/css#hasParameter
+CSS:hasParameter rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf :hasSkillVariable ;
+                 rdfs:domain CSS:Skill ;
+                 rdfs:range CSS:SkillParameter .
+
+
+###  http://www.w3id.org/hsu-aut/css#isInputFor
+CSS:isInputFor rdf:type owl:ObjectProperty ;
+               rdfs:domain CSS:Service ;
+               rdfs:range CSS:ServiceOffer .
+
+
+###  http://www.w3id.org/hsu-aut/css#isRealizedBy
+CSS:isRealizedBy rdf:type owl:ObjectProperty ;
+                 rdfs:domain CSS:Capability ,
+                             CSS:Property ;
+                 rdfs:range CSS:Skill ,
+                            CSS:SkillParameter .
+
+
+###  http://www.w3id.org/hsu-aut/css#isRealizedBySkill
+CSS:isRealizedBySkill rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf CSS:isRealizedBy ;
+                      rdfs:domain CSS:Capability ;
+                      rdfs:range CSS:Skill .
+
+
+###  http://www.w3id.org/hsu-aut/css#isRealizedBySkillParameter
+CSS:isRealizedBySkillParameter rdf:type owl:ObjectProperty ;
+                               rdfs:subPropertyOf CSS:isRealizedBy ;
+                               rdfs:domain CSS:Property ;
+                               rdfs:range CSS:SkillParameter .
+
+
+###  http://www.w3id.org/hsu-aut/css#isRestrictedBy
+CSS:isRestrictedBy rdf:type owl:ObjectProperty ;
+                   rdfs:domain CSS:Capability ;
+                   rdfs:range CSS:CapabilityConstraint .
+
+
+###  http://www.w3id.org/hsu-aut/css#isSpecifiedBy
+CSS:isSpecifiedBy rdf:type owl:ObjectProperty ;
+                  rdfs:domain CSS:Capability ,
+                              CSS:Service ;
+                  rdfs:range CSS:Property .
+
+
+###  http://www.w3id.org/hsu-aut/css#offers
+CSS:offers rdf:type owl:ObjectProperty ;
+           rdfs:domain CSS:ServiceProvider ;
+           rdfs:range CSS:Service .
+
+
+###  http://www.w3id.org/hsu-aut/css#offersUseOf
+CSS:offersUseOf rdf:type owl:ObjectProperty ;
+                rdfs:domain CSS:Service ;
+                rdfs:range CSS:Capability .
+
+
+###  http://www.w3id.org/hsu-aut/css#proposes
+CSS:proposes rdf:type owl:ObjectProperty ;
+             rdfs:domain CSS:ServiceProvider ;
+             rdfs:range CSS:ServiceOffer .
+
+
+###  http://www.w3id.org/hsu-aut/css#provides
+CSS:provides rdf:type owl:ObjectProperty ;
+             rdfs:domain CSS:Resource .
+
+
+###  http://www.w3id.org/hsu-aut/css#providesCapability
+CSS:providesCapability rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf CSS:provides ;
+                       rdfs:domain CSS:Resource ;
+                       rdfs:range :ProvidedCapability ,
+                                  CSS:Capability .
+
+
+###  http://www.w3id.org/hsu-aut/css#providesSkill
+CSS:providesSkill rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf CSS:provides ;
+                  rdfs:domain CSS:Resource ;
+                  rdfs:range CSS:Skill .
+
+
+###  http://www.w3id.org/hsu-aut/css#receives
+CSS:receives rdf:type owl:ObjectProperty ;
+             rdfs:domain CSS:ServiceRequester ;
+             rdfs:range CSS:ServiceOffer .
+
+
+###  http://www.w3id.org/hsu-aut/css#references
+CSS:references rdf:type owl:ObjectProperty ;
+               rdfs:domain CSS:CapabilityConstraint ;
+               rdfs:range CSS:Property .
+
+
+###  http://www.w3id.org/hsu-aut/css#requiresCapability
+CSS:requiresCapability rdf:type owl:ObjectProperty ;
+                       rdfs:domain CSS:Process ;
+                       rdfs:range :RequiredCapability ,
+                                  CSS:Capability .
+
+
+###  http://www.w3id.org/hsu-aut/css#requiresProduct
+CSS:requiresProduct rdf:type owl:ObjectProperty ;
+                    rdfs:domain CSS:ServiceRequester ;
+                    rdfs:range CSS:Product .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Array_Member_Dimension
+DINEN61360:Array_Member_Dimension rdf:type owl:DatatypeProperty ;
+                                  rdfs:domain DINEN61360:Array_Member ;
+                                  rdfs:range xsd:int ;
+                                  rdfs:comment """Description:
+
+Indicates the dimension of an array member.""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Array_Member_Position
+DINEN61360:Array_Member_Position rdf:type owl:DatatypeProperty ;
+                                 rdfs:comment """Description:
+
+DataProperty that indicates the position of an Array_Member in a DataType List.""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Boolean_Operator
+DINEN61360:Boolean_Operator rdf:type owl:DatatypeProperty ,
+                                     owl:FunctionalProperty ;
+                            rdfs:range [ rdf:type rdfs:Datatype ;
+                                         owl:oneOf [ rdf:type rdf:List ;
+                                                     rdf:first "AND" ;
+                                                     rdf:rest [ rdf:type rdf:List ;
+                                                                rdf:first "NAND" ;
+                                                                rdf:rest [ rdf:type rdf:List ;
+                                                                           rdf:first "NOR" ;
+                                                                           rdf:rest [ rdf:type rdf:List ;
+                                                                                      rdf:first "OR" ;
+                                                                                      rdf:rest [ rdf:type rdf:List ;
+                                                                                                 rdf:first "XOR" ;
+                                                                                                 rdf:rest rdf:nil
+                                                                                               ]
+                                                                                    ]
+                                                                         ]
+                                                              ]
+                                                   ]
+                                       ] ;
+                            rdfs:comment "Is used with Boolean_Association to define what kind of boolean relation connects the Data_Elements of the Boolean_Association" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Code
+DINEN61360:Code rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf owl:topDataProperty ;
+                rdf:type owl:FunctionalProperty ;
+                rdfs:domain DINEN61360:Type_Description ;
+                rdfs:comment """Description:
+DIN EN 61360-1:2018 Section 7.3
+Unique identifier of this data element type. Preferable this should be a standardized identifier (e.g. from eclss or common data dictionary).  optional exlusion of \"o\" and \"i\" is not implemented.    
+
+Liability: necessary    
+
+type: string with 6 digits between, first three digits are a-z and last three digits are 0-9  poposed data range expression: xsd:string[pattern \"[a-z0-9] {6}\"]""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Created_at_Date
+DINEN61360:Created_at_Date rdf:type owl:DatatypeProperty ;
+                           rdfs:domain DINEN61360:Instance_Description ;
+                           rdfs:range xsd:dateTimeStamp ;
+                           rdfs:comment """Description: 
+A SemAnz40 attribute, that indicates the creation date for an instance.""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Definition
+DINEN61360:Definition rdf:type owl:DatatypeProperty ;
+                      rdfs:subPropertyOf owl:topDataProperty ;
+                      rdfs:domain DINEN61360:Type_Description ;
+                      rdfs:comment """Description:
+A textual definition of the data element
+
+Liability: Necessary
+
+DIN EN 61360-1:2018 Section 8.3
+
+Type: String
+
+Poposed Data Range Expression: xsd:string""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Drawing_Reference
+DINEN61360:Drawing_Reference rdf:type owl:DatatypeProperty ;
+                             rdfs:subPropertyOf owl:topDataProperty ;
+                             rdfs:domain DINEN61360:Type_Description ;
+                             rdfs:comment """Description:
+A link to a drawing (or picture) that is used for further explanation of the data element
+
+Liability: Optional
+
+DIN EN 61360-1:2018 Section 6.13
+
+Type: Contains a URL link as a string to a picture
+
+Poposed Data Range Expression: xsd:string""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Expression_Goal
+DINEN61360:Expression_Goal rdf:type owl:DatatypeProperty ;
+                           rdfs:subPropertyOf owl:topDataProperty ;
+                           rdf:type owl:FunctionalProperty ;
+                           rdfs:domain DINEN61360:Instance_Description ;
+                           rdfs:range [ rdf:type rdfs:Datatype ;
+                                        owl:oneOf [ rdf:type rdf:List ;
+                                                    rdf:first "Actual_Value" ;
+                                                    rdf:rest [ rdf:type rdf:List ;
+                                                               rdf:first "Assurance" ;
+                                                               rdf:rest [ rdf:type rdf:List ;
+                                                                          rdf:first "Requirement" ;
+                                                                          rdf:rest rdf:nil
+                                                                        ]
+                                                             ]
+                                                  ]
+                                      ] ;
+                           rdfs:comment """Description:
+
+The goal of the values expression, which can be a Requirement, an Assurance or an actual (e.g. measured) value.
+
+Liability: Necessary""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Format_DIN61360_SemAnz40
+DINEN61360:Format_DIN61360_SemAnz40 rdf:type owl:DatatypeProperty ;
+                                    rdfs:subPropertyOf owl:topDataProperty ;
+                                    rdfs:domain DINEN61360:Data_Element ;
+                                    rdfs:comment """Description: 
+
+Indicates, whether the described type or entity is described by the DIN61360&SemAnz40 Format.
+
+Liability: Necessary
+
+Type: If true, the Data Element is based on the Din61360 and SemAnz40 description
+
+Poposed Data Range Expression: xsd:boolean""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Formula
+DINEN61360:Formula rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf owl:topDataProperty ;
+                   rdfs:domain DINEN61360:Type_Description ;
+                   rdfs:comment """Description:
+A mathematical euqation that is being used for characterization of the data element
+
+Liability: Optional
+
+DIN EN 61360-1:2018 Section 6.5
+
+Type: contains a URL link as a string to a source file that describes the formula
+
+Poposed Data Range Expression: xsd:string""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#List_Member_Position
+DINEN61360:List_Member_Position rdf:type owl:DatatypeProperty ;
+                                rdfs:domain DINEN61360:List_Member ;
+                                rdfs:range xsd:int ;
+                                rdfs:comment """Description:
+
+DataProperty that indicates the position of a List_Member in a DataType List.""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Logic_Interpretation
+DINEN61360:Logic_Interpretation rdf:type owl:DatatypeProperty ;
+                                rdfs:subPropertyOf owl:topDataProperty ;
+                                rdf:type owl:FunctionalProperty ;
+                                rdfs:domain DINEN61360:Instance_Description ;
+                                rdfs:range [ rdf:type rdfs:Datatype ;
+                                             owl:oneOf [ rdf:type rdf:List ;
+                                                         rdf:first "<" ;
+                                                         rdf:rest [ rdf:type rdf:List ;
+                                                                    rdf:first "<=" ;
+                                                                    rdf:rest [ rdf:type rdf:List ;
+                                                                               rdf:first "=" ;
+                                                                               rdf:rest [ rdf:type rdf:List ;
+                                                                                          rdf:first ">" ;
+                                                                                          rdf:rest [ rdf:type rdf:List ;
+                                                                                                     rdf:first ">=" ;
+                                                                                                     rdf:rest rdf:nil
+                                                                                                   ]
+                                                                                        ]
+                                                                             ]
+                                                                  ]
+                                                       ]
+                                           ] ;
+                                rdfs:comment """Description:
+
+Indicates, whether a value with a certain Expression Goal has to be considered as equal (\"=\"), greater than (\"<\"), lower than (\">\") or in combination with an equals (i.e. \"<=\", \">=\").
+
+Liability: Necessary""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Note
+DINEN61360:Note rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf owl:topDataProperty ;
+                rdfs:domain DINEN61360:Type_Description ;
+                rdfs:comment """Description:
+Additional information that are important to understand the meaning of the data element
+
+Liability: Optional
+
+DIN EN 61360-1:2018 Section 8.4
+
+Type: String
+
+Poposed Data Range Expression: xsd:string""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Preferred_Letter_Symbol
+DINEN61360:Preferred_Letter_Symbol rdf:type owl:DatatypeProperty ;
+                                   rdfs:subPropertyOf owl:topDataProperty ;
+                                   rdfs:domain DINEN61360:Type_Description ;
+                                   rdfs:comment """Description:
+A sign or literal that is used to represent the property (e.g. greek \"sigma\" for tension))
+
+Liability: Optional
+
+DIN EN 61360-1:2018 Section 6.6
+
+Type: IEC 60027, IEC 60747 or IEC 60148 compliant formula sign described as a string
+
+Poposed Data Range Expression: xsd:string""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Preferred_Name
+DINEN61360:Preferred_Name rdf:type owl:DatatypeProperty ;
+                          rdfs:subPropertyOf owl:topDataProperty ;
+                          rdfs:domain DINEN61360:Type_Description ;
+                          rdfs:comment """Description:
+Represents the preferred name of the data element type, that is being used for searches for instance.
+
+Liability: Necessary
+
+DIN EN 61360-1:2018 Section 7.4
+
+Type: String with lower and upper case, with a maximum of 70 characters
+
+Poposed Data Range Expression: xsd:string[maxLength 70]""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Quality
+DINEN61360:Quality rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf owl:topDataProperty ;
+                   rdfs:domain DINEN61360:Instance_Description ;
+                   rdfs:comment """Description:
+
+Not supported so far, since it requires a additional quality ontology""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Remark
+DINEN61360:Remark rdf:type owl:DatatypeProperty ;
+                  rdfs:domain DINEN61360:Type_Description ;
+                  rdfs:comment """Additional information that can be used to express a oppinion but should not change the meaning of the definition.
+DIN EN 61360-1:2018 Section 8.5""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Revision_Number
+DINEN61360:Revision_Number rdf:type owl:DatatypeProperty ;
+                           rdfs:subPropertyOf owl:topDataProperty ;
+                           rdfs:domain DINEN61360:Type_Description ;
+                           rdfs:comment """Description:
+Number that represents the actual count of changes
+
+Liability: Necessary
+
+DIN EN 61360-1:2018 Section 7.5
+
+Type: Integer with two digits between 1 and 99
+
+Poposed Data Range Expression: xsd:integer[>= 1 , <= 99]""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Short_Name
+DINEN61360:Short_Name rdf:type owl:DatatypeProperty ;
+                      rdfs:subPropertyOf owl:topDataProperty ;
+                      rdfs:domain DINEN61360:Type_Description ;
+                      rdfs:comment """Description:
+A short name or acronym that is used for the preferred name
+
+Liability: Necessary
+
+DIN EN 61360-1:2018 Section 7.6
+
+Type: Strong restrictions of DIN61360  not implemented, just strings necessary. Maximum characters is 17.
+
+Poposed Data Range Expression: xsd:string[maxLength 17]""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Source_Document_of_Definition
+DINEN61360:Source_Document_of_Definition rdf:type owl:DatatypeProperty ;
+                                         rdfs:subPropertyOf owl:topDataProperty ;
+                                         rdfs:domain DINEN61360:Type_Description ;
+                                         rdfs:comment """Description:
+A link to a source file, where the definition of the data element was taken from
+
+Liability: Optional
+
+DIN EN 61360-1:2018 Section 8.6
+
+Type: Should contain a description of the source document with a maximum of 80 characters. Document has to be approved by ISO or IEC (e.g. should be a standard like IEC XXXXX). Alternatively use a URL to give a source document that is not approved by ISO.
+
+Poposed Data Range Expression: xsd:string""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Synonymous_Letter_Symbol
+DINEN61360:Synonymous_Letter_Symbol rdf:type owl:DatatypeProperty ;
+                                    rdfs:subPropertyOf owl:topDataProperty ;
+                                    rdfs:domain DINEN61360:Type_Description ;
+                                    rdfs:comment """Description:
+A synonym that is used for the preferred equation sign
+
+Liability: Optional
+
+DIN EN 61360-1:2018 Section 6.7
+
+Type: IEC 60027, IEC 60747 or IEC 60148 compliant formula sign
+
+Poposed Data Range Expression: xsd:string""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Synonymous_Name
+DINEN61360:Synonymous_Name rdf:type owl:DatatypeProperty ;
+                           rdfs:subPropertyOf owl:topDataProperty ;
+                           rdfs:domain DINEN61360:Type_Description ;
+                           rdfs:comment """Description:
+Synonyms to the preferred name
+
+Liability: Optional
+
+DIN EN 61360-1:2018 Section 7.7
+
+Type: String with lower and upper case, with a maximum of 70 characters
+
+Poposed Data Range Expression: xsd:string[maxLength 70]""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Unit_of_Measure
+DINEN61360:Unit_of_Measure rdf:type owl:DatatypeProperty ;
+                           rdfs:subPropertyOf owl:topDataProperty ;
+                           rdfs:domain DINEN61360:Type_Description ;
+                           rdfs:comment """Description:
+Defines the unit of measure for a data element (e.g. km/h)
+
+Liability: case dependend, checked by SWRL rule 2
+
+DIN EN 61360-1:2018 Section 10.7
+
+Type: This data property represents the unit of measure, which should be ISO 31 compliant (SI-Units)
+
+Poposed Data Range Expression: xsd:string""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Value
+DINEN61360:Value rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf owl:topDataProperty ;
+                 rdf:type owl:FunctionalProperty ;
+                 rdfs:domain [ owl:intersectionOf ( DINEN61360:Instance_Description
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty DINEN61360:Instance_Description_has_Type ;
+                                                      owl:allValuesFrom DINEN61360:Simple_Data_Type
+                                                    ]
+                                                  ) ;
+                               rdf:type owl:Class
+                             ] ;
+                 rdfs:comment """Description:
+
+The actual value of something being described.
+
+Liability: Necessary
+
+SemAnz40
+
+Type: This data property represents the value of the data element, which is a string, while the actual data type is represented by the Data Property DataType (!)
+
+Poposed Data Range Expression: xsd:string""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Value_Format_Field_length
+DINEN61360:Value_Format_Field_length rdf:type owl:DatatypeProperty ;
+                                     rdfs:subPropertyOf owl:topDataProperty ;
+                                     rdfs:domain DINEN61360:Type_Description ;
+                                     rdfs:comment """Description:
+Defines the representation of a data element in length and kind. See DIN61360 for detailed description of possible formats. Possible definitions include non-quantitative formats, quantitative formats and maximum count of characters
+
+Liability: Necessary
+
+DIN EN 61360-1:2018 Section 10.8
+
+Type: This data property represents only the field length, since this could be exponential (expressed with an E), it is a string
+
+Poposed Data Range Expression: xsd:string""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Value_Format_Field_length_Variable
+DINEN61360:Value_Format_Field_length_Variable rdf:type owl:DatatypeProperty ;
+                                              rdfs:subPropertyOf owl:topDataProperty ;
+                                              rdfs:domain DINEN61360:Type_Description ;
+                                              rdfs:comment """Description:
+Defines the representation of a data element in length and kind. See DIN61360 for detailed description of possible formats. Possible definitions include non-quantitative formats, quantitative formats and maximum count of characters
+
+Liability: Necessary
+
+DIN EN 61360-1:2018 Section 10.8
+
+Type: This data property represents only the case, that a value format has a variable field length (true)
+
+Poposed Data Range Expression: xsd:boolean""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Value_Format_non-quantitativ
+DINEN61360:Value_Format_non-quantitativ rdf:type owl:DatatypeProperty ;
+                                        rdfs:subPropertyOf owl:topDataProperty ;
+                                        rdfs:domain DINEN61360:Type_Description ;
+                                        rdfs:range [ rdf:type rdfs:Datatype ;
+                                                     owl:oneOf [ rdf:type rdf:List ;
+                                                                 rdf:first "A" ;
+                                                                 rdf:rest [ rdf:type rdf:List ;
+                                                                            rdf:first "B" ;
+                                                                            rdf:rest [ rdf:type rdf:List ;
+                                                                                       rdf:first "M" ;
+                                                                                       rdf:rest [ rdf:type rdf:List ;
+                                                                                                  rdf:first "N" ;
+                                                                                                  rdf:rest [ rdf:type rdf:List ;
+                                                                                                             rdf:first "X" ;
+                                                                                                             rdf:rest rdf:nil
+                                                                                                           ]
+                                                                                                ]
+                                                                                     ]
+                                                                          ]
+                                                               ]
+                                                   ] ;
+                                        owl:propertyDisjointWith DINEN61360:Value_Format_quantitativ ;
+                                        rdfs:comment """Description:
+Defines the representation of a data element in length and kind. See DIN61360 for detailed description of possible formats. Possible definitions include non-quantitative formats, quantitative formats and maximum count of characters
+
+Liability: Necessary
+
+DIN EN 61360-1:2018 Section 10.8
+
+Type: This data property represents only the non-quantitativ formats, string
+
+Poposed Data Range Expression: xsd:string""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Value_Format_quantitativ
+DINEN61360:Value_Format_quantitativ rdf:type owl:DatatypeProperty ;
+                                    rdfs:subPropertyOf owl:topDataProperty ;
+                                    rdfs:domain DINEN61360:Type_Description ;
+                                    rdfs:range [ rdf:type rdfs:Datatype ;
+                                                 owl:oneOf [ rdf:type rdf:List ;
+                                                             rdf:first "NR1" ;
+                                                             rdf:rest [ rdf:type rdf:List ;
+                                                                        rdf:first "NR2" ;
+                                                                        rdf:rest [ rdf:type rdf:List ;
+                                                                                   rdf:first "NR3" ;
+                                                                                   rdf:rest rdf:nil
+                                                                                 ]
+                                                                      ]
+                                                           ]
+                                               ] ;
+                                    rdfs:comment """Description:
+Defines the representation of a data element in length and kind. See DIN61360 for detailed description of possible formats. Possible definitions include non-quantitative formats, quantitative formats and maximum count of characters
+
+Liability: Necessary
+
+DIN EN 61360-1:2018 Section 10.8
+
+Type: This data property represents only the quantitativ formats, string
+
+Poposed Data Range Expression: xsd:string""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Value_List
+DINEN61360:Value_List rdf:type owl:DatatypeProperty ;
+                      rdfs:subPropertyOf owl:topDataProperty ;
+                      rdfs:domain DINEN61360:Simple_Data_Type ;
+                      rdfs:comment """Description: 
+Represents the possible values for a data element
+
+Liability: optional (in DIN613060 case depended due to classification of data element, which is not implemented here)
+
+DIN EN 61360-1:2018 Section 16
+
+Type: This data property represents the information, if there is a value list (if so, true), basically the values that the data property \"Value\" is allowed to hold. 
+
+Poposed Data Range Expression: xsd:boolean""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Value_List_Member
+DINEN61360:Value_List_Member rdf:type owl:DatatypeProperty ;
+                             rdfs:subPropertyOf owl:topDataProperty ;
+                             rdfs:domain DINEN61360:Simple_Data_Type ;
+                             rdfs:comment """Description: 
+Represents the possible values for a data element
+
+Liability: optional (in DIN613060 case depended due to classification of data element, which is not implemented here)
+
+DIN EN 61360-1:2018 Section 16
+
+Type: This data property represents the one (!) member of the value list, violation may result in inconsistency, since the compliance of value list and value is checked by SWRL rule 3. 
+
+Poposed Data Range Expression: xsd:string""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Version_Number
+DINEN61360:Version_Number rdf:type owl:DatatypeProperty ;
+                          rdfs:subPropertyOf owl:topDataProperty ;
+                          rdfs:domain DINEN61360:Type_Description ;
+                          rdfs:comment """Description:
+Number that indicates different versions of one data element type
+
+Liability: Necessary
+
+DIN EN 61360-1:2018 Section 7.8
+
+Type: Integer with three digits max, so between 1 and 999
+
+Poposed Data Range Expression: xsd:integer[>= 1 , <= 999]""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#backwards_compatible_Revision
+DINEN61360:backwards_compatible_Revision rdf:type owl:DatatypeProperty ;
+                                         rdfs:domain DINEN61360:Type_Description ;
+                                         rdfs:comment """Description:
+Indicates, to which revisions the data type is backwards compatible.
+
+Type: Integer
+
+Poposed Data Range Expression: xsd:string""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#backwards_compatible_Version
+DINEN61360:backwards_compatible_Version rdf:type owl:DatatypeProperty ;
+                                        rdfs:domain DINEN61360:Type_Description ;
+                                        rdfs:comment """Description:
+Indicates, to which version numbers the data type is backwards compatible.
+
+Type: Integer
+
+Poposed Data Range Expression: xsd:string""" .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#longName
+VDI3682:longName rdf:type owl:DatatypeProperty ,
+                          owl:FunctionalProperty ;
+                 rdfs:comment "A property that is used to give a long name to an individual." .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#shortName
+VDI3682:shortName rdf:type owl:DatatypeProperty ,
+                           owl:FunctionalProperty ;
+                  rdfs:comment "A property that is used to give a short name to an individual." .
+
+
+###  http://www.w3id.org/hsu-aut/cask#hasDefaultValue
+:hasDefaultValue rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :SkillVariable .
+
+
+###  http://www.w3id.org/hsu-aut/cask#hasOptionValue
+:hasOptionValue rdf:type owl:DatatypeProperty ;
+                rdfs:domain :SkillVariable .
+
+
+###  http://www.w3id.org/hsu-aut/cask#hasVariableName
+:hasVariableName rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :SkillVariable .
+
+
+###  http://www.w3id.org/hsu-aut/cask#hasVariableType
+:hasVariableType rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :SkillVariable .
+
+
+###  http://www.w3id.org/hsu-aut/cask#isRequired
+:isRequired rdf:type owl:DatatypeProperty ;
+            rdfs:domain :SkillVariable .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Array
+DINEN61360:Array rdf:type owl:Class ;
+                 rdfs:subClassOf DINEN61360:Complex_Data_Type ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty DINEN61360:complex_Data_Type_has_Member ;
+                                   owl:allValuesFrom DINEN61360:Array_Member
+                                 ] .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Array_Member
+DINEN61360:Array_Member rdf:type owl:Class ;
+                        rdfs:subClassOf DINEN61360:Complex_Data_Type_Member ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty DINEN61360:Array_Member_Dimension ;
+                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                          owl:onDataRange xsd:int
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty DINEN61360:Array_Member_Position ;
+                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                          owl:onDataRange xsd:int
+                                        ] .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Bag
+DINEN61360:Bag rdf:type owl:Class ;
+               rdfs:subClassOf DINEN61360:Complex_Data_Type ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty DINEN61360:complex_Data_Type_has_Member ;
+                                 owl:allValuesFrom DINEN61360:Bag_Member
+                               ] .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Bag_Member
+DINEN61360:Bag_Member rdf:type owl:Class ;
+                      rdfs:subClassOf DINEN61360:Complex_Data_Type_Member .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Boolean
+DINEN61360:Boolean rdf:type owl:Class ;
+                   rdfs:subClassOf DINEN61360:Simple_Data_Type ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty DINEN61360:Value_List_Member ;
+                                     owl:allValuesFrom xsd:boolean
+                                   ] .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Complex_Data_Type
+DINEN61360:Complex_Data_Type rdf:type owl:Class ;
+                             rdfs:subClassOf DINEN61360:Data_Type ;
+                             owl:disjointWith DINEN61360:Simple_Data_Type .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Complex_Data_Type_Member
+DINEN61360:Complex_Data_Type_Member rdf:type owl:Class ;
+                                    rdfs:subClassOf DINEN61360:Data_Type .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Data_Element
+DINEN61360:Data_Element rdf:type owl:Class ;
+                        rdfs:subClassOf CSS:Property ,
+                                        [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty DINEN61360:has_Instance_Description ;
+                                                                 owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                 owl:onClass [ owl:intersectionOf ( DINEN61360:Instance_Description
+                                                                                                    [ rdf:type owl:Restriction ;
+                                                                                                      owl:onProperty DINEN61360:Expression_Goal ;
+                                                                                                      owl:hasValue "Actual_Value"
+                                                                                                    ]
+                                                                                                  ) ;
+                                                                               rdf:type owl:Class
+                                                                             ]
+                                                               ]
+                                                               [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty DINEN61360:has_Instance_Description ;
+                                                                 owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                 owl:onClass [ owl:intersectionOf ( DINEN61360:Instance_Description
+                                                                                                    [ rdf:type owl:Restriction ;
+                                                                                                      owl:onProperty DINEN61360:Expression_Goal ;
+                                                                                                      owl:hasValue "Assurance"
+                                                                                                    ]
+                                                                                                  ) ;
+                                                                               rdf:type owl:Class
+                                                                             ]
+                                                               ]
+                                                               [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty DINEN61360:has_Instance_Description ;
+                                                                 owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                 owl:onClass [ owl:intersectionOf ( DINEN61360:Instance_Description
+                                                                                                    [ rdf:type owl:Restriction ;
+                                                                                                      owl:onProperty DINEN61360:Expression_Goal ;
+                                                                                                      owl:hasValue "Requirement"
+                                                                                                    ]
+                                                                                                  ) ;
+                                                                               rdf:type owl:Class
+                                                                             ]
+                                                               ]
+                                                             ) ;
+                                          rdf:type owl:Class
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty DINEN61360:has_Type_Description ;
+                                          owl:someValuesFrom DINEN61360:Type_Description
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty DINEN61360:has_Instance_Description ;
+                                          owl:minQualifiedCardinality "0"^^xsd:nonNegativeInteger ;
+                                          owl:onClass DINEN61360:Instance_Description
+                                        ] ;
+                        owl:disjointWith DINEN61360:Type_Description ;
+                        rdfs:comment """Description:
+Contains a the structure of all data element (DIN61360 3.5.2, see also section 4)
+
+Each Data_Element has to have a type description and may have an instance description""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Data_Type
+DINEN61360:Data_Type rdf:type owl:Class .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Instance_Description
+DINEN61360:Instance_Description rdf:type owl:Class ;
+                                rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                  owl:onProperty DINEN61360:Expression_Goal ;
+                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                  owl:onDataRange xsd:string
+                                                ] ,
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty DINEN61360:Logic_Interpretation ;
+                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                  owl:onDataRange xsd:string
+                                                ] ;
+                                owl:disjointWith DINEN61360:Type_Description .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Integer
+DINEN61360:Integer rdf:type owl:Class ;
+                   rdfs:subClassOf DINEN61360:Simple_Data_Type ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty DINEN61360:Value_List_Member ;
+                                     owl:allValuesFrom xsd:int
+                                   ] .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#List
+DINEN61360:List rdf:type owl:Class ;
+                rdfs:subClassOf DINEN61360:Complex_Data_Type ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty DINEN61360:complex_Data_Type_has_Member ;
+                                  owl:allValuesFrom DINEN61360:List_Member
+                                ] .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#List_Member
+DINEN61360:List_Member rdf:type owl:Class ;
+                       rdfs:subClassOf DINEN61360:Complex_Data_Type_Member ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty DINEN61360:List_Member_Position ;
+                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                         owl:onDataRange xsd:int
+                                       ] .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Real
+DINEN61360:Real rdf:type owl:Class ;
+                rdfs:subClassOf DINEN61360:Simple_Data_Type ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty DINEN61360:Value_List_Member ;
+                                  owl:allValuesFrom xsd:float
+                                ] .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Set
+DINEN61360:Set rdf:type owl:Class ;
+               rdfs:subClassOf DINEN61360:Complex_Data_Type ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty DINEN61360:complex_Data_Type_has_Member ;
+                                 owl:allValuesFrom DINEN61360:Set_Member
+                               ] .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Set_Member
+DINEN61360:Set_Member rdf:type owl:Class ;
+                      rdfs:subClassOf DINEN61360:Complex_Data_Type_Member .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Simple_Data_Type
+DINEN61360:Simple_Data_Type rdf:type owl:Class ;
+                            rdfs:subClassOf DINEN61360:Data_Type ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty DINEN61360:Value_List ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onDataRange xsd:boolean
+                                            ] ;
+                            rdfs:comment """Description:
+Indicates which kind of DataType a data element must be. This does not include all data types of DIN61360! 
+
+Liability: Necessary
+
+DIN61360: 3.4.1
+
+Type: is a enumeration of standard compliant data types. Please see DIN61360 for a description of level/class-instance/list/set/bag/array""" .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#String
+DINEN61360:String rdf:type owl:Class ;
+                  rdfs:subClassOf DINEN61360:Simple_Data_Type ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty DINEN61360:Value_List_Member ;
+                                    owl:allValuesFrom xsd:string
+                                  ] .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Type_Description
+DINEN61360:Type_Description rdf:type owl:Class ;
+                            rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                              owl:onProperty DINEN61360:Code ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onDataRange xsd:string
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty DINEN61360:Definition ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onDataRange xsd:string
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty DINEN61360:Preferred_Name ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onDataRange xsd:string
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty DINEN61360:Short_Name ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onDataRange xsd:string
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty DINEN61360:Version_Number ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onDataRange xsd:int
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty DINEN61360:Preferred_Letter_Symbol ;
+                                              owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onDataRange xsd:string
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty DINEN61360:Synonymous_Letter_Symbol ;
+                                              owl:maxQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                              owl:onDataRange xsd:string
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty DINEN61360:Synonymous_Name ;
+                                              owl:maxQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                              owl:onDataRange xsd:string
+                                            ] ;
+                            rdfs:comment "Value list is expressed as exactly 1, since not using a value list has to result in value list false" .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#Actuator
+VDI2206:Actuator rdf:type owl:Class ;
+                 rdfs:subClassOf VDI2206:Component ;
+                 rdfs:comment "The information processing determines the effects necessary to influence the state variables of the basic system in the desired way. The implementation of the effects takes place by actors directly on the basic system." .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#BasicSystem
+VDI2206:BasicSystem rdf:type owl:Class ;
+                    rdfs:comment "The basic system is generally a mechanical, electromechanical, hydraulic or pneumatic structure or a combination of these." ;
+                    rdfs:label "Basic System" .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#Component
+VDI2206:Component rdf:type owl:Class .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#Energy
+VDI2206:Energy rdf:type owl:Class ;
+               owl:equivalentClass VDI3682:Energy ;
+               rdfs:comment "Energy is to be understood in this connection as meaning any form of energy, such as for example mechanical, thermal or electrical energy, but also variables such as force or current." .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#EnergyInterface
+VDI2206:EnergyInterface rdf:type owl:Class ;
+                        rdfs:subClassOf VDI2206:Interface .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#Information
+VDI2206:Information rdf:type owl:Class ;
+                    owl:equivalentClass VDI3682:Information ;
+                    rdfs:comment "Information exchanged between units of mechatronic systems are for example measured variables, control pulses or data" .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#InformationInterface
+VDI2206:InformationInterface rdf:type owl:Class ;
+                             rdfs:subClassOf VDI2206:Interface .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#InformationProcessing
+VDI2206:InformationProcessing rdf:type owl:Class ;
+                              rdfs:subClassOf VDI2206:Component .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#Interface
+VDI2206:Interface rdf:type owl:Class ;
+                  owl:disjointWith [ rdf:type owl:Class ;
+                                     owl:unionOf ( VDI2206:BasicSystem
+                                                   VDI2206:Energy
+                                                   VDI2206:Information
+                                                   VDI2206:Module
+                                                   VDI2206:Product
+                                                   VDI2206:System
+                                                 )
+                                   ] .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#MechanicalInterface
+VDI2206:MechanicalInterface rdf:type owl:Class ;
+                            rdfs:subClassOf VDI2206:Interface .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#Module
+VDI2206:Module rdf:type owl:Class ;
+               rdfs:subClassOf VDI3682:TechnicalResource ;
+               rdfs:comment "Complex mechatronic systems generally comprise the synergetic integration of various mechatronic modules, i.e. system elements or components which are combined to form a group and together perform a specific function." ;
+               rdfs:label "Module" .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#Product
+VDI2206:Product rdf:type owl:Class ;
+                owl:equivalentClass VDI3682:Product ,
+                                    CSS:Product ;
+                rdfs:comment "Examples of materials which flow between units of mechatronic systems are solid bodies, objects under test, objects being treated, gases or liquids." .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#Sensor
+VDI2206:Sensor rdf:type owl:Class ;
+               rdfs:subClassOf VDI2206:Component ;
+               rdfs:comment "The task of the sensors is to determine selected state variables of the basic system." .
+
+
+###  http://www.hsu-ifa.de/ontologies/VDI2206#System
+VDI2206:System rdf:type owl:Class ;
+               rdfs:subClassOf VDI3682:TechnicalResource ;
+               rdfs:label "Mechatronic System" .
+
+
+###  http://www.w3.org/1999/02/22-rdf-syntax-ns#List
+rdf:List rdf:type owl:Class .
+
+
+###  http://www.w3.org/2002/07/owl#Thing
+owl:Thing rdfs:comment """In order to check consistency, the following procedure is used:
+
+First, the reasoner checks, whether the class expressions to hold for the ABox. If that is not the case, then a explanation of inconsistency can be accessed.
+
+Second, SWRL rules are used to check the constency aspects that cannot be modelled through class expressions. These rules infer 4 \"Overall_X_Constent\" DataProperties. For the case that incremental rules were possible, other consistency attributes are inferred, so that in case of inconsistency a debugging can be started.
+
+Explanation to class expressions in relation to DIN61360 definitions:
+
+\"exactly\" is used for \"necessary\" (zwingend)
+\"max\" is used for \"optinal\" (wahlfrei) with maximum restriction
+
+If something is just \"optional\", it will not occur in the class expression.
+
+If a liability in DIN61360 states \"case dependend\" (bedingt), then this considered in a SWRL rule, which will give the DataProperties of \"x_Consistent\" to the Data_Element""" .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#Attribute
+VDI3682:Attribute rdf:type owl:Class ;
+                  owl:disjointWith VDI3682:Process ,
+                                   VDI3682:ProcessOperator ,
+                                   VDI3682:State ,
+                                   VDI3682:SystemLimit ,
+                                   VDI3682:TechnicalResource .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#Characteristic
+VDI3682:Characteristic rdf:type owl:Class ;
+                       rdfs:subClassOf VDI3682:Attribute ;
+                       owl:disjointWith VDI3682:Identification .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#Energy
+VDI3682:Energy rdf:type owl:Class ;
+               rdfs:subClassOf VDI3682:State ;
+               rdfs:comment "Energy is requiered by the process operator to fullfill the process. Energy is Input and Output of a process. Energy can be any kind of energy, exp.: electricity, heat,..." .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#Identification
+VDI3682:Identification rdf:type owl:Class ;
+                       rdfs:subClassOf VDI3682:Attribute .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#Information
+VDI3682:Information rdf:type owl:Class ;
+                    rdfs:subClassOf VDI3682:State ;
+                    rdfs:comment """Information input for a process operator can be any kind of information required to fullfill the process. Information output can be any kind of information created by the process.
+[VDI 3682-1]""" .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#Process
+VDI3682:Process rdf:type owl:Class ;
+                owl:equivalentClass CSS:Process ;
+                owl:disjointWith VDI3682:State ,
+                                 VDI3682:SystemLimit ,
+                                 VDI3682:TechnicalResource ;
+                rdfs:comment """A process describes the desired behavior of a process operator, by means of a solution neutral description of inputs and outputs. Products,energies  and information are converted into new products,energies  and information by a process operator. The process operator implements this conversion with the help of technical resources.
+[VDI3682-1]
+
+Note that a process may have inputs and outputs. These are inputs / outputs that are on the system limit of this process.""" .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#ProcessOperator
+VDI3682:ProcessOperator rdf:type owl:Class ;
+                        owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty VDI3682:hasInput ;
+                                                                     owl:someValuesFrom owl:Thing
+                                                                   ]
+                                                                   [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty VDI3682:hasOutput ;
+                                                                     owl:someValuesFrom owl:Thing
+                                                                   ]
+                                                                   [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty [ owl:inverseOf VDI3682:consistsOf
+                                                                                    ] ;
+                                                                     owl:someValuesFrom VDI3682:Process
+                                                                   ]
+                                                                 ) ;
+                                              rdf:type owl:Class
+                                            ] ;
+                        rdfs:subClassOf [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty VDI3682:hasInput ;
+                                                                 owl:someValuesFrom owl:Thing
+                                                               ]
+                                                               [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty VDI3682:hasOutput ;
+                                                                 owl:someValuesFrom owl:Thing
+                                                               ]
+                                                             ) ;
+                                          rdf:type owl:Class
+                                        ] ;
+                        owl:disjointWith VDI3682:State ,
+                                         VDI3682:SystemLimit ,
+                                         VDI3682:TechnicalResource ;
+                        rdfs:comment """One step of a process that transfers a status \"before\" (i.e., an input) to a status \"after\" (i.e., an output). 
+Everything that has an input and an output may be a process operator (but could also be a process).
+Everything that has an input and an output AND is contained within a process is a process operator.""" .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#Product
+VDI3682:Product rdf:type owl:Class ;
+                rdfs:subClassOf VDI3682:State ;
+                rdfs:comment """A rather generic concepts to describe all sorts of raw, intermediate or final products. Can also be used to describe flow of materials.
+[VDI 3682-1]""" .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#State
+VDI3682:State rdf:type owl:Class ;
+              owl:disjointWith VDI3682:SystemLimit ,
+                               VDI3682:TechnicalResource ;
+              rdfs:comment """A State describes the actual state of a Product/Energy/Information. Exp.: status ante operationem and status post operationem.
+[VDI3682-1]""" .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#SystemLimit
+VDI3682:SystemLimit rdf:type owl:Class ;
+                    owl:disjointWith VDI3682:TechnicalResource ;
+                    rdfs:comment """The system limit determines the observation horizon of the process. In a broader sense, this can also be seen as the balance limit for incoming products/energy/information and outgoing products/energy/information.
+[VDI 3682-1]""" .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#TechnicalResource
+VDI3682:TechnicalResource rdf:type owl:Class ;
+                          rdfs:subClassOf CSS:Resource ;
+                          rdfs:comment """The technical resource is able to implement certain processes and is an abstract description of a system.
+[VDI 3682-1]""" .
+
+
+###  http://www.w3id.org/hsu-aut/cask#CurrentStateOutput
+:CurrentStateOutput rdf:type owl:Class ;
+                    rdfs:subClassOf :SkillOutput ;
+                    rdfs:comment "May be used to get the current state as an integer value" .
+
+
+###  http://www.w3id.org/hsu-aut/cask#GetOutputs
+:GetOutputs rdf:type owl:Class ;
+            rdfs:subClassOf :StatelessMethod .
+
+
+###  http://www.w3id.org/hsu-aut/cask#ProvidedCapability
+:ProvidedCapability rdf:type owl:Class ;
+                    rdfs:subClassOf CSS:Capability .
+
+
+###  http://www.w3id.org/hsu-aut/cask#RequiredCapability
+:RequiredCapability rdf:type owl:Class ;
+                    rdfs:subClassOf CSS:Capability .
+
+
+###  http://www.w3id.org/hsu-aut/cask#SetParameters
+:SetParameters rdf:type owl:Class ;
+               rdfs:subClassOf :StatelessMethod .
+
+
+###  http://www.w3id.org/hsu-aut/cask#SkillCommand
+:SkillCommand rdf:type owl:Class ;
+              rdfs:subClassOf CSS:SkillParameter ;
+              rdfs:comment "May be used to invoke a transition with a numerical value" .
+
+
+###  http://www.w3id.org/hsu-aut/cask#SkillMethod
+:SkillMethod rdf:type owl:Class ;
+             rdfs:comment "Abstract concept of a method to invoke a skill. Needs to be implemented and modeled in detail for a specific technology" .
+
+
+###  http://www.w3id.org/hsu-aut/cask#SkillOutput
+:SkillOutput rdf:type owl:Class ;
+             rdfs:subClassOf :SkillVariable ;
+             rdfs:comment "May be used to retrieve results during or after Skill execution" .
+
+
+###  http://www.w3id.org/hsu-aut/cask#SkillVariable
+:SkillVariable rdf:type owl:Class ;
+               rdfs:comment """A super class for various types of Skill variables: 
+- SkillCommand: Allows to control a skill via a numeric command value
+- SkillParameter: Allows to parameterize a Skill execution
+- SkillOutput: Allows to retrieve results from a Skill""" .
+
+
+###  http://www.w3id.org/hsu-aut/cask#StatefulMethod
+:StatefulMethod rdf:type owl:Class ;
+                rdfs:subClassOf :SkillMethod .
+
+
+###  http://www.w3id.org/hsu-aut/cask#StatelessMethod
+:StatelessMethod rdf:type owl:Class ;
+                 rdfs:subClassOf :SkillMethod .
+
+
+###  http://www.w3id.org/hsu-aut/css#Capability
+CSS:Capability rdf:type owl:Class ;
+               owl:disjointWith CSS:Resource ,
+                                CSS:ServiceOffer ,
+                                CSS:ServiceProvider ,
+                                CSS:ServiceRequester ,
+                                CSS:Skill ,
+                                CSS:SkillInterface ,
+                                CSS:SkillParameter ;
+               rdfs:comment """Implementation-independent specification of a function in industrial production to achieve an effect in the physical or virtual world.
+
+Notes:
+- A capability can be restricted by constraints.
+- A capability can be specified by capability properties.
+- A capability can be realized by skills""" .
+
+
+###  http://www.w3id.org/hsu-aut/css#CapabilityConstraint
+CSS:CapabilityConstraint rdf:type owl:Class ;
+                         owl:disjointWith CSS:Resource ,
+                                          CSS:Service ,
+                                          CSS:ServiceOffer ,
+                                          CSS:ServiceProvider ,
+                                          CSS:ServiceRequester ,
+                                          CSS:Skill ,
+                                          CSS:SkillInterface ,
+                                          CSS:SkillParameter ;
+                         rdfs:comment """Condition imposed on a capability that further details its applicability. 
+
+Notes:
+- A capability constraint can be formulated as one of the following three constraint types:
+▪ A precondition, i.e., a condition that must hold before a function can be executed.
+▪ A postcondition, i.e., a condition that must hold after a function has been executed.
+▪ An invariant, i.e., a condition that must hold during the execution of a
+function.
+- A capability constraint restricts the values of the properties associated with the respective capability.
+- A capability constraint can involve one or more properties""" .
+
+
+###  http://www.w3id.org/hsu-aut/css#Process
+CSS:Process rdf:type owl:Class ;
+            owl:disjointWith CSS:Resource ,
+                             CSS:Service ,
+                             CSS:ServiceOffer ,
+                             CSS:ServiceProvider ,
+                             CSS:Skill ,
+                             CSS:SkillInterface ,
+                             CSS:SkillParameter ;
+            rdfs:comment """Production-relevant activity at any level of granularity that might affect materials and is performed by resources.
+
+Notes:
+- In general, a process can be decomposed into sub-processes or single activities.
+- A process can require capabilities to express that any suitable resource used for
+performing this process needs to provide compatible capabilities.
+- A process step relates to materials that constitute either input or output for the processing in this step""" .
+
+
+###  http://www.w3id.org/hsu-aut/css#Product
+CSS:Product rdf:type owl:Class ;
+            owl:disjointWith CSS:Service ,
+                             CSS:ServiceOffer ,
+                             CSS:ServiceProvider ,
+                             CSS:ServiceRequester ,
+                             CSS:Skill ,
+                             CSS:SkillInterface ,
+                             CSS:SkillParameter ;
+            rdfs:comment """Physical object being used as an input or created as an output of a production process.
+
+Notes:
+- The term Product may be used for objects in various states of manufacturing and may be seen as a generic term for raw materials, work in process and finished goods. Consumable supplies such as fuel, lubricants or cleaning agents may also be regarded as products. Furthermore, both purchased parts as well as parts manufactured in-house may be regarded as products.
+- Besides the actual product, there can be additional artifacts related to that product that are created and used in different life cycle phases to specify the product.
+▪ 3D/CAD models
+▪ specifications
+▪ BOM
+- A Service Requester may use these additional artifacts to formulate requirements against products.""" .
+
+
+###  http://www.w3id.org/hsu-aut/css#Property
+CSS:Property rdf:type owl:Class ;
+             owl:disjointWith CSS:Resource ,
+                              CSS:Service ,
+                              CSS:ServiceOffer ,
+                              CSS:ServiceProvider ,
+                              CSS:ServiceRequester ,
+                              CSS:Skill ,
+                              CSS:SkillInterface ;
+             rdfs:comment """Quality or characteristic inherent in or ascribed to any CSS model element
+
+Notes:
+- Properties may be used to describe and differentiate all kinds of PPR entities (i.e., products, process steps, resources)
+- Capabilities, services and offers are specified by properties in order to detail their description with regard to certain entities (e.g. products, process steps, resources)""" .
+
+
+###  http://www.w3id.org/hsu-aut/css#Resource
+CSS:Resource rdf:type owl:Class ;
+             owl:disjointWith CSS:Service ,
+                              CSS:ServiceOffer ,
+                              CSS:Skill ,
+                              CSS:SkillInterface ,
+                              CSS:SkillParameter ,
+                              CSS:StateMachine ;
+             rdfs:comment """Entity capable of performing functions specified as Capabilities and potentially implemented as Skills.
+
+Notes
+- A production resource may consist of hardware, software or both
+- A production resource may only provide capabilities (i.e. when engineering a resource, for planning purposes) and may additionally provide skills for automatic execution of the specified function.
+- A human becomes a Production Resource, if that person is able to perform a function specified as a capability.""" .
+
+
+###  http://www.w3id.org/hsu-aut/css#Service
+CSS:Service rdf:type owl:Class ;
+            owl:disjointWith CSS:ServiceOffer ,
+                             CSS:ServiceProvider ,
+                             CSS:ServiceRequester ,
+                             CSS:Skill ,
+                             CSS:SkillInterface ,
+                             CSS:SkillParameter ,
+                             CSS:StateMachine ;
+            rdfs:comment """Description of the commercial aspects and means of provision of offered capabilities.
+
+Notes:
+- The term “service” should be understood in the sense of economics and shall not be confused with e.g., web services.
+- The capabilities and means of provisions are specified by properties
+- A service is demanded by service requesters and provided by a service provider
+- A service is an input for an offer proposed by""" .
+
+
+###  http://www.w3id.org/hsu-aut/css#ServiceOffer
+CSS:ServiceOffer rdf:type owl:Class ;
+                 owl:disjointWith CSS:ServiceProvider ,
+                                  CSS:ServiceRequester ,
+                                  CSS:Skill ,
+                                  CSS:SkillInterface ,
+                                  CSS:SkillParameter ,
+                                  CSS:StateMachine ;
+                 rdfs:comment """Proposal for a binding contract from the Service Provider to execute one or more particular services that a ServiceRequester can receive and accept.
+
+Notes:
+- A ServiceOffer should determine the commercial aspects of the service provision
+and may remain valid for a certain period of time.
+- An Offer may consist of partial offers proposed by different service providers""" .
+
+
+###  http://www.w3id.org/hsu-aut/css#ServiceProvider
+CSS:ServiceProvider rdf:type owl:Class ;
+                    owl:disjointWith CSS:Skill ,
+                                     CSS:SkillInterface ,
+                                     CSS:SkillParameter ,
+                                     CSS:StateMachine ;
+                    rdfs:comment "Provides Services and can propose ServiceOffers to ServiceRequesters." .
+
+
+###  http://www.w3id.org/hsu-aut/css#ServiceRequester
+CSS:ServiceRequester rdf:type owl:Class ;
+                     owl:disjointWith CSS:Skill ,
+                                      CSS:SkillInterface ,
+                                      CSS:SkillParameter ,
+                                      CSS:StateMachine ;
+                     rdfs:comment """Demands Services under particular commercial aspects by providing either a specification of
+services or a specification of product requirements.""" .
+
+
+###  http://www.w3id.org/hsu-aut/css#Skill
+CSS:Skill rdf:type owl:Class ;
+          owl:disjointWith CSS:SkillParameter ;
+          rdfs:comment """Executable implementation of an encapsulated (automation) function specified by a Capability.
+
+Notes:
+- A skill must have a skill interface. 
+- One capability can be realized by more than one skill. 
+- A skill may have any number of SkillParameters. 
+- A skill’s behavior conforms to a state machine. 
+- A skill controls a process step""" .
+
+
+###  http://www.w3id.org/hsu-aut/css#SkillInterface
+CSS:SkillInterface rdf:type owl:Class ;
+                   owl:disjointWith CSS:SkillParameter ,
+                                    CSS:StateMachine ;
+                   rdfs:comment """Access point to configure, control and monitor a skill.
+
+Notes:
+- A skill interface exposes interaction points to be used by other external systems
+(e.g. MES, other skills).
+- A skill interface exposes the state machine of a skill so that skill states can be
+monitored and transitions triggered.
+- A skill interface exposes the parameters of a skill so that they can be written and read.""" .
+
+
+###  http://www.w3id.org/hsu-aut/css#SkillParameter
+CSS:SkillParameter rdf:type owl:Class ;
+                   rdfs:subClassOf :SkillVariable ;
+                   owl:disjointWith CSS:StateMachine ;
+                   rdfs:comment """Data unit to configure, control and monitor the execution of a skill.
+
+Notes:
+- Skill parameters might be used as in- /output parameters
+- Skill parameters might be used as results
+- Skill parameters might have a relation or be equivalent to capability properties""" .
+
+
+###  http://www.w3id.org/hsu-aut/css#StateMachine
+CSS:StateMachine rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.w3id.org/hsu-aut/cask#CurrentStateOutput_TD
+:CurrentStateOutput_TD rdf:type owl:NamedIndividual ,
+                                DINEN61360:Type_Description ;
+                       DINEN61360:Definition "A CurrentStateOutput is an integer variable that is used to reflect the current state of the state machine." ;
+                       DINEN61360:Note "Note that there should always be instance descriptions connected to this type description that are connected to the states of the state machine in order to specify which value reflects a certain state." ;
+                       DINEN61360:Preferred_Name "CurrentStateOutput" .
+
+
+###  http://www.w3id.org/hsu-aut/cask#SkillCommandVariable_TD
+:SkillCommandVariable_TD rdf:type owl:NamedIndividual ,
+                                  DINEN61360:Type_Description ;
+                         DINEN61360:Definition "A SkillCommandVariable is an integer variable that is used to trigger transitions of the state machine. It can be seen as the counterpart to a skill method." ;
+                         DINEN61360:Note "Note that there should always be instance descriptions of this type description connected to the transitions of the state machine in order to specify which values have to be used to trigger a transition." ;
+                         DINEN61360:Preferred_Name "SkillCommandVariable" .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( DINEN61360:Array
+                DINEN61360:Bag
+                DINEN61360:Boolean
+                DINEN61360:Integer
+                DINEN61360:List
+                DINEN61360:Real
+                DINEN61360:Set
+                DINEN61360:String
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( VDI2206:Component
+                VDI2206:Module
+                VDI2206:System
+              )
+] .
+
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
