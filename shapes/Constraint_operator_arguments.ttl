@@ -1,1 +1,27 @@
-Aljosha
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix : <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/constraints#>	.	# Namespace of all constraints
+@prefix OM: <http://openmath.org/vocab/math#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+
+:CapabilityConstraintShape
+  a sh:NodeShape ;
+  sh:targetClass CSS:CapabilityConstraint;	# target class of shape -> applies to all capability constraints
+  sh:ignoredProperties ( rdf:type ) ; 		# ignore rdf:type
+  sh:closed true ;  		# closes the shape, i.e., only the properties mentioned are allowed to be used
+  sh:property [
+    sh:path OM:operator ;  # allow exactly one occurrence of OM:operator
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ];
+  sh:property [
+    sh:path OM:arguments;  # allow exactly one list of arguments
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ];
+  sh:property [
+    sh:path CSS:references;  # constraint should reference its properties
+    sh:minCount 0 ;
+  ].
