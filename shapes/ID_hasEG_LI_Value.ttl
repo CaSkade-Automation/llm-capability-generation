@@ -1,2 +1,22 @@
-An InstanceDescription must only have an expression goal (0 or 1), a logic interpretation (exactly 1) and a value (0 or 1)
--> Aljosha
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix : <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/constraints#>	.	# Namespace of all constraints
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+
+:ID_DataPropertiesShape
+  a sh:NodeShape ;
+  sh:targetClass DINEN61360:Instance_Description; 	# target class of shape -> applies to all Instance_Descriptions
+  sh:ignoredProperties ( rdf:type ) ;    			# ignore rdf:type
+  sh:closed true ;									# closes the shape, i.e., only the properties mentioned are allowed to be used
+  sh:property [
+        sh:path DINEN61360:Expression_Goal;       	# 0 or 1 expression goals (0 for parameter, 1 for requirement, assurance, actual value 
+        sh:maxCount 1;
+  ] ;
+  sh:property [
+    sh:path DINEN61360:Interpretation_Logic;       	# must have exactly 1 interpretation logic (=, < , > etc)
+    sh:minCount 1;    
+    sh:maxCount 1;
+  ] .
