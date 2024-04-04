@@ -1,0 +1,189 @@
+@prefix : <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+@prefix OM: <http://openmath.org/vocab/math#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix Drill: <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/drilling#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@base <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+
+<http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/drilling> rdf:type owl:Ontology ;
+                                                                          owl:imports <https://w3id.org/hsu-aut/cask/2.5.2> .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#Definition
+DINEN61360:Definition rdf:type owl:AnnotationProperty .
+
+
+###  http://www.hsu-ifa.de/ontologies/DINEN61360#has_Data_Element
+DINEN61360:has_Data_Element rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#hasInput
+VDI3682:hasInput rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#hasOutput
+VDI3682:hasOutput rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3id.org/hsu-aut/VDI3682#shortName
+VDI3682:shortName rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/drilling#DepthType
+Drill:DepthType rdf:type owl:NamedIndividual ,
+                         DINEN61360:Type_Description ;
+                DINEN61360:Definition "A type description for depth values" .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/drilling#DiameterType
+Drill:DiameterType rdf:type owl:NamedIndividual ,
+                            DINEN61360:Type_Description ;
+                   DINEN61360:Definition "A type description for diameters of round objects" ,
+                                         "Base type description of plain integer numbers" ;
+                   VDI3682:shortName "integer" .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/drilling#Drilling
+Drill:Drilling rdf:type owl:NamedIndividual ,
+                        VDI3682:ProcessOperator ,
+                        CSS:Capability ;
+               VDI3682:hasInput Drill:Drilling_depth ,
+                                Drill:Drilling_diameter ,
+                                Drill:Drilling_input ;
+               VDI3682:hasOutput Drill:Drilling_output .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/drilling#Drilling_depth
+Drill:Drilling_depth rdf:type owl:NamedIndividual ,
+                              VDI3682:Information ;
+                     DINEN61360:has_Data_Element Drill:Drilling_depth_DE .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/drilling#Drilling_depth_DE
+Drill:Drilling_depth_DE rdf:type owl:NamedIndividual ,
+                                 CSS:Property ;
+                        DINEN61360:has_Instance_Description Drill:Drilling_depth_ID ,
+                                                            Drill:Drilling_depth_ID_Req ;
+                        DINEN61360:has_Type_Description Drill:DepthType .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/drilling#Drilling_depth_ID
+Drill:Drilling_depth_ID rdf:type owl:NamedIndividual ,
+                                 DINEN61360:Instance_Description ;
+                        DINEN61360:Logic_Interpretation "=" .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/drilling#Drilling_depth_ID_Req
+Drill:Drilling_depth_ID_Req rdf:type owl:NamedIndividual ,
+                                     DINEN61360:Instance_Description ;
+                            DINEN61360:Expression_Goal "Requirement" ;
+                            DINEN61360:Logic_Interpretation "<=" ;
+                            DINEN61360:Value 80 .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/drilling#Drilling_diameter
+Drill:Drilling_diameter rdf:type owl:NamedIndividual ,
+                                 VDI3682:Information ;
+                        DINEN61360:has_Data_Element Drill:Drilling_diameter_DE .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/drilling#Drilling_diameter_DE
+Drill:Drilling_diameter_DE rdf:type owl:NamedIndividual ,
+                                    CSS:Property ;
+                           DINEN61360:has_Instance_Description Drill:Drilling_diameter_ID ,
+                                                               Drill:Drilling_diameter_ID_Req1 ,
+                                                               Drill:Drilling_diameter_ID_Req2 ;
+                           DINEN61360:has_Type_Description Drill:DiameterType .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/drilling#Drilling_diameter_ID
+Drill:Drilling_diameter_ID rdf:type owl:NamedIndividual ,
+                                    DINEN61360:Instance_Description ;
+                           DINEN61360:Logic_Interpretation "=" .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/drilling#Drilling_diameter_ID_Req1
+Drill:Drilling_diameter_ID_Req1 rdf:type owl:NamedIndividual ,
+                                         DINEN61360:Instance_Description ;
+                                DINEN61360:Expression_Goal "Requirememt" ;
+                                DINEN61360:Logic_Interpretation ">=" ;
+                                DINEN61360:Value 1 .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/drilling#Drilling_diameter_ID_Req2
+Drill:Drilling_diameter_ID_Req2 rdf:type owl:NamedIndividual ,
+                                         DINEN61360:Instance_Description ;
+                                DINEN61360:Expression_Goal "Requirement" ;
+                                DINEN61360:Logic_Interpretation "<=" ;
+                                DINEN61360:Value 20 .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/drilling#Drilling_input
+Drill:Drilling_input rdf:type owl:NamedIndividual ,
+                              VDI3682:Product .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/drilling#Drilling_output
+Drill:Drilling_output rdf:type owl:NamedIndividual ,
+                               VDI3682:Product ;
+                      DINEN61360:has_Data_Element Drill:Drilling_output_depth_DE .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/drilling#Drilling_output_depth_DE
+Drill:Drilling_output_depth_DE rdf:type owl:NamedIndividual ,
+                                        CSS:Property ;
+                               DINEN61360:has_Instance_Description Drill:Drilling_output_depth_ID ;
+                               DINEN61360:has_Type_Description Drill:DepthType .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/drilling#Drilling_output_depth_ID
+Drill:Drilling_output_depth_ID rdf:type owl:NamedIndividual ,
+                                        DINEN61360:Instance_Description ;
+                               DINEN61360:Expression_Goal "Assurance" ;
+                               DINEN61360:Logic_Interpretation "=" .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/drilling#Drilling_output_diameter_DE
+Drill:Drilling_output_diameter_DE rdf:type owl:NamedIndividual ,
+                                           DINEN61360:Data_Element ;
+                                  DINEN61360:has_Instance_Description Drill:Drilling_output_diameter_ID ;
+                                  DINEN61360:has_Type_Description Drill:DiameterType .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/drilling#Drilling_output_diameter_ID
+Drill:Drilling_output_diameter_ID rdf:type owl:NamedIndividual ,
+                                           DINEN61360:Instance_Description ;
+                                  DINEN61360:Expression_Goal "Assurance" ;
+                                  DINEN61360:Logic_Interpretation "=" .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/drilling#Output_Depth_Constraint
+Drill:Output_Depth_Constraint rdf:type owl:NamedIndividual ,
+                                       OM:Application ,
+                                       CSS:CapabilityConstraint ;
+                              OM:operator <http://www.openmath.org/cd/relation1#eq> ;
+							  OM:arguments (Drill:Drilling_output_depth_ID Drill:Drilling_depth_ID).
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/drilling#Output_Diameter_Constraint
+Drill:Output_Diameter_Constraint rdf:type owl:NamedIndividual ,
+                                          OM:Application ,
+                                          CSS:CapabilityConstraint ;
+                                 OM:operator <http://www.openmath.org/cd/relation1#eq>;
+								 OM:arguments (Drill:Drilling_output_diameter_ID Drill:Drilling_diameter_ID).
+
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
