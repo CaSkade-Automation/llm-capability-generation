@@ -1,0 +1,174 @@
+@prefix : <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix openmath: <http://openmath.org/vocab/math#> .
+@prefix Transport: <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/transport#> .
+@base <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+
+<http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/transport> rdf:type owl:Ontology ;
+                                                                           owl:imports <http://www.w3id.org/hsu-aut/cask/2.5.2> .
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/transport#AGV
+Transport:AGV rdf:type owl:NamedIndividual ,
+                       <http://www.w3id.org/hsu-aut/css#Resource> ;
+              <http://www.hsu-ifa.de/ontologies/DINEN61360#has_Data_Element> Transport:AGV_Pos_DE ;
+              <http://www.w3id.org/hsu-aut/css#providesCapability> Transport:Transport .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/transport#AGV_Pos_DE
+Transport:AGV_Pos_DE rdf:type owl:NamedIndividual ,
+                              <http://www.hsu-ifa.de/ontologies/DINEN61360#Data_Element> ;
+                     <http://www.hsu-ifa.de/ontologies/DINEN61360#has_Instance_Description> Transport:AGV_Pos_ID ;
+                     <http://www.hsu-ifa.de/ontologies/DINEN61360#has_Type_Description> Transport:PositionType .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/transport#AGV_Pos_ID
+Transport:AGV_Pos_ID rdf:type owl:NamedIndividual ,
+                              <http://www.hsu-ifa.de/ontologies/DINEN61360#Instance_Description> ;
+                     <http://www.hsu-ifa.de/ontologies/DINEN61360#Expression_Goal> "Actual_Value" ;
+                     <http://www.hsu-ifa.de/ontologies/DINEN61360#Logic_Interpretation> "=" .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/transport#PositionType
+Transport:PositionType rdf:type owl:NamedIndividual ,
+                                <http://www.hsu-ifa.de/ontologies/DINEN61360#Type_Description> ;
+                       <http://www.hsu-ifa.de/ontologies/DINEN61360#Definition> "This type specifies the position of any object in coordinates consisting of longitude and latitude." ;
+                       <http://www.hsu-ifa.de/ontologies/DINEN61360#Unit_of_Measure> "decimal degrees" .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/transport#Transport
+Transport:Transport rdf:type owl:NamedIndividual ,
+                             <http://www.w3id.org/hsu-aut/VDI3682#ProcessOperator> ,
+                             <http://www.w3id.org/hsu-aut/css#Capability> ;
+                    <http://www.w3id.org/hsu-aut/VDI3682#hasInput> Transport:Transport_In_Destination ,
+                                                                   Transport:Transport_In_Product ;
+                    <http://www.w3id.org/hsu-aut/VDI3682#hasOutput> Transport:Transport_Out_Product ;
+                    <http://www.w3id.org/hsu-aut/css#isRestrictedBy> Transport:Transport_Constraint_Pos_Out .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/transport#Transport_Constraint_Pos_Out
+Transport:Transport_Constraint_Pos_Out rdf:type owl:NamedIndividual ,
+                                                openmath:Application ,
+                                                <http://www.w3id.org/hsu-aut/css#CapabilityConstraint> ;
+                                       openmath:arguments Transport:Transport_Constraint_Pos_Out_ArgList1 ;
+                                       openmath:operator <http://www.openmath.org/cd/relation1#eq> ;
+                                       <http://www.w3id.org/hsu-aut/css#references> Transport:Transport_In_Destination_ID ,
+                                                                                    Transport:Transport_Out_Product_Pos_ID .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/transport#Transport_Constraint_Pos_Out_ArgList1
+Transport:Transport_Constraint_Pos_Out_ArgList1 rdf:type owl:NamedIndividual ,
+                                                         rdf:List ;
+                                                rdf:first Transport:Transport_In_Destination_ID ;
+                                                rdf:rest Transport:Transport_Constraint_Pos_Out_ArgList2 .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/transport#Transport_Constraint_Pos_Out_ArgList2
+Transport:Transport_Constraint_Pos_Out_ArgList2 rdf:type owl:NamedIndividual ,
+                                                         rdf:List ;
+                                                rdf:first Transport:Transport_Out_Product_Pos_ID ;
+                                                rdf:rest rdf:nil .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/transport#Transport_Constraint_Pos_Req
+Transport:Transport_Constraint_Pos_Req rdf:type owl:NamedIndividual ,
+                                                openmath:Application ,
+                                                <http://www.w3id.org/hsu-aut/css#CapabilityConstraint> ;
+                                       openmath:arguments Transport:Transport_Constraint_Pos_Req_ArgList1 ;
+                                       openmath:operator <http://www.openmath.org/cd/relation1#eq> ;
+                                       <http://www.w3id.org/hsu-aut/css#references> Transport:AGV_Pos_ID ,
+                                                                                    Transport:Transport_In_Product_Pos_ID .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/transport#Transport_Constraint_Pos_Req_ArgList1
+Transport:Transport_Constraint_Pos_Req_ArgList1 rdf:type owl:NamedIndividual ,
+                                                         rdf:List ;
+                                                rdf:first Transport:AGV_Pos_ID ;
+                                                rdf:rest Transport:Transport_Constraint_Pos_Req_ArgList2 .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/transport#Transport_Constraint_Pos_Req_ArgList2
+Transport:Transport_Constraint_Pos_Req_ArgList2 rdf:type owl:NamedIndividual ,
+                                                         rdf:List ;
+                                                rdf:first Transport:Transport_In_Product_Pos_ID ;
+                                                rdf:rest rdf:nil .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/transport#Transport_In_Destination
+Transport:Transport_In_Destination rdf:type owl:NamedIndividual ,
+                                            <http://www.w3id.org/hsu-aut/VDI3682#Information> ;
+                                   <http://www.hsu-ifa.de/ontologies/DINEN61360#has_Data_Element> Transport:Transport_In_Destination_DE .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/transport#Transport_In_Destination_DE
+Transport:Transport_In_Destination_DE rdf:type owl:NamedIndividual ,
+                                               <http://www.hsu-ifa.de/ontologies/DINEN61360#Data_Element> ;
+                                      <http://www.hsu-ifa.de/ontologies/DINEN61360#has_Instance_Description> Transport:Transport_In_Destination_ID ;
+                                      <http://www.hsu-ifa.de/ontologies/DINEN61360#has_Type_Description> Transport:PositionType .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/transport#Transport_In_Destination_ID
+Transport:Transport_In_Destination_ID rdf:type owl:NamedIndividual ,
+                                               openmath:Variable ,
+                                               <http://www.hsu-ifa.de/ontologies/DINEN61360#Instance_Description> ,
+                                               <http://www.hsu-ifa.de/ontologies/DINEN61360#Real> ;
+                                      openmath:name "http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/transport#Transport_In_Destination_ID" ;
+                                      <http://www.hsu-ifa.de/ontologies/DINEN61360#Logic_Interpretation> "=" .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/transport#Transport_In_Product
+Transport:Transport_In_Product rdf:type owl:NamedIndividual ,
+                                        <http://www.w3id.org/hsu-aut/VDI3682#Product> ;
+                               <http://www.hsu-ifa.de/ontologies/DINEN61360#has_Data_Element> Transport:Transport_In_Product_Pos_DE .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/transport#Transport_In_Product_Pos_DE
+Transport:Transport_In_Product_Pos_DE rdf:type owl:NamedIndividual ,
+                                               <http://www.hsu-ifa.de/ontologies/DINEN61360#Data_Element> ;
+                                      <http://www.hsu-ifa.de/ontologies/DINEN61360#has_Instance_Description> Transport:Transport_In_Product_Pos_ID ;
+                                      <http://www.hsu-ifa.de/ontologies/DINEN61360#has_Type_Description> Transport:PositionType .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/transport#Transport_In_Product_Pos_ID
+Transport:Transport_In_Product_Pos_ID rdf:type owl:NamedIndividual ,
+                                               <http://www.hsu-ifa.de/ontologies/DINEN61360#Instance_Description> ;
+                                      <http://www.hsu-ifa.de/ontologies/DINEN61360#Expression_Goal> "Actual_Value" ;
+                                      <http://www.hsu-ifa.de/ontologies/DINEN61360#Logic_Interpretation> "=" .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/transport#Transport_Out_Product
+Transport:Transport_Out_Product rdf:type owl:NamedIndividual ,
+                                         <http://www.w3id.org/hsu-aut/VDI3682#Product> ;
+                                <http://www.hsu-ifa.de/ontologies/DINEN61360#has_Data_Element> Transport:Transport_Out_Product_Pos_DE .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/transport#Transport_Out_Product_Pos_DE
+Transport:Transport_Out_Product_Pos_DE rdf:type owl:NamedIndividual ,
+                                                <http://www.hsu-ifa.de/ontologies/DINEN61360#Data_Element> ;
+                                       <http://www.hsu-ifa.de/ontologies/DINEN61360#has_Instance_Description> Transport:Transport_Out_Product_Pos_ID ;
+                                       <http://www.hsu-ifa.de/ontologies/DINEN61360#has_Type_Description> Transport:PositionType .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/transport#Transport_Out_Product_Pos_ID
+Transport:Transport_Out_Product_Pos_ID rdf:type owl:NamedIndividual ,
+                                                openmath:Variable ,
+                                                <http://www.hsu-ifa.de/ontologies/DINEN61360#Instance_Description> ,
+                                                <http://www.hsu-ifa.de/ontologies/DINEN61360#Real> ;
+                                       openmath:name "http://www.hsu-hh.de/aut/ontologies/transport#Transport_Out_Product_Pos_ID" ;
+                                       <http://www.hsu-ifa.de/ontologies/DINEN61360#Expression_Goal> "Assurance" ;
+                                       <http://www.hsu-ifa.de/ontologies/DINEN61360#Logic_Interpretation> "=" .
+
+
+###  http://www.w3.org/1999/02/22-rdf-syntax-ns#nil
+rdf:nil rdf:type owl:NamedIndividual ,
+                 rdf:List .
+
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
