@@ -34,7 +34,8 @@ NumbEven:Number-Even-Check rdf:type owl:NamedIndividual ,
                                     VDI3682:ProcessOperator ,
                                     CSS:Capability ;
                            VDI3682:hasInput NumbEven:Number-Even-Check_Number ;
-                           VDI3682:hasOutput NumbEven:Number-Even-Check_isEven .
+                           VDI3682:hasOutput NumbEven:Number-Even-Check_isEven ;
+                           CSS:requiresCapability NumbEven:Number-Even-Check .
 
 
 ###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/number-even#Number-Even-Check_Number
