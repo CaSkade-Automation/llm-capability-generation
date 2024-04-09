@@ -11,7 +11,7 @@
 @base <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
 
 <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/multiplication> rdf:type owl:Ontology ;
-                                                                                owl:imports <https://w3id.org/hsu-aut/cask/2.5.2> .
+                                                                                owl:imports <https://w3id.org/hsu-aut/cask/2.5.3> .
 
 #################################################################
 #    Individuals
@@ -29,7 +29,8 @@ multiplication:Multiplication rdf:type owl:NamedIndividual ,
                                        CSS:Capability ;
                               VDI3682:hasInput multiplication:Multiplication_FactorA ,
                                                multiplication:Multiplication_FactorB ;
-                              VDI3682:hasOutput multiplication:Multiplication_Product .
+                              VDI3682:hasOutput multiplication:Multiplication_Product ;
+                              CSS:requiresCapability multiplication:Multiplication .
 
 
 ###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/multiplication#Multiplication_FactorA
@@ -48,7 +49,6 @@ multiplication:Multiplication_FactorA_DE rdf:type owl:NamedIndividual ,
 ###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/multiplication#Multiplication_FactorA_ID
 multiplication:Multiplication_FactorA_ID rdf:type owl:NamedIndividual ,
                                                   DINEN61360:Instance_Description ;
-                                         DINEN61360:Expression_Goal "Actual_Value" ;
                                          DINEN61360:Logic_Interpretation "=" .
 
 
@@ -68,7 +68,6 @@ multiplication:Multiplication_FactorB_DE rdf:type owl:NamedIndividual ,
 ###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/multiplication#Multiplication_FactorB_ID
 multiplication:Multiplication_FactorB_ID rdf:type owl:NamedIndividual ,
                                                   DINEN61360:Instance_Description ;
-                                         DINEN61360:Expression_Goal "Actual_Value" ;
                                          DINEN61360:Logic_Interpretation "=" .
 
 

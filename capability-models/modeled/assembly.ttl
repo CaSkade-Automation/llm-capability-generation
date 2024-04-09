@@ -12,7 +12,7 @@
 @base <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
 
 <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/assembly> rdf:type owl:Ontology ;
-                                                                          owl:imports <https://w3id.org/hsu-aut/cask/2.5.2> .
+                                                                          owl:imports <https://w3id.org/hsu-aut/cask/2.5.3> .
 
 #################################################################
 #    Individuals
@@ -25,7 +25,8 @@ Assembly:Assembly rdf:type owl:NamedIndividual ,
                   VDI3682:hasInput Assembly:Assembly_ProductA ,
                                    Assembly:Assembly_ProductB ;
                   VDI3682:hasOutput Assembly:Assembly_ProductC ;
-                  CSS:isRestrictedBy Assembly:Assembly_Constraint_Weight_EQ .
+                  CSS:isRestrictedBy Assembly:Assembly_Constraint_Weight_EQ ;
+                  CSS:requiresCapability Assembly:Assembly .
 
 
 ###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/assembly#Assembly_Constraint_Weight_EQ
@@ -84,7 +85,7 @@ Assembly:Assembly_ProductA rdf:type owl:NamedIndividual ,
 Assembly:Assembly_ProductA_Weight_DE rdf:type owl:NamedIndividual ,
                                               DINEN61360:Data_Element ;
                                      DINEN61360:has_Instance_Description Assembly:Assembly_ProductA_Weight_ID ;
-                                     DINEN61360:has_Type_Description Assembly:WeightType .
+                                     DINEN61360:has_Type_Description Assembly:MassType .
 
 
 ###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/assembly#Assembly_ProductA_Weight_ID
@@ -107,7 +108,7 @@ Assembly:Assembly_ProductB rdf:type owl:NamedIndividual ,
 Assembly:Assembly_ProductB_Weight_DE rdf:type owl:NamedIndividual ,
                                               DINEN61360:Data_Element ;
                                      DINEN61360:has_Instance_Description Assembly:Assembly_ProductB_Weight_ID ;
-                                     DINEN61360:has_Type_Description Assembly:WeightType .
+                                     DINEN61360:has_Type_Description Assembly:MassType .
 
 
 ###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/assembly#Assembly_ProductB_Weight_ID
@@ -131,7 +132,7 @@ Assembly:Assembly_ProductC_Weight_DE rdf:type owl:NamedIndividual ,
                                               DINEN61360:Data_Element ;
                                      DINEN61360:has_Instance_Description Assembly:Assembly_ProductC_Weight_ID ,
                                                                          Assembly:Assembly_ProductC_Weight_ID_Req ;
-                                     DINEN61360:has_Type_Description Assembly:WeightType .
+                                     DINEN61360:has_Type_Description Assembly:MassType .
 
 
 ###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/assembly#Assembly_ProductC_Weight_ID
@@ -152,11 +153,11 @@ Assembly:Assembly_ProductC_Weight_ID_Req rdf:type owl:NamedIndividual ,
                                          DINEN61360:Value "15.0"^^xsd:double .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/assembly#WeightType
-Assembly:WeightType rdf:type owl:NamedIndividual ,
-                             DINEN61360:Type_Description ;
-                    DINEN61360:Definition "This type specifies the weight of any object." ;
-                    DINEN61360:Unit_of_Measure "kg [kilogram]" .
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/assembly#MassType
+Assembly:MassType rdf:type owl:NamedIndividual ,
+                           DINEN61360:Type_Description ;
+                  DINEN61360:Definition "This type specifies the mass of any object." ;
+                  DINEN61360:Unit_of_Measure "kg [kilogram]" .
 
 
 ###  http://www.w3.org/1999/02/22-rdf-syntax-ns#nil
