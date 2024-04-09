@@ -1,0 +1,17 @@
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix : <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/constraints#>	.	# Namespace of all constraints
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+
+:ProductShape
+  a sh:NodeShape ;
+  sh:targetClass VDI3682:Information;  				# target class of shape -> applies to all informations 
+  sh:ignoredProperties ( rdf:type ) ;  				# ignore rdf:type
+  sh:closed true ;									# closes the shape, i.e., only the properties mentioned are allowed to be used
+  sh:property [
+    sh:path DINEN61360:has_Data_Element;  			# allows any number of data elements 
+    sh:minCount 0 ;
+  ].
