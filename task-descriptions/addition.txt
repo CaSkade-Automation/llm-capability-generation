@@ -1,1 +1,1 @@
-The capability can add two numbers "a" and "b" to get their sum "c". More precisely, a and b are inputs and c is an output.
+There is a addition capability that receives two numbers "a" and "b" as input and returns sum "c" as output, where all three entities are information. Each of the two inputs has a property that determines the value of type integer for this number, which is only determined when the capability is used. In the same way, the output sum has a property that gives the result of type integer of the addition as an assurance. 
