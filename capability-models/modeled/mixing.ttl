@@ -23,15 +23,24 @@ Mix:Mixing rdf:type owl:NamedIndividual ,
                     VDI3682:ProcessOperator ,
                     CSS:Capability ;
            VDI3682:hasInput Mix:Mixing_input_liquid1 ,
+                            Mix:Mixing_input_liquid1_volumeFraction ,
                             Mix:Mixing_input_liquid2 ,
-                            Mix:Mixing_input_liquid3 ;
-           VDI3682:hasOutput Mix:Mixing_output .
+                            Mix:Mixing_input_liquid2_volumeFraction ,
+                            Mix:Mixing_input_liquid3 ,
+                            Mix:Mixing_input_liquid3_volumeFraction ;
+           VDI3682:hasOutput Mix:Mixing_output ;
+           CSS:isRestrictedBy Mix:TotalVolumeConstraint .
 
 
 ###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/mixing#Mixing_input_liquid1
 Mix:Mixing_input_liquid1 rdf:type owl:NamedIndividual ,
-                                  VDI3682:Product ;
-                         DINEN61360:has_Data_Element Mix:Mixing_input_liquid1_volumeFraction_DE .
+                                  VDI3682:Product .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/mixing#Mixing_input_liquid1_volumeFraction
+Mix:Mixing_input_liquid1_volumeFraction rdf:type owl:NamedIndividual ,
+                                                 VDI3682:Information ;
+                                        DINEN61360:has_Data_Element Mix:Mixing_input_liquid1_volumeFraction_DE .
 
 
 ###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/mixing#Mixing_input_liquid1_volumeFraction_DE
@@ -59,8 +68,13 @@ Mix:Mixing_input_liquid1_volumeFraction_ID_Req rdf:type owl:NamedIndividual ,
 
 ###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/mixing#Mixing_input_liquid2
 Mix:Mixing_input_liquid2 rdf:type owl:NamedIndividual ,
-                                  VDI3682:Product ;
-                         DINEN61360:has_Data_Element Mix:Mixing_input_liquid2_volumeFraction_DE .
+                                  VDI3682:Product .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/mixing#Mixing_input_liquid2_volumeFraction
+Mix:Mixing_input_liquid2_volumeFraction rdf:type owl:NamedIndividual ,
+                                                 VDI3682:Information ;
+                                        DINEN61360:has_Data_Element Mix:Mixing_input_liquid2_volumeFraction_DE .
 
 
 ###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/mixing#Mixing_input_liquid2_volumeFraction_DE
@@ -97,8 +111,13 @@ Mix:Mixing_input_liquid2_volumeFraction_ID_Req2 rdf:type owl:NamedIndividual ,
 
 ###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/mixing#Mixing_input_liquid3
 Mix:Mixing_input_liquid3 rdf:type owl:NamedIndividual ,
-                                  VDI3682:Product ;
-                         DINEN61360:has_Data_Element Mix:Mixing_input_liquid3_volumeFraction_DE .
+                                  VDI3682:Product .
+
+
+###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/mixing#Mixing_input_liquid3_volumeFraction
+Mix:Mixing_input_liquid3_volumeFraction rdf:type owl:NamedIndividual ,
+                                                 VDI3682:Information ;
+                                        DINEN61360:has_Data_Element Mix:Mixing_input_liquid3_volumeFraction_DE .
 
 
 ###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/mixing#Mixing_input_liquid3_volumeFraction_DE
