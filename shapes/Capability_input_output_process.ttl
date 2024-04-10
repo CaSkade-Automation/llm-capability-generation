@@ -6,7 +6,7 @@
 @prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
 @prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
 
-:MeineRessourceShape
+:CapabilityShape
   a sh:NodeShape ;
   sh:targetClass CSS:Capability;  		# target class of shape -> applies to all capabilities
   sh:ignoredProperties ( rdf:type ) ;  	# ignore rdf:type
