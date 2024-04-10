@@ -1,0 +1,1 @@
+"Division" is a capability for a conventional, mathematical division operation. It takes a "dividend" and "divisor" as an input and returns the "quotient". In this case, dividend and divisor are defined to be integers. The quotient is a real number. For the divisor, there is a requirement: It must not be equal to zero.
