@@ -3,19 +3,15 @@
 @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix : <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/constraints#>	.	# Namespace of all constraints
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
 @prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
 
-:DataElementShape
+:ProductShape
   a sh:NodeShape ;
-  sh:targetClass DINEN61360:Data_Element;  			# target class of shape -> applies to all data elements
+  sh:targetClass VDI3682:Product;  					# target class of shape -> applies to all products 
   sh:ignoredProperties ( rdf:type ) ;  				# ignore rdf:type
   sh:closed true ;									# closes the shape, i.e., only the properties mentioned are allowed to be used
   sh:property [
-    sh:path DINEN61360:has_Type_Description;  		# allows exactly one type description
-    sh:minCount 1 ;
-	sh:maxCount 1 ;
-  ];
-  sh:property [
-    sh:path DINEN61360:has_Instance_Description;	# requires min 1 instance description
-    sh:minCount 1 ;
+    sh:path DINEN61360:has_Data_Element;  			# allows any number of data elements 
+    sh:minCount 0 ;
   ].
