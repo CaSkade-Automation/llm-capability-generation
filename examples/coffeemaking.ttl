@@ -14,17 +14,13 @@
 <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/coffeemaking> rdf:type owl:Ontology ;
                                                                               owl:imports <https://w3id.org/hsu-aut/cask/2.5.3> .
 
-#################################################################
-#    Individuals
-#################################################################
-
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/coffeemaking#CoffeeType
+### CoffeeType
 Coffee:CoffeeType rdf:type owl:NamedIndividual ,
                            DINEN61360:Type_Description ;
                   DINEN61360:Definition "The type indicates the type of coffee." .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/coffeemaking#Coffeemaking
+### Coffeemaking
 Coffee:Coffeemaking rdf:type owl:NamedIndividual ,
                              VDI3682:ProcessOperator ,
                              CSS:Capability ;
@@ -37,31 +33,31 @@ Coffee:Coffeemaking rdf:type owl:NamedIndividual ,
                     CSS:requiresCapability Coffee:Coffeemaking .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/coffeemaking#Coffeemaking_Coffee
+### Coffeemaking_Coffee
 Coffee:Coffeemaking_Coffee rdf:type owl:NamedIndividual ,
                                     VDI3682:Product ;
                            DINEN61360:has_Data_Element Coffee:Coffeemaking_Coffee_Temperature_DE ,
                                                        Coffee:Coffeemaking_Coffee_TypeOfCoffee_DE .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/coffeemaking#Coffeemaking_CoffeeBeans
+### Coffeemaking_CoffeeBeans
 Coffee:Coffeemaking_CoffeeBeans rdf:type owl:NamedIndividual ,
                                          VDI3682:Product .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/coffeemaking#Coffeemaking_CoffeeGrounds
+### Coffeemaking_CoffeeGrounds
 Coffee:Coffeemaking_CoffeeGrounds rdf:type owl:NamedIndividual ,
                                            VDI3682:Product .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/coffeemaking#Coffeemaking_Coffee_Temperature_DE
+### Coffeemaking_Coffee_Temperature_DE
 Coffee:Coffeemaking_Coffee_Temperature_DE rdf:type owl:NamedIndividual ,
                                                    DINEN61360:Data_Element ;
                                           DINEN61360:has_Instance_Description Coffee:Coffeemaking_Coffee_Temperature_ID ;
                                           DINEN61360:has_Type_Description Coffee:Temperature .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/coffeemaking#Coffeemaking_Coffee_Temperature_ID
+### Coffeemaking_Coffee_Temperature_ID
 Coffee:Coffeemaking_Coffee_Temperature_ID rdf:type owl:NamedIndividual ,
                                                    DINEN61360:Instance_Description ;
                                           DINEN61360:Expression_Goal "Assurance" ;
@@ -69,14 +65,14 @@ Coffee:Coffeemaking_Coffee_Temperature_ID rdf:type owl:NamedIndividual ,
                                           DINEN61360:Value 90 .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/coffeemaking#Coffeemaking_Coffee_TypeOfCoffee_DE
+### Coffeemaking_Coffee_TypeOfCoffee_DE
 Coffee:Coffeemaking_Coffee_TypeOfCoffee_DE rdf:type owl:NamedIndividual ,
                                                     DINEN61360:Data_Element ;
                                            DINEN61360:has_Instance_Description Coffee:Coffeemaking_Coffee_TypeOfCoffee_ID ;
                                            DINEN61360:has_Type_Description Coffee:CoffeeType .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/coffeemaking#Coffeemaking_Coffee_TypeOfCoffee_ID
+### Coffeemaking_Coffee_TypeOfCoffee_ID
 Coffee:Coffeemaking_Coffee_TypeOfCoffee_ID rdf:type owl:NamedIndividual ,
                                                     openmath:Variable ,
                                                     DINEN61360:Instance_Description ,
@@ -86,44 +82,29 @@ Coffee:Coffeemaking_Coffee_TypeOfCoffee_ID rdf:type owl:NamedIndividual ,
                                            DINEN61360:Logic_Interpretation "=" .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/coffeemaking#Coffeemaking_Constraint_TypeOfCoffee
+### Coffeemaking_Constraint_TypeOfCoffee
 Coffee:Coffeemaking_Constraint_TypeOfCoffee rdf:type owl:NamedIndividual ,
                                                      openmath:Application ,
                                                      CSS:CapabilityConstraint ;
-                                            openmath:arguments Coffee:Coffeemaking_Constraint_TypeOfCoffee_ArgList ;
+                                            openmath:arguments ( Coffee:Coffeemaking_Coffee_TypeOfCoffee_ID Coffee:Coffeemaking_TypeOfCoffee_ID );
                                             openmath:operator <http://www.openmath.org/cd/relation1#eq> ;
                                             CSS:references Coffee:Coffeemaking_Coffee_TypeOfCoffee_ID ,
                                                            Coffee:Coffeemaking_TypeOfCoffee_ID .
 
-
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/coffeemaking#Coffeemaking_Constraint_TypeOfCoffee_ArgList
-Coffee:Coffeemaking_Constraint_TypeOfCoffee_ArgList rdf:type owl:NamedIndividual ,
-                                                             rdf:List ;
-                                                    rdf:first Coffee:Coffeemaking_Coffee_TypeOfCoffee_ID ;
-                                                    rdf:rest Coffee:Coffeemaking_Constraint_TypeOfCoffee_ArgList2 .
-
-
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/coffeemaking#Coffeemaking_Constraint_TypeOfCoffee_ArgList2
-Coffee:Coffeemaking_Constraint_TypeOfCoffee_ArgList2 rdf:type owl:NamedIndividual ,
-                                                              rdf:List ;
-                                                     rdf:first Coffee:Coffeemaking_TypeOfCoffee_ID ;
-                                                     rdf:rest rdf:nil .
-
-
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/coffeemaking#Coffeemaking_TypeOfCoffee
+### Coffeemaking_TypeOfCoffee
 Coffee:Coffeemaking_TypeOfCoffee rdf:type owl:NamedIndividual ,
                                           VDI3682:Information ;
                                  DINEN61360:has_Data_Element Coffee:Coffeemaking_TypeOfCoffee_DE .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/coffeemaking#Coffeemaking_TypeOfCoffee_DE
+### Coffeemaking_TypeOfCoffee_DE
 Coffee:Coffeemaking_TypeOfCoffee_DE rdf:type owl:NamedIndividual ,
                                              DINEN61360:Data_Element ;
                                     DINEN61360:has_Instance_Description Coffee:Coffeemaking_TypeOfCoffee_ID ;
                                     DINEN61360:has_Type_Description Coffee:CoffeeType .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/coffeemaking#Coffeemaking_TypeOfCoffee_ID
+### Coffeemaking_TypeOfCoffee_ID
 Coffee:Coffeemaking_TypeOfCoffee_ID rdf:type owl:NamedIndividual ,
                                              openmath:Variable ,
                                              DINEN61360:Instance_Description ,
@@ -132,13 +113,13 @@ Coffee:Coffeemaking_TypeOfCoffee_ID rdf:type owl:NamedIndividual ,
                                     DINEN61360:Logic_Interpretation "=" .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/coffeemaking#Coffeemaking_Water
+### Coffeemaking_Water
 Coffee:Coffeemaking_Water rdf:type owl:NamedIndividual ,
                                    VDI3682:Product ;
                           DINEN61360:has_Data_Element Coffee:Coffeemaking_Water_Temperature_DE .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/coffeemaking#Coffeemaking_Water_Temperature_DE
+### Coffeemaking_Water_Temperature_DE
 Coffee:Coffeemaking_Water_Temperature_DE rdf:type owl:NamedIndividual ,
                                                   DINEN61360:Data_Element ;
                                          DINEN61360:has_Instance_Description Coffee:Coffeemaking_Water_Temperature_ID ,
@@ -147,13 +128,13 @@ Coffee:Coffeemaking_Water_Temperature_DE rdf:type owl:NamedIndividual ,
                                          DINEN61360:has_Type_Description Coffee:Temperature .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/coffeemaking#Coffeemaking_Water_Temperature_ID
+### Coffeemaking_Water_Temperature_ID
 Coffee:Coffeemaking_Water_Temperature_ID rdf:type owl:NamedIndividual ,
                                                   DINEN61360:Instance_Description ;
                                          DINEN61360:Logic_Interpretation "=" .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/coffeemaking#Coffeemaking_Water_Temperature_Req1
+### Coffeemaking_Water_Temperature_Req1
 Coffee:Coffeemaking_Water_Temperature_Req1 rdf:type owl:NamedIndividual ,
                                                     DINEN61360:Instance_Description ;
                                            DINEN61360:Expression_Goal "Requirement" ;
@@ -161,7 +142,7 @@ Coffee:Coffeemaking_Water_Temperature_Req1 rdf:type owl:NamedIndividual ,
                                            DINEN61360:Value 0 .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/coffeemaking#Coffeemaking_Water_Temperature_Req2
+### Coffeemaking_Water_Temperature_Req2
 Coffee:Coffeemaking_Water_Temperature_Req2 rdf:type owl:NamedIndividual ,
                                                     DINEN61360:Instance_Description ;
                                            DINEN61360:Expression_Goal "Requirement" ;
@@ -169,16 +150,8 @@ Coffee:Coffeemaking_Water_Temperature_Req2 rdf:type owl:NamedIndividual ,
                                            DINEN61360:Value 50 .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/coffeemaking#Temperature
+### Temperature
 Coffee:Temperature rdf:type owl:NamedIndividual ,
                             DINEN61360:Type_Description ;
                    DINEN61360:Definition "A temperature of a subject measured in ° Celsius" ;
                    DINEN61360:Unit_of_Measure "° C" .
-
-
-###  http://www.w3.org/1999/02/22-rdf-syntax-ns#nil
-rdf:nil rdf:type owl:NamedIndividual ,
-                 rdf:List .
-
-
-###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
