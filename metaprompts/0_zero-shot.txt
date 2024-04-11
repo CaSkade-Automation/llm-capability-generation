@@ -5,15 +5,7 @@ Translate a natural language input describing a capability into an OWL ontology 
 ${T-Box}
 
 ### Input Data ###
-${Example Capability-Text}
-
-### Output Indicator ### 
-OWL-Ontology:
-
-${Example Capability A-Box}
-
-### Input Data ###
-${Capability-Text}
+${Task}
 
 ### Output Indicator ### 
 OWL-Ontology:
