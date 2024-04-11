@@ -85,7 +85,7 @@ with open(cask_path, 'r', encoding='utf-8') as cask_file:
 				task_description_content = task_description_file.read()
 
 				# Replace task
-				prompt = re.sub(re.escape("${Task}"), task_description_content, one_shot_meta_content_with_t_box)
+				prompt = re.sub(re.escape("${Task}"), task_description_content, few_shot_meta_content_with_t_box)
 
 				# Replace example task and capability 1
 				with open("../examples/coffeemaking-task.txt", 'r', encoding='utf-8') as coffe_task_description_file:
