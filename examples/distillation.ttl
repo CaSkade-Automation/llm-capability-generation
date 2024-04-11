@@ -14,18 +14,14 @@
 <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/distillation> rdf:type owl:Ontology ;
                                                                               owl:imports <https://w3id.org/hsu-aut/cask/2.5.3> .
 
-#################################################################
-#    Individuals
-#################################################################
-
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/distillation#BoilingPoint
+### DistillationBoilingPoint
 Dist:BoilingPoint rdf:type owl:NamedIndividual ,
                            DINEN61360:Type_Description ;
                   DINEN61360:Definition "The boiling point of a liquid is the temperature at which its vapor pressure equals the atmospheric pressure surrounding the liquid, causing it to transition from the liquid phase to the vapor (gas) phase" ;
                   DINEN61360:Unit_of_Measure "K" .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/distillation#Constraint_InputBoilingPoints
+### DistillationConstraint_InputBoilingPoints
 Dist:Constraint_InputBoilingPoints rdf:type owl:NamedIndividual ,
                                             OM:Application ,
                                             CSS:CapabilityConstraint ;
@@ -33,7 +29,7 @@ Dist:Constraint_InputBoilingPoints rdf:type owl:NamedIndividual ,
 									OM:arguments ( Dist:Distillation_input_liquid1_boilingPoint_ID Dist:Distillation_input_liquid2_boilingPoint_ID ) .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/distillation#Constraint_OutputBoilingPoints
+### DistillationConstraint_OutputBoilingPoints
 Dist:Constraint_OutputBoilingPoints rdf:type owl:NamedIndividual ,
                                              OM:Application ,
                                              CSS:CapabilityConstraint ;
@@ -41,7 +37,7 @@ Dist:Constraint_OutputBoilingPoints rdf:type owl:NamedIndividual ,
 									OM:arguments ( Dist:Distillation_output_distillate_boilingPoint_ID_AS Dist:Distillation_output_residue_boilingPoint_ID_AS) .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/distillation#Constraint_TotalMass
+### DistillationConstraint_TotalMass
 Dist:Constraint_TotalMass rdf:type owl:NamedIndividual ,
                                    OM:Application ,
                                    CSS:CapabilityConstraint ;
@@ -62,7 +58,7 @@ Dist:Constraint_TotalMass rdf:type owl:NamedIndividual ,
 						
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/distillation#Distillation
+### DistillationDistillation
 Dist:Distillation rdf:type owl:NamedIndividual ,
                            VDI3682:ProcessOperator ,
                            CSS:Capability ;
@@ -75,7 +71,7 @@ Dist:Distillation rdf:type owl:NamedIndividual ,
                                     Dist:Constraint_TotalMass .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/distillation#Distillation_input_liquid1_boilingPoint_DE
+### DistillationDistillation_input_liquid1_boilingPoint_DE
 Dist:Distillation_input_liquid1_boilingPoint_DE rdf:type owl:NamedIndividual ,
                                                          DINEN61360:Data_Element ,
                                                          CSS:Property ;
@@ -83,14 +79,14 @@ Dist:Distillation_input_liquid1_boilingPoint_DE rdf:type owl:NamedIndividual ,
                                                 DINEN61360:has_Type_Description Dist:BoilingPoint .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/distillation#Distillation_input_liquid1_boilingPoint_ID
+### DistillationDistillation_input_liquid1_boilingPoint_ID
 Dist:Distillation_input_liquid1_boilingPoint_ID rdf:type owl:NamedIndividual ,
                                                          DINEN61360:Instance_Description ;
                                                 DINEN61360:Expression_Goal "Actual_Value" ;
                                                 DINEN61360:Logic_Interpretation "=" .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/distillation#Distillation_input_liquid1_mass_DE
+### DistillationDistillation_input_liquid1_mass_DE
 Dist:Distillation_input_liquid1_mass_DE rdf:type owl:NamedIndividual ,
                                                  DINEN61360:Data_Element ,
                                                  CSS:Property ;
@@ -98,14 +94,14 @@ Dist:Distillation_input_liquid1_mass_DE rdf:type owl:NamedIndividual ,
                                         DINEN61360:has_Type_Description Dist:Mass .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/distillation#Distillation_input_liquid1_mass_ID
+### DistillationDistillation_input_liquid1_mass_ID
 Dist:Distillation_input_liquid1_mass_ID rdf:type owl:NamedIndividual ,
                                                  DINEN61360:Instance_Description ;
                                         DINEN61360:Expression_Goal "Actual_Value" ;
                                         DINEN61360:Logic_Interpretation "=" .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/distillation#Distillation_input_liquid2_boilingPoint_DE
+### DistillationDistillation_input_liquid2_boilingPoint_DE
 Dist:Distillation_input_liquid2_boilingPoint_DE rdf:type owl:NamedIndividual ,
                                                          DINEN61360:Data_Element ,
                                                          CSS:Property ;
@@ -113,14 +109,14 @@ Dist:Distillation_input_liquid2_boilingPoint_DE rdf:type owl:NamedIndividual ,
                                                 DINEN61360:has_Type_Description Dist:BoilingPoint .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/distillation#Distillation_input_liquid2_boilingPoint_ID
+### DistillationDistillation_input_liquid2_boilingPoint_ID
 Dist:Distillation_input_liquid2_boilingPoint_ID rdf:type owl:NamedIndividual ,
                                                          DINEN61360:Instance_Description ;
                                                 DINEN61360:Expression_Goal "Actual_Value" ;
                                                 DINEN61360:Logic_Interpretation "=" .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/distillation#Distillation_input_liquid2_mass_DE
+### DistillationDistillation_input_liquid2_mass_DE
 Dist:Distillation_input_liquid2_mass_DE rdf:type owl:NamedIndividual ,
                                                  DINEN61360:Data_Element ,
                                                  CSS:Property ;
@@ -128,14 +124,14 @@ Dist:Distillation_input_liquid2_mass_DE rdf:type owl:NamedIndividual ,
                                         DINEN61360:has_Type_Description Dist:Mass .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/distillation#Distillation_input_liquid2_mass_ID
+### DistillationDistillation_input_liquid2_mass_ID
 Dist:Distillation_input_liquid2_mass_ID rdf:type owl:NamedIndividual ,
                                                  DINEN61360:Instance_Description ;
                                         DINEN61360:Expression_Goal "Actual_Value" ;
                                         DINEN61360:Logic_Interpretation "=" .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/distillation#Distillation_input_liquidMixture
+### DistillationDistillation_input_liquidMixture
 Dist:Distillation_input_liquidMixture rdf:type owl:NamedIndividual ,
                                                VDI3682:Product ;
                                       DINEN61360:has_Data_Element Dist:Distillation_input_liquid1_boilingPoint_DE ,
@@ -145,7 +141,7 @@ Dist:Distillation_input_liquidMixture rdf:type owl:NamedIndividual ,
                                       rdfs:comment "In distillation, a \"liquid mixture\" refers to a solution or blend comprising two or more substances with different boiling points, which are combined in the liquid phase." .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/distillation#Distillation_output_distillate
+### DistillationDistillation_output_distillate
 Dist:Distillation_output_distillate rdf:type owl:NamedIndividual ,
                                              VDI3682:Product ;
                                     DINEN61360:has_Data_Element Dist:Distillation_output_distillate_boilingPoint_DE ,
@@ -153,57 +149,57 @@ Dist:Distillation_output_distillate rdf:type owl:NamedIndividual ,
                                     rdfs:comment "The term \"distillate\" refers to the purified or separated component that is collected after condensation from the vapor phase during the distillation process" .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/distillation#Distillation_output_distillate_boilingPoint_DE
+### DistillationDistillation_output_distillate_boilingPoint_DE
 Dist:Distillation_output_distillate_boilingPoint_DE rdf:type owl:NamedIndividual ,
                                                              DINEN61360:Data_Element ;
                                                     DINEN61360:has_Instance_Description Dist:Distillation_output_distillate_boilingPoint_ID_AS ;
                                                     DINEN61360:has_Type_Description Dist:BoilingPoint .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/distillation#Distillation_output_distillate_boilingPoint_ID_AS
+### DistillationDistillation_output_distillate_boilingPoint_ID_AS
 Dist:Distillation_output_distillate_boilingPoint_ID_AS rdf:type owl:NamedIndividual ,
                                                                 DINEN61360:Instance_Description ;
                                                        DINEN61360:Expression_Goal "Assurance" ;
                                                        DINEN61360:Logic_Interpretation "=" .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/distillation#Distillation_output_distillate_mass_DE
+### DistillationDistillation_output_distillate_mass_DE
 Dist:Distillation_output_distillate_mass_DE rdf:type owl:NamedIndividual ,
                                                      DINEN61360:Data_Element ;
                                             DINEN61360:has_Instance_Description Dist:Distillation_output_distillate_mass_ID_AS ;
                                             DINEN61360:has_Type_Description Dist:Mass .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/distillation#Distillation_output_distillate_mass_ID_AS
+### DistillationDistillation_output_distillate_mass_ID_AS
 Dist:Distillation_output_distillate_mass_ID_AS rdf:type owl:NamedIndividual ,
                                                         DINEN61360:Instance_Description ;
                                                DINEN61360:Expression_Goal "Assurance" ;
                                                DINEN61360:Logic_Interpretation "=" .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/distillation#Distillation_output_residue
+### DistillationDistillation_output_residue
 Dist:Distillation_output_residue rdf:type owl:NamedIndividual ,
                                           VDI3682:Product ;
-                                 DINEN61360:has_Data_Element Dist:Distillation_output_distillate_boilingPoint_DE ,
-                                                             Dist:Distillation_output_distillate_mass_DE ;
+                                 DINEN61360:has_Data_Element Dist:Distillation_output_residue_boilingPoint_DE ,
+                                                             Dist:Distillation_output_residue_mass_DE ;
                                  rdfs:comment "In distillation, the \"residue\" refers to the portion of the original liquid mixture that remains in the distillation apparatus after the more volatile components have evaporated and been collected as distillate." .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/distillation#Distillation_output_residue_boilingPoint_DE
+### DistillationDistillation_output_residue_boilingPoint_DE
 Dist:Distillation_output_residue_boilingPoint_DE rdf:type owl:NamedIndividual ,
                                                           DINEN61360:Data_Element ;
                                                  DINEN61360:has_Instance_Description Dist:Distillation_output_residue_boilingPoint_ID_AS ;
                                                  DINEN61360:has_Type_Description Dist:BoilingPoint .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/distillation#Distillation_output_residue_boilingPoint_ID_AS
+### DistillationDistillation_output_residue_boilingPoint_ID_AS
 Dist:Distillation_output_residue_boilingPoint_ID_AS rdf:type owl:NamedIndividual ,
                                                              DINEN61360:Instance_Description ;
                                                     DINEN61360:Expression_Goal "Assurance" ;
                                                     DINEN61360:Logic_Interpretation "=" .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/distillation#Distillation_output_residue_mass_DE
+### DistillationDistillation_output_residue_mass_DE
 Dist:Distillation_output_residue_mass_DE rdf:type owl:NamedIndividual ,
                                                   DINEN61360:Data_Element ,
                                                   CSS:Property ;
@@ -211,18 +207,16 @@ Dist:Distillation_output_residue_mass_DE rdf:type owl:NamedIndividual ,
                                          DINEN61360:has_Type_Description Dist:Mass .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/distillation#Distillation_output_residue_mass_ID_AS
+### DistillationDistillation_output_residue_mass_ID_AS
 Dist:Distillation_output_residue_mass_ID_AS rdf:type owl:NamedIndividual ,
                                                      DINEN61360:Instance_Description ;
                                             DINEN61360:Expression_Goal "Assurance" ;
                                             DINEN61360:Logic_Interpretation "=" .
 
 
-###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/distillation#Mass
+### DistillationMass
 Dist:Mass rdf:type owl:NamedIndividual ,
                    DINEN61360:Type_Description ;
           DINEN61360:Definition "Mass is a fundamental property of physical objects that quantifies the amount of matter within them. It's a measure of an object's resistance to acceleration when a force is applied." ;
           DINEN61360:Unit_of_Measure "kg" .
 
-
-###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
