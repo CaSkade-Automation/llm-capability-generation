@@ -9,7 +9,7 @@
 :CapabilityConstraintShape
   a sh:NodeShape ;
   sh:targetClass CSS:CapabilityConstraint;	# target class of shape -> applies to all capability constraints
-  sh:ignoredProperties ( rdf:type ) ; 		# ignore rdf:type
+  sh:ignoredProperties ( rdf:type rdfs:label) ; 		# ignore rdf:type
   sh:closed true ;  		# closes the shape, i.e., only the properties mentioned are allowed to be used
   sh:property [
     sh:path OM:operator ;  # allow exactly one occurrence of OM:operator

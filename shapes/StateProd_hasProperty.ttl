@@ -9,9 +9,10 @@
 :ProductShape
   a sh:NodeShape ;
   sh:targetClass VDI3682:Product;  					# target class of shape -> applies to all products 
-  sh:ignoredProperties ( rdf:type ) ;  				# ignore rdf:type
+  sh:ignoredProperties ( rdf:type rdfs:label) ;  				# ignore rdf:type
   sh:closed true ;									# closes the shape, i.e., only the properties mentioned are allowed to be used
   sh:property [
     sh:path DINEN61360:has_Data_Element;  			# allows any number of data elements 
+    sh:class DINEN61360:Data_Element;				
     sh:minCount 0 ;
   ].

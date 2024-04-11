@@ -8,14 +8,16 @@
 :DataElementShape
   a sh:NodeShape ;
   sh:targetClass DINEN61360:Data_Element;  			# target class of shape -> applies to all data elements
-  sh:ignoredProperties ( rdf:type ) ;  				# ignore rdf:type
+  sh:ignoredProperties ( rdf:type rdfs:label) ;  				# ignore rdf:type
   sh:closed true ;									# closes the shape, i.e., only the properties mentioned are allowed to be used
   sh:property [
     sh:path DINEN61360:has_Type_Description;  		# allows exactly one type description
+    sh:class DINEN61360:Type_Description ;
     sh:minCount 1 ;
 	sh:maxCount 1 ;
   ];
   sh:property [
     sh:path DINEN61360:has_Instance_Description;	# requires min 1 instance description
+    sh:class DINEN61360:Instance_Description ;
     sh:minCount 1 ;
   ].

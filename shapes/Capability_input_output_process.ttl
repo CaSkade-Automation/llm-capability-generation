@@ -9,21 +9,35 @@
 :CapabilityShape
   a sh:NodeShape ;
   sh:targetClass CSS:Capability;  		# target class of shape -> applies to all capabilities
-  sh:ignoredProperties ( rdf:type ) ;  	# ignore rdf:type
+  sh:ignoredProperties ( rdf:type rdfs:label) ;  	# ignore rdf:type
   sh:closed true ;		# closes the shape, i.e., only the properties mentioned are allowed to be used
   sh:property [
-    sh:path VDI3682:hasInput;  # allows any number of hasInput relations
+    sh:path VDI3682:hasInput;  # allows any number of hasInput 
+    sh:or (                    # input has to be individual of class Product or class Information
+      [ sh:class VDI3682:Product ] 
+      [ sh:class VDI3682:Information ] 
+      ) ;
     sh:minCount 0 ;
   ];
   sh:property [
     sh:path VDI3682:hasOutput;  # allows any number of hasOutput relations
+    sh:or (                     # output has to be individual of class Product or class Information
+      [ sh:class VDI3682:Product ] 
+      [ sh:class VDI3682:Information ] 
+      ) ;
     sh:minCount 0 ;
   ];
   sh:property [
     sh:path CSS:isRestrictedBy;  # allows any number of capability constraints
+    sh:class CSS:CapabilityConstraint ;
     sh:minCount 0 ;
   ];
   sh:property [
     sh:path ( sh:inversePath CSS:requiresCapability );  # requires min 1 process to be connected to capability
+    sh:or (                                             # Capability must be required by process
+      [ sh:class VDI3682:ProcessOperator ] 
+      [ sh:class CSS:Process ]
+      [ sh:class VDI3682:Process ] 
+      ) ;
     sh:minCount 1 ;
   ].
