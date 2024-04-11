@@ -1,0 +1,62 @@
+```turtle
+@prefix : <http://www.w3id.org/hsu-aut/cask#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@prefix VDI2206: <http://www.hsu-ifa.de/ontologies/VDI2206#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+### Individual declarations and their properties for the Addition Capability
+
+# Definition of Addition Capability
+:Addition rdf:type CSS:Capability ;
+          rdfs:label "Addition of two integers" .
+
+# Define Properties (input a, input b, output sum)
+:inputA_property rdf:type DINEN61360:Data_Element ;
+                 DINEN61360:has_Instance_Description :inputA_instance ;
+                 DINEN61360:has_Type_Description :Information_Integer_TD .
+
+:inputB_property rdf:type DINEN61360:Data_Element ;
+                 DINEN61360:has_Instance_Description :inputB_instance ;
+                 DINEN61360:has_Type_Description :Information_Integer_TD .
+
+:outputSum_property rdf:type DINEN61360:Data_Element ;
+                    DINEN61360:has_Instance_Description :outputSum_instance ;
+                    DINEN61360:has_Type_Description :Information_Integer_TD_Assurance .
+
+# Instance Descriptions 
+:inputA_instance rdf:type DINEN61360:Instance_Description ;
+                 DINEN61360:Expression_Goal "Requirement" .
+
+:inputB_instance rdf:type DINEN61360:Instance_Description ;
+                 DINEN61360:Expression_Goal "Requirement" .
+
+:outputSum_instance rdf:type DINEN61360:Instance_Description ;
+                    DINEN61360:Expression_Goal "Assurance" ;
+
+# Type Descriptions (specifying that inputs and outputs are of type Information and Integer)
+:Information_Integer_TD rdf:type DINEN61360:Type_Description ;
+                        DINEN61360:Preferred_Name "Information Integer" ;
+                        DINEN61360:Definition "An integer value representing information" ;
+                        DINEN61360:Code "info01" .
+
+:Information_Integer_TD_Assurance rdf:type DINEN61360:Type_Description ;
+                                  DINEN61360:Preferred_Name "Information Integer" ;
+                                  DINEN61360:Definition "An integer output as an assurance returning summation result." ;
+                                  DINEN61360:Code "info02" .
+
+# Defining integer data type for input and output
+:Information_Integer rdf:type DINEN61360:Integer ;
+                      DINEN61360:Value_Format_quantitativ "int".
+
+### Mathematical model relations with Open Math
+# Function adding two inputs
+:AdditionFunction rdf:type owl:NamedIndividual ;
+                  rdf:type <http://www.openmath.org/vocab/math#Application> ;
+                  <http://openmath.org/vocab/math#operator> <http://www.openmath.org/cd/arith1#plus> ;
+                  <http://openmath.org/vocab/math#arguments> (:inputA_property :inputB_property) ;
+                  <http://openmath.org/vocab/math#result> :outputSum_property .
+```
+
+This translation maps the input data to an OWL ontology in Turtle syntax. The example captures a capability for addition, defining 'Data_Element' individuals for inputs and output, their respective type as integers and information, and a specific operation using OpenMath's vocabulary. This ontology snippet allows linking with mathematical concepts and can be extended to involve more complex function mappings and interactions.
