@@ -1,0 +1,73 @@
+@prefix : <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix Add: <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/addition#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix openmath: <http://openmath.org/vocab/math#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@base <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+<http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/addition> rdf:type owl:Ontology ;
+                                                                         owl:imports <https://w3id.org/hsu-aut/cask/2.5.3> .
+### Addition                                                     
+Add:Addition rdf:type owl:NamedIndividual , 
+                      VDI3682:ProcessOperator ,
+                      CSS:Capability ;
+             VDI3682:hasInput Add:Addition_a ,
+                              Add:Addition_b ;
+             VDI3682:hasOutput Add:Addition_sum ;
+             CSS:requiresCapability Add:Addition .
+### Addition_a
+Add:Addition_a rdf:type owl:NamedIndividual ,
+                        VDI3682:Information ;
+               DINEN61360:has_Data_Element Add:Addition_a_DE .
+### Addition_a_DE
+Add:Addition_a_DE rdf:type owl:NamedIndividual , 
+                           DINEN61360:Data_Element ;
+                  DINEN61360:has_Instance_Description Add:Addition_a_ID ;
+                  DINEN61360:has_Type_Description Add:Integer .
+### Addition_a_ID                   
+Add:Addition_a_ID rdf:type owl:NamedIndividual ,
+                           openmath:Variable ,
+                           DINEN61360:Instance_Description ,
+                           DINEN61360:Integer ;
+                  openmath:name "http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/addition#Addition_a_ID" . 
+### Addition_b
+Add:Addition_b rdf:type owl:NamedIndividual ,
+                        VDI3682:Information ;
+               DINEN61360:has_Data_Element Add:Addition_b_DE .
+### Addition_b_DE
+Add:Addition_b_DE rdf:type owl:NamedIndividual ,
+                           DINEN61360:Data_Element ; 
+                  DINEN61360:has_Instance_Description Add:Addition_b_ID ;
+                  DINEN61360:has_Type_Description Add:Integer .
+### Addition_b_ID
+Add:Addition_b_ID rdf:type owl:NamedIndividual ,
+                           openmath:Variable ,
+                           DINEN61360:Instance_Description ,
+                           DINEN61360:Integer ;
+                  openmath:name "http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/addition#Addition_b_ID" .
+### Addition_sum  
+Add:Addition_sum rdf:type owl:NamedIndividual ,
+                          VDI3682:Information ;
+                 DINEN61360:has_Data_Element Add:Addition_sum_DE .
+### Addition_sum_DE
+Add:Addition_sum_DE rdf:type owl:NamedIndividual ,
+                             DINEN61360:Data_Element ;
+                    DINEN61360:has_Instance_Description Add:Addition_sum_ID ;
+                    DINEN61360:has_Type_Description Add:Integer .
+### Addition_sum_ID
+Add:Addition_sum_ID rdf:type owl:NamedIndividual , 
+                             openmath:Application ,
+                             DINEN61360:Instance_Description ,
+                             DINEN61360:Integer ;
+                    openmath:arguments ( Add:Addition_a_ID Add:Addition_b_ID ) ;
+                    openmath:operator <http://www.openmath.org/cd/arith1#plus> ;
+                    DINEN61360:Expression_Goal "Assurance" .
+### Integer            
+Add:Integer rdf:type owl:NamedIndividual ,
+                     DINEN61360:Type_Description ;
+            DINEN61360:Definition "An integer value" .

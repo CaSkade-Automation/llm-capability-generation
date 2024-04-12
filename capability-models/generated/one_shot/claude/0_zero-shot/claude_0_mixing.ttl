@@ -1,0 +1,72 @@
+@prefix : <http://www.w3id.org/hsu-aut/cask#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix math: <http://www.openmath.org/cd/arith1#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix VDI2206: <http://www.hsu-ifa.de/ontologies/VDI2206#> .
+@base <http://www.w3id.org/hsu-aut/cask> .
+
+:volumeFractionLiquid1_minmax a <http://openmath.org/vocab/math#Application> ;
+  <http://openmath.org/vocab/math#operator> math:leq ;
+  <http://openmath.org/vocab/math#arguments> ( :volumeFractionLiquid1 "0.5"^^xsd:float ) .
+
+:volumeFractionLiquid2_min a <http://openmath.org/vocab/math#Application> ;
+  <http://openmath.org/vocab/math#operator> math:geq ;
+  <http://openmath.org/vocab/math#arguments> ( :volumeFractionLiquid2 "0.2"^^xsd:float ) .
+  
+:volumeFractionLiquid2_max a <http://openmath.org/vocab/math#Application> ;
+  <http://openmath.org/vocab/math#operator> math:leq ;
+  <http://openmath.org/vocab/math#arguments> ( :volumeFractionLiquid2 "0.5"^^xsd:float ) .
+
+:volumeFractionLiquid3_max a <http://openmath.org/vocab/math#Application> ;
+  <http://openmath.org/vocab/math#operator> math:leq ;
+  <http://openmath.org/vocab/math#arguments> ( :volumeFractionLiquid3 "0.1"^^xsd:float ) .
+  
+:totalVolume_max a <http://openmath.org/vocab/math#Application> ;
+  <http://openmath.org/vocab/math#operator> math:leq ;
+  <http://openmath.org/vocab/math#arguments> ( :totalVolume "10.0"^^xsd:float ) . 
+  
+:sumOfVolumeFractions a <http://openmath.org/vocab/math#Application> ;
+  <http://openmath.org/vocab/math#operator> math:eq ;
+  <http://openmath.org/vocab/math#arguments> ( [ a <http://openmath.org/vocab/math#Application> ;
+                                                 <http://openmath.org/vocab/math#operator> math:plus ;
+                                                 <http://openmath.org/vocab/math#arguments> ( :volumeFractionLiquid1 
+                                                                                             :volumeFractionLiquid2
+                                                                                             :volumeFractionLiquid3 )
+                                               ]
+                                              "1.0"^^xsd:float ) .
+                                              
+:Mixing a CSS:Capability ;
+  rdfs:label "Mixing"@en ;
+  CSS:offersUseOf :MixingCapability ;
+  CSS:isSpecifiedBy :totalVolume ,
+                    :volumeFractionLiquid1 ,
+                    :volumeFractionLiquid2 ,
+                    :volumeFractionLiquid3 ;
+  CSS:hasInput :liquid1 ,
+               :liquid2 ,
+               :liquid3 ,
+               :totalVolume ,
+               :volumeFractionLiquid1 ,
+               :volumeFractionLiquid2 ,
+               :volumeFractionLiquid3 ;
+  CSS:hasOutput :liquidMixture ;
+  CSS:isRestrictedBy :volumeFractionLiquid1_minmax ,
+                     :volumeFractionLiquid2_min ,
+                     :volumeFractionLiquid2_max ,
+                     :volumeFractionLiquid3_max ,
+                     :totalVolume_max ,
+                     :sumOfVolumeFractions .
+                     
+:volumeFractionLiquid1 a CSS:Property .
+:volumeFractionLiquid2 a CSS:Property .
+:volumeFractionLiquid3 a CSS:Property .
+:totalVolume a CSS:Property .
+
+:liquid1 a VDI2206:Product .
+:liquid2 a VDI2206:Product .
+:liquid3 a VDI2206:Product .
+:liquidMixture a VDI2206:Product .

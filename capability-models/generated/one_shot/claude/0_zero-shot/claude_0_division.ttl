@@ -1,0 +1,65 @@
+@prefix : <http://www.semanticweb.org/ontologies/example#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix OpenMath: <http://www.openmath.org/cd/arith1#> .
+
+:Division a CSS:Capability ;
+  rdfs:label "Division" ;
+  CSS:isRealizedBySkill :DivisionSkill ;
+  CSS:isSpecifiedBy :DividendProperty , :DivisorProperty , :QuotientProperty .
+
+:DividendProperty a CSS:Property ;
+  DINEN61360:has_Type_Description :DividendPropertyTypeDescription .
+
+:DividendPropertyTypeDescription a DINEN61360:Type_Description ;
+  DINEN61360:Definition "The dividend input for the division operation." ;
+  DINEN61360:Preferred_Name "dividend" .
+
+:DividendInstance a DINEN61360:Instance_Description ;
+  DINEN61360:Logic_Interpretation "=" ; 
+  DINEN61360:Expression_Goal "Requirement" ;
+  DINEN61360:has_Type_Description :DividendPropertyTypeDescription .
+
+:DivisorProperty a CSS:Property ;
+  DINEN61360:has_Type_Description :DivisorPropertyTypeDescription .
+
+:DivisorPropertyTypeDescription a DINEN61360:Type_Description ;
+  DINEN61360:Definition "The divisor input for the division operation." ;
+  DINEN61360:Preferred_Name "divisor" .
+
+:DivisorInstance a DINEN61360:Instance_Description ;
+  DINEN61360:Logic_Interpretation ">" ; 
+  DINEN61360:Expression_Goal "Requirement" ;
+  DINEN61360:Value "0"^^xsd:integer ;
+  DINEN61360:has_Type_Description :DivisorPropertyTypeDescription .
+
+:QuotientProperty a CSS:Property ;
+  DINEN61360:has_Type_Description :QuotientPropertyTypeDescription .
+
+:QuotientPropertyTypeDescription a DINEN61360:Type_Description ;
+  DINEN61360:Definition "The quotient output of the division operation." ;
+  DINEN61360:Preferred_Name "quotient" .
+
+:DivisorNotZeroConstraint a CSS:CapabilityConstraint ;
+  CSS:references :DivisorProperty ;
+  OpenMath:symbol OpenMath:divide ;
+  OpenMath:arguments ( :DividendPropertyTypeDescription  
+                       :DivisorPropertyTypeDescription ) .
+
+:DivisionSkill a CSS:Skill ;
+  CSS:isRealizedBy :Division ;
+  DINEN61360:has_Data_Element :DividendParameter , :DivisorParameter , :QuotientOutput .
+
+:DividendParameter a CSS:SkillParameter ;
+  DINEN61360:has_Type_Description :DividendPropertyTypeDescription .
+
+:DivisorParameter a CSS:SkillParameter ;
+  DINEN61360:has_Type_Description :DivisorPropertyTypeDescription .
+
+:QuotientOutput a :SkillOutput ;  
+  DINEN61360:has_Type_Description :QuotientPropertyTypeDescription .

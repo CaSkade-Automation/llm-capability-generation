@@ -1,0 +1,86 @@
+@prefix : <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix Division: <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/division#> .
+@prefix openmath: <http://openmath.org/vocab/math#> .
+@prefix VDI2206: <http://www.hsu-ifa.de/ontologies/VDI2206#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@base <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+<http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/division> rdf:type owl:Ontology ;
+                                                                           owl:imports <https://w3id.org/hsu-aut/cask/2.5.3> .
+### Dividend
+Division:Dividend rdf:type owl:NamedIndividual ,
+                           VDI2206:Information ;
+                  DINEN61360:has_Data_Element Division:Dividend_DE .
+### Dividend_DE
+Division:Dividend_DE rdf:type owl:NamedIndividual ,
+                              DINEN61360:Data_Element ;
+                     DINEN61360:has_Instance_Description Division:Dividend_ID ;
+                     DINEN61360:has_Type_Description Division:Integer .
+### Dividend_ID
+Division:Dividend_ID rdf:type owl:NamedIndividual ,
+                              openmath:Variable ,
+                              DINEN61360:Instance_Description ;
+                     openmath:name "http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/division#Dividend_ID" .
+### Division
+Division:Division rdf:type owl:NamedIndividual ,
+                           CSS:Capability ;
+                  CSS:isRestrictedBy Division:Division_Constraint_DivisorNotZero ;
+                  VDI2206:hasInput Division:Dividend ,
+                                   Division:Divisor ;
+                  VDI2206:hasOutput Division:Quotient ;
+                  rdfs:label "Division" .
+### Division_Constraint_DivisorNotZero
+Division:Division_Constraint_DivisorNotZero rdf:type owl:NamedIndividual ,
+                                                     openmath:Application ,
+                                                     CSS:CapabilityConstraint ;
+                                            openmath:arguments ( Division:Divisor_ID _:genid1 ) ;
+                                            openmath:operator <http://www.openmath.org/cd/relation1#neq> ;
+                                            CSS:references Division:Divisor_ID .
+_:genid1 rdf:type openmath:Literal ;
+         openmath:value 0 .
+### Divisor
+Division:Divisor rdf:type owl:NamedIndividual ,
+                          VDI2206:Information ;
+                 DINEN61360:has_Data_Element Division:Divisor_DE .
+### Divisor_DE
+Division:Divisor_DE rdf:type owl:NamedIndividual ,
+                             DINEN61360:Data_Element ;
+                    DINEN61360:has_Instance_Description Division:Divisor_ID ;
+                    DINEN61360:has_Type_Description Division:Integer .
+### Divisor_ID
+Division:Divisor_ID rdf:type owl:NamedIndividual ,
+                             openmath:Variable ,
+                             DINEN61360:Instance_Description ;
+                    openmath:name "http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/division#Divisor_ID" .
+### Integer
+Division:Integer rdf:type owl:NamedIndividual ,
+                          DINEN61360:Type_Description .
+### Quotient
+Division:Quotient rdf:type owl:NamedIndividual ,
+                           VDI2206:Information ;
+                  DINEN61360:has_Data_Element Division:Quotient_DE .
+### Quotient_DE
+Division:Quotient_DE rdf:type owl:NamedIndividual ,
+                              DINEN61360:Data_Element ;
+                     DINEN61360:has_Instance_Description Division:Quotient_ID ;
+                     DINEN61360:has_Type_Description Division:Real .
+### Quotient_ID
+Division:Quotient_ID rdf:type owl:NamedIndividual ,
+                              openmath:Application ,
+                              openmath:Variable ,
+                              DINEN61360:Instance_Description ;
+                     openmath:arguments ( Division:Dividend_ID Division:Divisor_ID ) ;
+                     openmath:operator <http://www.openmath.org/cd/arith1#divide> ;
+                     openmath:name "http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/division#Quotient_ID" .
+### Real
+Division:Real rdf:type owl:NamedIndividual ,
+                       DINEN61360:Type_Description .
+
+The ontology defines a "Division" capability that takes a dividend and divisor as inputs, both of type integer, and returns a quotient as output of type real. 
+The divisor has a capability constraint specifying that it must not be equal to zero.
+The quotient is defined using an OpenMath Application that divides the dividend by the divisor.

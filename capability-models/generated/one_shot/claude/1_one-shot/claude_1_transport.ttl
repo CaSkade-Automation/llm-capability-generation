@@ -1,0 +1,106 @@
+@prefix : <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix Transport: <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/transport#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix openmath: <http://openmath.org/vocab/math#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@base <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+<http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/transport> rdf:type owl:Ontology ;
+                                                                          owl:imports <https://w3id.org/hsu-aut/cask/2.5.3> .
+### AGV
+Transport:AGV rdf:type owl:NamedIndividual ,
+                       VDI3682:TechnicalResource ,
+                       CSS:Resource ;
+              DINEN61360:has_Data_Element Transport:AGV_Position_DE .
+### AGV_Position_DE
+Transport:AGV_Position_DE rdf:type owl:NamedIndividual ,
+                                   DINEN61360:Data_Element ;
+                          DINEN61360:has_Instance_Description Transport:AGV_Position_ID ;
+                          DINEN61360:has_Type_Description Transport:Position .
+### AGV_Position_ID
+Transport:AGV_Position_ID rdf:type owl:NamedIndividual ,
+                                   DINEN61360:Instance_Description ;
+                          DINEN61360:Expression_Goal "Actual_Value" ;
+                          DINEN61360:Logic_Interpretation "=" .
+### Position
+Transport:Position rdf:type owl:NamedIndividual ,
+                            DINEN61360:Type_Description ;
+                   DINEN61360:Definition "Position coordinates of an entity consisting of latitude and longitude in decimal degrees." ;
+                   DINEN61360:Preferred_Name "Position" ;
+                   DINEN61360:Unit_of_Measure "decimal degrees" .
+### Transport
+Transport:Transport rdf:type owl:NamedIndividual ,
+                             VDI3682:ProcessOperator ,
+                             CSS:Capability ;
+                    VDI3682:hasInput Transport:Transport_A ,
+                                     Transport:Transport_Goal ;
+                    VDI3682:hasOutput Transport:Transport_A_Goal ;
+                    CSS:isRestrictedBy Transport:Transport_Constraint_AGV_Position ,
+                                       Transport:Transport_Constraint_Goal ;
+                    CSS:isRealizedBySkill Transport:Transport ;
+                    CSS:providesCapability Transport:Transport .
+### Transport_A
+Transport:Transport_A rdf:type owl:NamedIndividual ,
+                               VDI3682:Product ;
+                      DINEN61360:has_Data_Element Transport:Transport_A_Position_DE .
+### Transport_A_Goal
+Transport:Transport_A_Goal rdf:type owl:NamedIndividual ,
+                                    VDI3682:Product ;
+                           DINEN61360:has_Data_Element Transport:Transport_A_Goal_Position_DE .
+### Transport_A_Goal_Position_DE
+Transport:Transport_A_Goal_Position_DE rdf:type owl:NamedIndividual ,
+                                                DINEN61360:Data_Element ;
+                                       DINEN61360:has_Instance_Description Transport:Transport_A_Goal_Position_ID ;
+                                       DINEN61360:has_Type_Description Transport:Position .
+### Transport_A_Goal_Position_ID
+Transport:Transport_A_Goal_Position_ID rdf:type owl:NamedIndividual ,
+                                                DINEN61360:Instance_Description ,
+                                                openmath:Variable ;
+                                       openmath:name "http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/transport#Transport_A_Goal_Position_ID" ;
+                                       DINEN61360:Expression_Goal "Assurance" .
+### Transport_A_Position_DE
+Transport:Transport_A_Position_DE rdf:type owl:NamedIndividual ,
+                                           DINEN61360:Data_Element ;
+                                  DINEN61360:has_Instance_Description Transport:Transport_A_Position_ID ;
+                                  DINEN61360:has_Type_Description Transport:Position .
+### Transport_A_Position_ID
+Transport:Transport_A_Position_ID rdf:type owl:NamedIndividual ,
+                                           DINEN61360:Instance_Description ;
+                                  DINEN61360:Expression_Goal "Actual_Value" ;
+                                  DINEN61360:Logic_Interpretation "=" .
+### Transport_Constraint_AGV_Position
+Transport:Transport_Constraint_AGV_Position rdf:type owl:NamedIndividual ,
+                                                     openmath:Application ,
+                                                     CSS:CapabilityConstraint ;
+                                            openmath:arguments ( Transport:AGV_Position_ID Transport:Transport_A_Position_ID ) ;
+                                            openmath:operator <http://www.openmath.org/cd/relation1#eq> ;
+                                            CSS:references Transport:AGV_Position_ID ,
+                                                           Transport:Transport_A_Position_ID .
+### Transport_Constraint_Goal
+Transport:Transport_Constraint_Goal rdf:type owl:NamedIndividual ,
+                                             openmath:Application ,
+                                             CSS:CapabilityConstraint ;
+                                    openmath:arguments ( Transport:Transport_A_Goal_Position_ID Transport:Transport_Goal_Position_ID ) ;
+                                    openmath:operator <http://www.openmath.org/cd/relation1#eq> ;
+                                    CSS:references Transport:Transport_A_Goal_Position_ID ,
+                                                   Transport:Transport_Goal_Position_ID .
+### Transport_Goal
+Transport:Transport_Goal rdf:type owl:NamedIndividual ,
+                                  VDI3682:Information ;
+                         DINEN61360:has_Data_Element Transport:Transport_Goal_Position_DE .
+### Transport_Goal_Position_DE
+Transport:Transport_Goal_Position_DE rdf:type owl:NamedIndividual ,
+                                              DINEN61360:Data_Element ;
+                                     DINEN61360:has_Instance_Description Transport:Transport_Goal_Position_ID ;
+                                     DINEN61360:has_Type_Description Transport:Position .
+### Transport_Goal_Position_ID
+Transport:Transport_Goal_Position_ID rdf:type owl:NamedIndividual ,
+                                              DINEN61360:Instance_Description ,
+                                              openmath:Variable ;
+                                     openmath:name "http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/transport#Transport_Goal_Position_ID" ;
+                                     DINEN61360:Logic_Interpretation "=" .

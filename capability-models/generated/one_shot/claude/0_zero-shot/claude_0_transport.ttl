@@ -1,0 +1,128 @@
+@prefix : <http://www.w3id.org/hsu-aut/cask#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@base <http://www.w3id.org/hsu-aut/cask> .
+
+<http://www.w3id.org/hsu-aut/cask> rdf:type owl:Ontology .
+
+#################################################################
+#    Individuals
+#################################################################
+
+### Transport_Capability
+:Transport_Capability rdf:type owl:NamedIndividual ,
+                               :ProvidedCapability ;
+                      CSS:isRealizedBy :Transport_Skill ;
+                      CSS:offersUseOf :Product_A_Goal ;
+                      CSS:requiresProduct :Product_A .
+
+### Product_A  
+:Product_A rdf:type owl:NamedIndividual ,
+                    VDI2206:Product ;
+           DINEN61360:has_Data_Element :Position_A_Actual .
+
+### Product_A_Goal
+:Product_A_Goal rdf:type owl:NamedIndividual ,
+                         VDI2206:Product ;                
+                DINEN61360:has_Data_Element :Position_A_Goal_Assurance .
+
+### Position_A_Actual
+:Position_A_Actual rdf:type owl:NamedIndividual ,
+                            DINEN61360:Data_Element ;
+                   DINEN61360:has_Type_Description :Position_TD ;
+                   DINEN61360:has_Instance_Description :Position_A_Actual_ID .
+
+### Position_A_Actual_ID
+:Position_A_Actual_ID rdf:type owl:NamedIndividual ,
+                               DINEN61360:Instance_Description ;
+                      DINEN61360:Expression_Goal "Actual_Value"^^xsd:string .
+
+### Position_A_Goal_Assurance  
+:Position_A_Goal_Assurance rdf:type owl:NamedIndividual ,
+                                     DINEN61360:Data_Element ;
+                            DINEN61360:has_Type_Description :Position_TD ;
+                            DINEN61360:has_Instance_Description :Position_A_Goal_Assurance_ID .
+
+### Position_A_Goal_Assurance_ID
+:Position_A_Goal_Assurance_ID rdf:type owl:NamedIndividual ,
+                                       DINEN61360:Instance_Description ;
+                              DINEN61360:Expression_Goal "Assurance"^^xsd:string ;
+                              DINEN61360:Logic_Interpretation "="^^xsd:string .
+
+### Transport_Skill
+:Transport_Skill rdf:type owl:NamedIndividual ,
+                          CSS:Skill ;               
+                 CSS:hasInput :Product_A ;
+                 CSS:hasOutput :Product_A_Goal ;
+                 CSS:requiresProduct :Transport_Goal .
+
+### AGV
+:AGV rdf:type owl:NamedIndividual ,
+              VDI2206:System ,
+              CSS:Resource ;
+     CSS:providesSkill :Transport_Skill ;
+     DINEN61360:has_Data_Element :Position_AGV_Actual .
+
+### Position_AGV_Actual
+:Position_AGV_Actual rdf:type owl:NamedIndividual ,
+                              DINEN61360:Data_Element ;
+                     DINEN61360:has_Type_Description :Position_TD ;
+                     DINEN61360:has_Instance_Description :Position_AGV_Actual_ID .
+
+### Position_AGV_Actual_ID 
+:Position_AGV_Actual_ID rdf:type owl:NamedIndividual ,
+                                 DINEN61360:Instance_Description ;
+                        DINEN61360:Expression_Goal "Actual_Value"^^xsd:string ;
+                        DINEN61360:Logic_Interpretation "="^^xsd:string .
+
+### Transport_Goal
+:Transport_Goal rdf:type owl:NamedIndividual ,
+                         VDI2206:Information ;
+                DINEN61360:has_Data_Element :Position_Goal_Input .
+
+### Position_Goal_Input                
+:Position_Goal_Input rdf:type owl:NamedIndividual ,
+                              DINEN61360:Data_Element ;
+                     DINEN61360:has_Type_Description :Position_TD ;
+                     DINEN61360:has_Instance_Description :Position_Goal_Input_ID .
+
+### Position_Goal_Input_ID
+:Position_Goal_Input_ID rdf:type owl:NamedIndividual ,
+                                 DINEN61360:Instance_Description .
+
+### Position_TD
+:Position_TD rdf:type owl:NamedIndividual ,
+                      DINEN61360:Type_Description ;
+             DINEN61360:Definition "Type description for a position consisting of longitude and latitude in decimal degrees"@en ;
+             DINEN61360:Preferred_Name "Position"^^xsd:string ;
+             DINEN61360:Short_Name "Pos"^^xsd:string ;
+             DINEN61360:Code "pos123"^^xsd:string ;
+             DINEN61360:complex_Data_Type_has_Member :Position_Longitude_TD ,
+                                                     :Position_Latitude_TD .
+
+### Position_Longitude_TD 
+:Position_Longitude_TD rdf:type owl:NamedIndividual ,
+                                DINEN61360:Type_Description ;
+                       DINEN61360:Definition "Longitude part of a position in decimal degrees"@en ;
+                       DINEN61360:Preferred_Name "Longitude"^^xsd:string ;
+                       DINEN61360:Short_Name "Lon"^^xsd:string ;
+                       DINEN61360:Code "lon123"^^xsd:string ;
+                       DINEN61360:Value_Format_non-quantitativ "NR2" ;
+                       DINEN61360:Unit_of_Measure "deg"^^xsd:string ;
+                       DINEN61360:Version_Number "1"^^xsd:int .
+
+### Position_Latitude_TD
+:Position_Latitude_TD rdf:type owl:NamedIndividual ,
+                               DINEN61360:Type_Description ;
+                      DINEN61360:Definition "Latitude part of a position in decimal degrees"@en ;
+                      DINEN61360:Preferred_Name "Latitude"^^xsd:string ;  
+                      DINEN61360:Short_Name "Lat"^^xsd:string ;
+                      DINEN61360:Code "lat123"^^xsd:string ;
+                      DINEN61360:Value_Format_non-quantitativ "NR2" ;  
+                      DINEN61360:Unit_of_Measure "deg"^^xsd:string ;
+                      DINEN61360:Version_Number "1"^^xsd:int .

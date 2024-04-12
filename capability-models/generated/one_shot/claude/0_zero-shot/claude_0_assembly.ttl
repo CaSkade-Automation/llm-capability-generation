@@ -1,0 +1,92 @@
+@prefix : <http://www.w3id.org/hsu-aut/cask#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@prefix math: <http://openmath.org/vocab/math#> .
+
+# Assembly capability
+:AssemblyCapability rdf:type owl:NamedIndividual ,
+                             CSS:Capability ;
+                    CSS:hasInput :ProductA ,
+                                 :ProductB ;
+                    CSS:hasOutput :AssembledProduct ;
+                    rdfs:label "Assembly capability" .
+
+# Input product A
+:ProductA rdf:type owl:NamedIndividual ,
+                   CSS:Product ;
+          DINEN61360:has_Data_Element :ProductAWeight ;
+          rdfs:label "Product A" .
+
+# Weight of product A  
+:ProductAWeight rdf:type owl:NamedIndividual ,
+                         DINEN61360:Data_Element ;
+                DINEN61360:has_Type_Description :WeightTypeDescription ;
+                DINEN61360:has_Instance_Description :ProductAWeightInstance ;
+                rdfs:label "Weight of Product A" .
+
+# Weight instance of product A
+:ProductAWeightInstance rdf:type owl:NamedIndividual ,
+                                 DINEN61360:Instance_Description ;
+                        DINEN61360:Value "1.5"^^xsd:float ;
+                        DINEN61360:Expression_Goal "Actual_Value" ;
+                        DINEN61360:Logic_Interpretation "=" .
+
+# Input product B  
+:ProductB rdf:type owl:NamedIndividual ,
+                   CSS:Product ;
+          DINEN61360:has_Data_Element :ProductBWeight ;
+          rdfs:label "Product B" .
+
+# Weight of product B
+:ProductBWeight rdf:type owl:NamedIndividual ,
+                         DINEN61360:Data_Element ;
+                DINEN61360:has_Type_Description :WeightTypeDescription ;
+                DINEN61360:has_Instance_Description :ProductBWeightInstance ;
+                rdfs:label "Weight of Product B" .
+
+# Weight instance of product B  
+:ProductBWeightInstance rdf:type owl:NamedIndividual ,
+                                 DINEN61360:Instance_Description ;
+                        DINEN61360:Value "2.3"^^xsd:float ;
+                        DINEN61360:Expression_Goal "Actual_Value" ;
+                        DINEN61360:Logic_Interpretation "=" .
+
+# Output assembled product
+:AssembledProduct rdf:type owl:NamedIndividual ,
+                           CSS:Product ;
+                  DINEN61360:has_Data_Element :AssembledProductWeight ;
+                  rdfs:label "Assembled Product" .
+
+# Weight of assembled product
+:AssembledProductWeight rdf:type owl:NamedIndividual ,
+                                 DINEN61360:Data_Element ;
+                        DINEN61360:has_Type_Description :WeightTypeDescription ;
+                        DINEN61360:has_Instance_Description :AssembledProductWeightInstance ;
+                        rdfs:label "Weight of Assembled Product" .
+
+# Weight instance of assembled product
+:AssembledProductWeightInstance rdf:type owl:NamedIndividual ,
+                                         DINEN61360:Instance_Description ;
+                                DINEN61360:Expression_Goal "Assurance" ;
+                                DINEN61360:Logic_Interpretation "=" .
+
+# Assurance of assembled product weight by summation  
+:AssembledProductWeightAssurance rdf:type owl:NamedIndividual ,
+                                          math:Application ;
+                                 math:operator math:plus ;
+                                 math:arguments ( :ProductAWeightInstance
+                                                  :ProductBWeightInstance
+                                                ) .
+                                                 
+# Weight type description
+:WeightTypeDescription rdf:type owl:NamedIndividual ,
+                                DINEN61360:Type_Description ;
+                       DINEN61360:Preferred_Name "Weight" ;
+                       DINEN61360:Short_Name "w" ;
+                       DINEN61360:Definition "Mass of a product in kg." ;
+                       DINEN61360:Unit_of_Measure "kg" .

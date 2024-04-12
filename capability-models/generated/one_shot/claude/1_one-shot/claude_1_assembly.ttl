@@ -1,0 +1,157 @@
+@prefix : <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix Assembly: <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/assembly#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .  
+@prefix openmath: <http://openmath.org/vocab/math#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@base <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+<http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/assembly> rdf:type owl:Ontology ;
+                                                                          owl:imports <https://w3id.org/hsu-aut/cask/2.5.3> .
+### Assembly
+Assembly:Assembly rdf:type owl:NamedIndividual ,
+                           VDI3682:ProcessOperator ,
+                           CSS:Capability ;
+                  VDI3682:hasInput Assembly:Assembly_A ,
+                                   Assembly:Assembly_B ;
+                  VDI3682:hasOutput Assembly:Assembly_AssembledProduct ;
+                  CSS:isRestrictedBy Assembly:Assembly_Constraint_Weight ;
+                  CSS:requiresCapability Assembly:Assembly .
+### Assembly_A
+Assembly:Assembly_A rdf:type owl:NamedIndividual ,
+                             VDI3682:Product ;
+                    DINEN61360:has_Data_Element Assembly:Assembly_A_Weight_DE .
+### Assembly_A_Weight_DE  
+Assembly:Assembly_A_Weight_DE rdf:type owl:NamedIndividual ,
+                                       DINEN61360:Data_Element ;
+                              DINEN61360:has_Instance_Description Assembly:Assembly_A_Weight_ID ;
+                              DINEN61360:has_Type_Description Assembly:Mass .
+### Assembly_A_Weight_ID
+Assembly:Assembly_A_Weight_ID rdf:type owl:NamedIndividual ,
+                                       openmath:Variable ,
+                                       DINEN61360:Instance_Description ;
+                              openmath:name "http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/assembly#Assembly_A_Weight_ID" ;
+                              DINEN61360:Expression_Goal "Actual_Value" ;
+                              DINEN61360:Logic_Interpretation "=" .
+### Assembly_AssembledProduct
+Assembly:Assembly_AssembledProduct rdf:type owl:NamedIndividual ,
+                                            VDI3682:Product ;
+                                   DINEN61360:has_Data_Element Assembly:Assembly_AssembledProduct_Weight_DE .
+### Assembly_AssembledProduct_Weight_DE
+Assembly:Assembly_AssembledProduct_Weight_DE rdf:type owl:NamedIndividual ,
+                                                      DINEN61360:Data_Element ;
+                                             DINEN61360:has_Instance_Description Assembly:Assembly_AssembledProduct_Weight_ID ;
+                                             DINEN61360:has_Type_Description Assembly:Mass .
+### Assembly_AssembledProduct_Weight_ID
+Assembly:Assembly_AssembledProduct_Weight_ID rdf:type owl:NamedIndividual ,
+                                                      openmath:Variable ,
+                                                      DINEN61360:Instance_Description ;
+                                             openmath:name "http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/assembly#Assembly_AssembledProduct_Weight_ID" ;
+                                             DINEN61360:Expression_Goal "Assurance" ;
+                                             DINEN61360:Logic_Interpretation "=" .
+### Assembly_B
+Assembly:Assembly_B rdf:type owl:NamedIndividual ,
+                             VDI3682:Product ;
+                    DINEN61360:has_Data_Element Assembly:Assembly_B_Weight_DE .
+### Assembly_B_Weight_DE
+Assembly:Assembly_B_Weight_DE rdf:type owl:NamedIndividual ,
+                                       DINEN61360:Data_Element ;
+                              DINEN61360:has_Instance_Description Assembly:Assembly_B_Weight_ID ;
+                              DINEN61360:has_Type_Description Assembly:Mass .
+### Assembly_B_Weight_ID
+Assembly:Assembly_B_Weight_ID rdf:type owl:NamedIndividual ,
+                                       openmath:Variable ,
+                                       DINEN61360:Instance_Description ;
+                              openmath:name "http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/assembly#Assembly_B_Weight_ID" ;
+                              DINEN61360:Expression_Goal "Actual_Value" ;
+                              DINEN61360:Logic_Interpretation "=" .
+### Assembly_Constraint_Weight
+Assembly:Assembly_Constraint_Weight rdf:type owl:NamedIndividual ,
+                                             openmath:Application ,
+                                             CSS:CapabilityConstraint ;
+                                    openmath:operator <http://www.openmath.org/cd/arith1#plus> ;
+                                    openmath:arguments ( Assembly:Assembly_AssembledProduct_Weight_ID 
+                                                         Assembly:Assembly_A_Weight_ID
+                                                         Assembly:Assembly_B_Weight_ID );
+                                    CSS:references Assembly:Assembly_AssembledProduct_Weight_ID ,
+                                                   Assembly:Assembly_A_Weight_ID ,
+                                                   Assembly:Assembly_B_Weight_ID .  
+### Mass  
+Assembly:Mass rdf:type owl:NamedIndividual ,
+                       DINEN61360:Type_Description ;
+              DINEN61360:Definition "A mass in kilograms"@en ;
+              DINEN61360:Unit_of_Measure "kg" .
+--- Input Data ---
+Given is a capability Painting. The painting capability has the input "product" and the output "painted_product". Both inputs and outputs have a property "color" of type color_type that determines the color. The property "color" is for the input an actual value that is freely selectable. The property "color" for the output must be equal to the property "color" of the input as an assurance. 
+--- Output --- 
+@prefix : <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix Painting: <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/painting#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix openmath: <http://openmath.org/vocab/math#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@base <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+<http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/painting> rdf:type owl:Ontology ;
+                                                                          owl:imports <https://w3id.org/hsu-aut/cask/2.5.3> .
+### ColorType  
+Painting:ColorType rdf:type owl:NamedIndividual ,
+                            DINEN61360:Type_Description ;
+                   DINEN61360:Definition "Type to specify a color" .
+### Painting  
+Painting:Painting rdf:type owl:NamedIndividual , 
+                           VDI3682:ProcessOperator ,
+                           CSS:Capability ;
+                  VDI3682:hasInput Painting:Painting_Product ;
+                  VDI3682:hasOutput Painting:Painting_PaintedProduct ;
+                  CSS:isRestrictedBy Painting:Painting_Constraint_Color ;
+                  CSS:requiresCapability Painting:Painting .
+### Painting_Constraint_Color
+Painting:Painting_Constraint_Color rdf:type owl:NamedIndividual ,
+                                            openmath:Application ,  
+                                            CSS:CapabilityConstraint ;
+                                   openmath:operator <http://www.openmath.org/cd/relation1#eq> ;
+                                   openmath:arguments ( Painting:Painting_PaintedProduct_Color_ID 
+                                                        Painting:Painting_Product_Color_ID ) ;
+                                   CSS:references Painting:Painting_PaintedProduct_Color_ID ,
+                                                  Painting:Painting_Product_Color_ID .
+### Painting_PaintedProduct
+Painting:Painting_PaintedProduct rdf:type owl:NamedIndividual ,
+                                          VDI3682:Product ;
+                                 DINEN61360:has_Data_Element Painting:Painting_PaintedProduct_Color_DE .
+### Painting_PaintedProduct_Color_DE
+Painting:Painting_PaintedProduct_Color_DE rdf:type owl:NamedIndividual ,
+                                                   DINEN61360:Data_Element ;
+                                          DINEN61360:has_Instance_Description Painting:Painting_PaintedProduct_Color_ID ;
+                                          DINEN61360:has_Type_Description Painting:ColorType .
+### Painting_PaintedProduct_Color_ID
+Painting:Painting_PaintedProduct_Color_ID rdf:type owl:NamedIndividual ,
+                                                   openmath:Variable ,
+                                                   DINEN61360:Instance_Description ;
+                                          openmath:name "http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/painting#Painting_PaintedProduct_Color_ID" ;
+                                          DINEN61360:Expression_Goal "Assurance" ;
+                                          DINEN61360:Logic_Interpretation "=" .
+### Painting_Product
+Painting:Painting_Product rdf:type owl:NamedIndividual ,
+                                   VDI3682:Product ;
+                          DINEN61360:has_Data_Element Painting:Painting_Product_Color_DE .
+### Painting_Product_Color_DE
+Painting:Painting_Product_Color_DE rdf:type owl:NamedIndividual ,
+                                            DINEN61360:Data_Element ;
+                                   DINEN61360:has_Instance_Description Painting:Painting_Product_Color_ID ;
+                                   DINEN61360:has_Type_Description Painting:ColorType .
+### Painting_Product_Color_ID
+Painting:Painting_Product_Color_ID rdf:type owl:NamedIndividual ,
+                                            openmath:Variable ,
+                                            DINEN61360:Instance_Description ;
+                                   openmath:name "http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/painting#Painting_Product_Color_ID" ;
+                                   DINEN61360:Expression_Goal "Actual_Value" ;
+                                   DINEN61360:Logic_Interpretation "=" .

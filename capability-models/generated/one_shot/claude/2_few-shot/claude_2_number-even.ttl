@@ -1,0 +1,65 @@
+@prefix : <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@prefix parity: <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/parity#> .
+@base <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+
+<http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/parity> rdf:type owl:Ontology ;
+                                                                         owl:imports <https://w3id.org/hsu-aut/cask/2.5.3> .
+
+### BooleanType
+parity:BooleanType rdf:type owl:NamedIndividual ,
+                            DINEN61360:Type_Description ;
+                   DINEN61360:Definition "This type is for boolean values" .
+
+### IntegerType  
+parity:IntegerType rdf:type owl:NamedIndividual ,
+                            DINEN61360:Type_Description ;
+                   DINEN61360:Definition "This type is for numbers of type integer" .
+
+### Parity
+parity:Parity rdf:type owl:NamedIndividual ,
+                       VDI3682:ProcessOperator ,
+                       CSS:Capability ;
+              VDI3682:hasInput parity:Parity_Input_a ;
+              VDI3682:hasOutput parity:Parity_Output_isEven ;
+              CSS:requiresCapability parity:Parity .
+
+### Parity_Input_a
+parity:Parity_Input_a rdf:type owl:NamedIndividual ,
+                               VDI3682:Information ;
+                      DINEN61360:has_Data_Element parity:Parity_Input_a_DE .
+
+### Parity_Input_a_DE 
+parity:Parity_Input_a_DE rdf:type owl:NamedIndividual ,
+                                  DINEN61360:Data_Element ;
+                         DINEN61360:has_Instance_Description parity:Parity_Input_a_ID ;
+                         DINEN61360:has_Type_Description parity:IntegerType .
+
+### Parity_Input_a_ID
+parity:Parity_Input_a_ID rdf:type owl:NamedIndividual ,
+                                  DINEN61360:Instance_Description ;
+                         DINEN61360:Logic_Interpretation "=" .
+
+### Parity_Output_isEven  
+parity:Parity_Output_isEven rdf:type owl:NamedIndividual ,
+                                     VDI3682:Information ;
+                            DINEN61360:has_Data_Element parity:Parity_Output_isEven_DE .
+
+### Parity_Output_isEven_DE
+parity:Parity_Output_isEven_DE rdf:type owl:NamedIndividual ,
+                                        DINEN61360:Data_Element ;
+                               DINEN61360:has_Instance_Description parity:Parity_Output_isEven_ID ;
+                               DINEN61360:has_Type_Description parity:BooleanType .
+
+### Parity_Output_isEven_ID
+parity:Parity_Output_isEven_ID rdf:type owl:NamedIndividual ,
+                                        DINEN61360:Instance_Description ;
+                               DINEN61360:Expression_Goal "Assurance" ;
+                               DINEN61360:Logic_Interpretation "=" .

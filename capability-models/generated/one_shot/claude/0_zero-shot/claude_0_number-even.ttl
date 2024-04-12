@@ -1,0 +1,43 @@
+@prefix : <http://www.w3id.org/hsu-aut/cask#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ISA88: <http://www.hsu-ifa.de/ontologies/ISA-TR88#> .
+@prefix VDI2206: <http://www.hsu-ifa.de/ontologies/VDI2206#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@base <http://www.w3id.org/hsu-aut/cask#> .
+
+:ParityCapability rdf:type owl:NamedIndividual ,
+                           CSS:Capability ;
+                  CSS:offersUseOf VDI3682:Information ;
+                  CSS:isSpecifiedBy :ParityCapabilityInputProperty ,
+                                    :ParityCapabilityOutputProperty .
+
+:ParityCapabilityInput rdf:type owl:NamedIndividual ,
+                                VDI3682:Information ;
+                       VDI3682:hasShortName "a" ;
+                       CSS:isSpecifiedBy :ParityCapabilityInputProperty .
+
+:ParityCapabilityInputProperty rdf:type owl:NamedIndividual ,
+                                        CSS:Property ;
+                               CSS:offersUseOf :ParityCapabilityInput ;
+                               VDI3682:hasShortName "NumberValue" .
+
+:ParityCapabilityOutput rdf:type owl:NamedIndividual ,
+                                 VDI3682:Information ;
+                        VDI3682:hasShortName "isEven" ;
+                        CSS:isSpecifiedBy :ParityCapabilityOutputProperty .
+
+:ParityCapabilityOutputProperty rdf:type owl:NamedIndividual ,
+                                         CSS:Property ;
+                                CSS:offersUseOf :ParityCapabilityOutput ;
+                                VDI3682:hasShortName "ParityResult" ;
+                                DINEN61360:hasInstanceDescription :ParityOutputInstanceDescription .
+
+:ParityOutputInstanceDescription rdf:type owl:NamedIndividual ,
+                                           DINEN61360:Instance_Description ;
+                                  DINEN61360:Expression_Goal "Assurance" .

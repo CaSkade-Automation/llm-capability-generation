@@ -1,0 +1,125 @@
+@prefix : <http://www.w3id.org/hsu-aut/cask#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix VDI2206: <http://www.hsu-ifa.de/ontologies/VDI2206#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@base <http://www.w3id.org/hsu-aut/cask/example> .
+
+<http://www.w3id.org/hsu-aut/cask/example> rdf:type owl:Ontology .
+
+#################################################################
+#    Individuals
+#################################################################
+
+### Drilling capability
+:Drilling rdf:type owl:NamedIndividual ,
+                    CSS:Capability ;
+          CSS:offersUseOf :BlankProduct ,
+                          :DrilledProduct ;
+          CSS:isSpecifiedBy :Depth ,
+                            :Diameter .
+
+### Blank product
+:BlankProduct rdf:type owl:NamedIndividual ,
+                       CSS:Product ;
+              CSS:hasInput :DrillingProcess .
+
+### Drilled product            
+:DrilledProduct rdf:type owl:NamedIndividual ,
+                         CSS:Product ;
+                CSS:hasOutput :DrillingProcess ;
+                CSS:isSpecifiedBy :DrilledDiameter ,
+                                  :DrilledDepth .
+
+### Diameter information input
+:Diameter rdf:type owl:NamedIndividual ,
+                   VDI2206:Information ;   
+          CSS:hasInput :DrillingProcess .
+
+### Depth information input
+:Depth rdf:type owl:NamedIndividual ,
+                VDI2206:Information ;
+       CSS:hasInput :DrillingProcess .
+
+### Diameter property of drilled product
+:DrilledDiameter rdf:type owl:NamedIndividual ,
+                          CSS:Property .
+
+### Depth property of drilled product  
+:DrilledDepth rdf:type owl:NamedIndividual ,
+                       CSS:Property .
+
+### Drilling process
+:DrillingProcess rdf:type owl:NamedIndividual ,
+                          VDI3682:ProcessOperator .
+
+### Depth input requirement constraint                
+:DepthInputConstraint rdf:type owl:NamedIndividual ,
+                                CSS:CapabilityConstraint ;
+                       CSS:references :Depth ;
+                       <http://openmath.org/vocab/math#operator> <http://www.openmath.org/cd/arith1#lt> ;
+                       <http://openmath.org/vocab/math#arguments> [ rdf:type rdf:List ;
+                                                                    rdf:first :Depth ;
+                                                                    rdf:rest [ rdf:type rdf:List ;
+                                                                               rdf:first "80"^^xsd:double ;
+                                                                               rdf:rest rdf:nil
+                                                                             ]
+                                                                  ] ;
+                       CSS:isRestrictedBy :Drilling .
+
+### Diameter input requirement constraint
+:DiameterInputConstraint rdf:type owl:NamedIndividual ,
+                                  CSS:CapabilityConstraint ;                                        
+                         CSS:references :Diameter ;
+                         <http://openmath.org/vocab/math#operator> <http://www.openmath.org/cd/arith1#in> ;
+                         <http://openmath.org/vocab/math#arguments> [ rdf:type rdf:List ;
+                                                                      rdf:first :Diameter ;
+                                                                      rdf:rest [ rdf:type rdf:List ;
+                                                                                 rdf:first "1"^^xsd:double ;
+                                                                                 rdf:rest [ rdf:type rdf:List ;
+                                                                                            rdf:first "20"^^xsd:double ;
+                                                                                            rdf:rest rdf:nil
+                                                                                          ]
+                                                                               ]
+                                                                    ] ;
+                         CSS:isRestrictedBy :Drilling .
+
+### Drilled diameter equality constraint     
+:DrilledDiameterConstraint rdf:type owl:NamedIndividual ,
+                                     CSS:CapabilityConstraint ;
+                            <http://openmath.org/vocab/math#operator> <http://www.openmath.org/cd/relation1#eq> ;
+                            <http://openmath.org/vocab/math#arguments> [ rdf:type rdf:List ;
+                                                                         rdf:first :Diameter ;
+                                                                         rdf:rest [ rdf:type rdf:List ;
+                                                                                    rdf:first :DrilledDiameter ;
+                                                                                    rdf:rest rdf:nil
+                                                                                  ]
+                                                                       ] ;
+                            CSS:isRestrictedBy :Drilling .
+
+### Drilled depth equality constraint     
+:DrilledDepthConstraint rdf:type owl:NamedIndividual ,
+                                 CSS:CapabilityConstraint ;
+                        <http://openmath.org/vocab/math#operator> <http://www.openmath.org/cd/relation1#eq> ;
+                        <http://openmath.org/vocab/math#arguments> [ rdf:type rdf:List ;
+                                                                     rdf:first :Depth ;
+                                                                     rdf:rest [ rdf:type rdf:List ;
+                                                                                rdf:first :DrilledDepth ;
+                                                                                rdf:rest rdf:nil
+                                                                              ]
+                                                                   ] ;
+                        CSS:isRestrictedBy :Drilling .
+
+This ontology describes the "Drilling" capability for a simple drilling manufacturing process. The key points:
+
+- The capability transforms a blank product into a drilled product via a drilling process 
+- It takes a blank product, diameter and depth information as inputs
+- The diameter and depth information specify properties that can be freely selected, but with requirements constraints on their values
+- The output drilled product has diameter and depth properties 
+- Capability constraints ensure the input diameter and depth equal the output drilled diameter and depth
+
+The ontology makes use of classes and properties from the CSS (Capability-Skill-Service) ontology as well as VDI2206 and VDI3682 to model the products, information, properties, processes, and constraints. The constraints themselves utilize OpenMath symbols and structures.

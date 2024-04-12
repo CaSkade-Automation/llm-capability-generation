@@ -1,0 +1,89 @@
+@prefix : <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+@prefix Div: <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/division#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@prefix openmath: <http://openmath.org/vocab/math#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+
+<http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/division> rdf:type owl:Ontology ;
+                                                                          owl:imports <https://w3id.org/hsu-aut/cask/2.5.3> .
+
+### Integer
+Div:Integer rdf:type owl:NamedIndividual ,
+                     DINEN61360:Type_Description ;
+            DINEN61360:Definition "The type of whole numbers, positive, negative, or zero." .
+
+### Real
+Div:Real rdf:type owl:NamedIndividual ,
+                  DINEN61360:Type_Description ;
+         DINEN61360:Definition "The type of real numbers, which can be positive, negative, whole, or fractional." .
+
+### Div_Dividend
+Div:Dividend rdf:type owl:NamedIndividual ,
+                      VDI3682:Information ;
+             DINEN61360:has_Data_Element Div:Dividend_DE .
+
+### Div_Dividend_DE  
+Div:Dividend_DE rdf:type owl:NamedIndividual ,
+                         DINEN61360:Data_Element ;
+                DINEN61360:has_Instance_Description Div:Dividend_ID ;
+                DINEN61360:has_Type_Description Div:Integer .
+
+### Div_Dividend_ID
+Div:Dividend_ID rdf:type owl:NamedIndividual ,
+                         DINEN61360:Instance_Description .
+
+### Div_Divisor 
+Div:Divisor rdf:type owl:NamedIndividual ,
+                     VDI3682:Information ;
+            DINEN61360:has_Data_Element Div:Divisor_DE .
+
+### Div_Divisor_DE
+Div:Divisor_DE rdf:type owl:NamedIndividual ,
+                        DINEN61360:Data_Element ;
+               DINEN61360:has_Instance_Description Div:Divisor_ID ;
+               DINEN61360:has_Type_Description Div:Integer .
+
+### Div_Divisor_ID  
+Div:Divisor_ID rdf:type owl:NamedIndividual ,
+                        DINEN61360:Instance_Description .
+
+### Div_Divisor_Req
+Div:Divisor_Req rdf:type owl:NamedIndividual ,
+                         openmath:Application ,
+                         CSS:CapabilityConstraint ;
+                openmath:operator <http://www.openmath.org/cd/relation1#neq> ;
+                openmath:arguments ( Div:Divisor_ID "0"^^xsd:integer ) .
+
+### Div_Quotient
+Div:Quotient rdf:type owl:NamedIndividual ,
+                      VDI3682:Information ;
+             DINEN61360:has_Data_Element Div:Quotient_DE .
+
+### Div_Quotient_DE
+Div:Quotient_DE rdf:type owl:NamedIndividual ,
+                         DINEN61360:Data_Element ;  
+                DINEN61360:has_Instance_Description Div:Quotient_ID ;
+                DINEN61360:has_Type_Description Div:Real .
+
+### Div_Quotient_ID
+Div:Quotient_ID rdf:type owl:NamedIndividual ,
+                         DINEN61360:Instance_Description ;
+                DINEN61360:Expression_Goal "Assurance" ;
+                DINEN61360:Logic_Interpretation "=" .
+
+### Division  
+Div:Division rdf:type owl:NamedIndividual ,
+                      VDI3682:ProcessOperator ,
+                      CSS:Capability ;
+             VDI3682:hasInput Div:Dividend ,
+                              Div:Divisor ;
+             VDI3682:hasOutput Div:Quotient ;
+             CSS:requiresCapability Div:Division ;
+             CSS:isRestrictedBy Div:Divisor_Req .
