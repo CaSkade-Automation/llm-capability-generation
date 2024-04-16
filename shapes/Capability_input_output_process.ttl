@@ -32,6 +32,11 @@
     sh:class CSS:CapabilityConstraint ;
     sh:minCount 0 ;
   ];
+  sh:property [
+    sh:path CSS:isSpecifiedBy;  # allows any number of capability constraints
+    sh:class CSS:Property ;
+    sh:minCount 0 ;
+  ];
   sh:property [ # TODO: funktioniert so nicht! 
     sh:path ( sh:inversePath CSS:requiresCapability );  # requires min 1 process to be connected to capability
     sh:or (                                             # Capability must be required by process
