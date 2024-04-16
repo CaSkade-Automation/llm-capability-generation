@@ -33,7 +33,7 @@
     sh:minCount 0 ;
   ];
   sh:property [
-    sh:path CSS:isSpecifiedBy;  # allows any number of capability constraints
+    sh:path CSS:isSpecifiedBy;  # allows any number of properties 
     sh:class CSS:Property ;
     sh:minCount 0 ;
   ];
