@@ -23,5 +23,9 @@
   sh:property [
     sh:path DINEN61360:Value;       				# 0 or 1 value     
     sh:maxCount 1;
+  ] ;
+  sh:property [
+    sh:path DINEN61360:Instance_Description_has_Type;       					
+    sh:maxCount 1;
   ] .
   
