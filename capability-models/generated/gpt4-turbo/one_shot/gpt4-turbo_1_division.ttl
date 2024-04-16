@@ -1,0 +1,63 @@
+@prefix : <http://www.hsu-hh.de/aut/ontologies/division-capability#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix math: <http://www.openmath.org/cd/arith1#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+
+<http://www.hsu-hh.de/aut/ontologies/division-capability> rdf:type owl:Ontology ;
+                                                          rdfs:comment "Ontology describing the capability of performing a division operation." .
+
+### Division
+:Division rdf:type owl:NamedIndividual ,
+                   VDI3682:ProcessOperator ;
+          VDI3682:hasInput :Dividend ,
+                           :Divisor ;
+          VDI3682:hasOutput :Quotient ;
+          CSS:requiresCapability :PerformDivision .
+
+### Dividend
+:Dividend rdf:type owl:NamedIndividual ,
+                   DINEN61360:Integer ;
+          DINEN61360:has_Type_Description :IntegerType .
+
+### Divisor
+:Divisor rdf:type owl:NamedIndividual ,
+                  DINEN61360:Integer ;
+         DINEN61360:has_Type_Description :IntegerType ;
+         DINEN61360:has_Instance_Description :DivisorRequirement .
+
+### Quotient
+:Quotient rdf:type owl:NamedIndividual ,
+                   DINEN61360:Real ;
+          DINEN61360:has_Type_Description :RealType .
+
+### DivisorRequirement
+:DivisorRequirement rdf:type owl:NamedIndividual ,
+                             DINEN61360:Instance_Description ;
+                    DINEN61360:Expression_Goal "Requirement" ;
+                    DINEN61360:Logic_Interpretation "!=" ;
+                    DINEN61360:Value 0 .
+
+### IntegerType
+:IntegerType rdf:type owl:NamedIndividual ,
+                      DINEN61360:Type_Description ;
+             DINEN61360:Definition "Represents an integer data type." ;
+             DINEN61360:Preferred_Name "Integer" ;
+             DINEN61360:Unit_of_Measure "Dimensionless" .
+
+### RealType
+:RealType rdf:type owl:NamedIndividual ,
+                   DINEN61360:Type_Description ;
+          DINEN61360:Definition "Represents a real number data type." ;
+          DINEN61360:Preferred_Name "Real" ;
+          DINEN61360:Unit_of_Measure "Dimensionless" .
+
+### PerformDivision
+:PerformDivision rdf:type owl:NamedIndividual ,
+                          CSS:Capability ;
+                 rdfs:comment "A capability to perform division considering the restriction that the divisor must not be zero." .

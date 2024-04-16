@@ -1,0 +1,57 @@
+```turtle
+@prefix : <http://www.w3id.org/hsu-aut/cask#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+### Individuals and Relationships
+
+### Capability to determine parity
+:DetermineParity rdf:type CSS:Capability ;
+    CSS:isSpecifiedBy :DetermineParityInputProperty, :DetermineParityOutputProperty .
+
+### Input 'Integer a' as information
+:IntegerInputA rdf:type VDI2206:Information ;
+    CSS:isInputFor :DetermineParity .
+
+### Property for input 'Integer a'
+:DetermineParityInputProperty rdf:type DINEN61360:Data_Element ;
+    DINEN61360:Data_Element_describes :IntegerInputA ;
+    DINEN61360:has_Type_Description :IntegerTypeDescription ;
+    DINEN61360:has_Instance_Description :InputInstanceDescription .
+
+### Instance description of input 'Integer a'
+:InputInstanceDescription rdf:type DINEN61360:Instance_Description ;
+    DINEN61360:Expression_Goal "Integer value of input a" ;
+    DINEN61360:Logic_Interpretation "=" ;
+    DINEN61360:Instance_Description_has_Type DINEN61360:Integer .
+
+### Type description of 'Integer a'
+:IntegerTypeDescription rdf:type DINEN61360:Type_Description ;
+    DINEN61360:Preferred_Name "Integer Input Value" ;
+    DINEN61360:Definition "The integer input for determining parity." .
+
+### Output 'Boolean isEven' as information
+:BooleanOutputIsEven rdf:type VDI2206:Information ;
+    CSS:isOutputFor :DetermineParity .
+
+### Property for output 'Boolean isEven'
+:DetermineParityOutputProperty rdf:type DINEN61360:Data_Element ;
+    DINEN61360:Data_Element_describes :BooleanOutputIsEven ;
+    DINEN61360:has_Type_Description :BooleanTypeDescription ;
+    DINEN61360:has_Instance_Description :OutputInstanceDescription .
+
+### Instance description of output 'Boolean isEven'
+:OutputInstanceDescription rdf:type DINEN61360:Instance_Description ;
+    DINEN61360:Expression_Goal "Boolean output isEven as an assurance" ;
+    DINEN61360:Logic_Interpretation "=" ;
+    DINEN61360:Instance_Description_has_Type DINEN61360:Boolean .
+
+### Type description of 'Boolean isEven'
+:BooleanTypeDescription rdf:type DINEN61360:Type_Description ;
+    DINEN61360:Preferred_Name "Boolean Output isEven" ;
+    DINEN61360:Definition "The boolean output that specifies if the input integer is even." .
+``` 
+
+This OWL ontology in Turtle format specifies a capability for determining the parity of an integer input `a`, and returns a boolean output `isEven`, classifying both input and output as information (`VDI2206:Information`). The input and output are described with instance and type descriptions, focusing on their characteristics and functions within the capability.

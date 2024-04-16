@@ -1,0 +1,108 @@
+@prefix : <http://www.w3id.org/hsu-aut/cask#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix arith1: <http://www.openmath.org/cd/arith1#> .
+@prefix relation1: <http://www.openmath.org/cd/relation1#> .
+@prefix logic1: <http://www.openmath.org/cd/logic1#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@base <http://www.w3id.org/hsu-aut/cask#> .
+
+### Types
+:IntegerType rdf:type owl:Class ;
+             DINEN61360:Definition "The type for integer values." .
+
+:Boolean rdf:type owl:Class ;
+         DINEN61360:Definition "The type for boolean values." .
+
+### Distillation process description as a capability in OWL ontology
+:Distillation rdf:type owl:NamedIndividual ,
+       CSS:Capability ;
+       VDI3682:hasInput :LiquidMixture ;
+       VDI3682:hasOutput :Distillate , :Residue .
+
+:LiquidMixture rdf:type owl:NamedIndividual ,
+                VDI2206:Product ;
+       :hasBoilingPoint :BoilingPoint_Liquid1 , :BoilingPoint_Liquid2 ;
+       :hasMass :Mass_Liquid1 , :Mass_Liquid2 .
+
+:Distillate rdf:type owl:NamedIndividual ,
+             VDI2206:Product ;
+       :hasBoilingPoint :BoilingPoint_Distillate ;
+       :hasMass :Mass_Distillate .
+
+:Residue rdf:type owl:NamedIndividual ,
+          VDI2206:Product ;
+       :hasBoilingPoint :BoilingPoint_Residue ;
+       :hasMass :Mass_Residue .
+
+### Boiling points and masses for liquid mixture, distillate, and residue
+:BoilingPoint_Liquid1 rdf:type owl:NamedIndividual,
+                       :IntegerType ;
+                       :value "321"^^xsd:integer .
+
+:BoilingPoint_Liquid2 rdf:type owl:NamedIndividual,
+                       :IntegerType ;
+                       :value "356"^^xsd:integer .
+
+:Mass_Liquid1 rdf:type owl:NamedIndividual,
+               :IntegerType ;
+               :defaultValue "100"^^xsd:integer .
+
+:Mass_Liquid2 rdf:type owl:NamedIndividual,
+               :IntegerType ;
+               :defaultValue "150"^^xsd:integer .
+
+:BoilingPoint_Distillate rdf:type owl:NamedIndividual,
+                          :IntegerType ;
+                          :hasAssurance :BoilingPoint_Distillate_Assurance .
+
+:BoilingPoint_Distillate_Assurance rdf:type owl:NamedIndividual,
+                                    :IntegerType ;
+                                    :isRestrictedBy :LowerBoilingPointAssertion .
+
+:BoilingPoint_Residue rdf:type owl:NamedIndividual,
+                       :IntegerType ;
+                       :hasAssurance :BoilingPoint_Residue_Assurance .
+
+:BoilingPoint_Residue_Assurance rdf:type owl:NamedIndividual,
+                                 :IntegerType ;
+                                 :isRestrictedBy :HigherBoilingPointAssertion .
+
+### Total mass conservation
+:Mass_Distillate rdf:type owl:NamedIndividual,
+                 :IntegerType ;
+                 :hasAssurance :Mass_Distillate_Assurance .
+
+:Mass_Residue rdf:type owl:NamedIndividual,
+               :IntegerType ;
+               :hasAssurance :Mass_Residue_Assurance .
+
+:Mass_Distillate_Assurance rdf:type owl:NamedIndividual,
+                            :IntegerType ;
+                            :isRestrictedBy :TotalMassAssertion .
+
+:Mass_Residue_Assurance rdf:type owl:NamedIndividual,
+                         :IntegerType ;
+                         :isRestrictedBy :TotalMassAssertion .
+
+### Assertions for boiling points and total mass conservation
+:LowerBoilingPointAssertion rdf:type owl:NamedIndividual,
+                             logic1:LessThan ;
+                             relation1:arguments ( :BoilingPoint_Distillate :BoilingPoint_Residue ) .
+
+:HigherBoilingPointAssertion rdf:type owl:NamedIndividual,
+                              logic1:GreaterThan ;
+                              relation1:arguments ( :BoilingPoint_Residue :BoilingPoint_Distillate ) .
+
+:TotalMassAssertion rdf:type owl:NamedIndividual,
+                     arith1:Sum ;
+                     relation1:arguments ( :Mass_Distillate :Mass_Residue ) ;
+                     logic1:equalTo [ rdf:type arith1:Sum ;
+                                      relation1:arguments ( :Mass_Liquid1 :Mass_Liquid2 )
+                                    ] .
+
+This OWL ontology models the distillation process as a capability with specific inputs and outputs defined by their respective boiling points and masses, including necessary logic assertions for constraints such as boiling point relationships and mass conservation. Additionally, the values for boiling points and masses of liquid elements in the mixture are defined, and measures to ensure the conservation of mass and boiling point conditions are implemented.
