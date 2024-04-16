@@ -20,4 +20,8 @@
     sh:path DINEN61360:has_Instance_Description;	# requires min 1 instance description
     sh:class DINEN61360:Instance_Description ;
     sh:minCount 1 ;
-  ].
+  ] ;
+  sh:property [
+    sh:path DINEN61360:Data_Element_describes;		
+    sh:maxCount 1 ;
+  ] .
