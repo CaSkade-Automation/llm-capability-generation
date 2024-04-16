@@ -91,7 +91,7 @@
         sh:maxCount 1;
   ] ;
   sh:property [
-    sh:path DINEN61360:Interpretation_Logic;       	# must have exactly 1 interpretation logic (=, < , > etc)
+    sh:path DINEN61360:Logic_Interpretation;       	# must have exactly 1 interpretation logic (=, < , > etc)
     sh:minCount 1;    
     sh:maxCount 1;
   ] ;
