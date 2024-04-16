@@ -11,7 +11,7 @@
 :CapabilityShape
   a sh:NodeShape ;
   sh:targetClass CSS:Capability;  		# target class of shape -> applies to all capabilities
-  sh:ignoredProperties ( rdf:type rdfs:label) ;  	# ignore rdf:type
+  sh:ignoredProperties ( rdf:type rdfs:label CSS:isRealizedBySkill CSS:isRealizedBy) ;  	# ignore rdf:type
   sh:closed true ;		# closes the shape, i.e., only the properties mentioned are allowed to be used
   sh:property [
     sh:path VDI3682:hasInput;  # allows any number of hasInput 
@@ -42,7 +42,7 @@
       [ sh:class VDI3682:Process ] 
       ) ;
     sh:minCount 1 ;
-  ].
+  ] .
 
 :CapabilityConstraintShape
   a sh:NodeShape ;
