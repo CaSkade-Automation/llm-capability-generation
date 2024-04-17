@@ -1,0 +1,86 @@
+@prefix : <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix Division: <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/division#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix openmath: <http://openmath.org/vocab/math#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@base <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+<http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/division> rdf:type owl:Ontology ;
+                                                                          owl:imports <https://w3id.org/hsu-aut/cask/2.5.3> .
+### Division
+Division:Division rdf:type owl:NamedIndividual ,
+                           VDI3682:ProcessOperator ,
+                           CSS:Capability ;
+                  VDI3682:hasInput Division:Division_Dividend ,
+                                   Division:Division_Divisor ;
+                  VDI3682:hasOutput Division:Division_Quotient ;
+                  CSS:isRestrictedBy Division:Division_Constraint_Divisor ;
+                  CSS:requiresCapability Division:Division .
+### Division_Constraint_Divisor
+Division:Division_Constraint_Divisor rdf:type owl:NamedIndividual ,
+                                              openmath:Application ,
+                                              CSS:CapabilityConstraint ;
+                                     openmath:arguments ( Division:Division_Divisor_ID 0 );
+                                     openmath:operator <http://www.openmath.org/cd/relation1#neq> ;
+                                     CSS:references Division:Division_Divisor_ID .
+### Division_Dividend
+Division:Division_Dividend rdf:type owl:NamedIndividual ,
+                                    VDI3682:Information ;
+                           DINEN61360:has_Data_Element Division:Division_Dividend_DE .
+### Division_Dividend_DE
+Division:Division_Dividend_DE rdf:type owl:NamedIndividual ,
+                                       DINEN61360:Data_Element ;
+                              DINEN61360:has_Instance_Description Division:Division_Dividend_ID ;
+                              DINEN61360:has_Type_Description Division:Integer .
+### Division_Dividend_ID
+Division:Division_Dividend_ID rdf:type owl:NamedIndividual ,
+                                       openmath:Variable ,
+                                       DINEN61360:Instance_Description ,
+                                       DINEN61360:Integer ;
+                              openmath:name "http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/division#Division_Dividend_ID" ;
+                              DINEN61360:Logic_Interpretation "=" .
+### Division_Divisor
+Division:Division_Divisor rdf:type owl:NamedIndividual ,
+                                   VDI3682:Information ;
+                          DINEN61360:has_Data_Element Division:Division_Divisor_DE .
+### Division_Divisor_DE
+Division:Division_Divisor_DE rdf:type owl:NamedIndividual ,
+                                      DINEN61360:Data_Element ;
+                             DINEN61360:has_Instance_Description Division:Division_Divisor_ID ;
+                             DINEN61360:has_Type_Description Division:Integer .
+### Division_Divisor_ID
+Division:Division_Divisor_ID rdf:type owl:NamedIndividual ,
+                                      openmath:Variable ,
+                                      DINEN61360:Instance_Description ,
+                                      DINEN61360:Integer ;
+                             openmath:name "http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/division#Division_Divisor_ID" ;
+                             DINEN61360:Logic_Interpretation "=" .
+### Division_Quotient
+Division:Division_Quotient rdf:type owl:NamedIndividual ,
+                                    VDI3682:Information ;
+                           DINEN61360:has_Data_Element Division:Division_Quotient_DE .
+### Division_Quotient_DE
+Division:Division_Quotient_DE rdf:type owl:NamedIndividual ,
+                                       DINEN61360:Data_Element ;
+                              DINEN61360:has_Instance_Description Division:Division_Quotient_ID ;
+                              DINEN61360:has_Type_Description Division:Real .
+### Division_Quotient_ID
+Division:Division_Quotient_ID rdf:type owl:NamedIndividual ,
+                                       openmath:Variable ,
+                                       DINEN61360:Instance_Description ,
+                                       DINEN61360:Real ;
+                              openmath:name "http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/division#Division_Quotient_ID" ;
+                              DINEN61360:Logic_Interpretation "=" .
+### Integer
+Division:Integer rdf:type owl:NamedIndividual ,
+                          DINEN61360:Type_Description ;
+                 DINEN61360:Definition "An integer number." .
+### Real
+Division:Real rdf:type owl:NamedIndividual ,
+                       DINEN61360:Type_Description ;
+              DINEN61360:Definition "A real number." .

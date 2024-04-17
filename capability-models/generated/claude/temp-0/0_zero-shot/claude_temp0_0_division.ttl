@@ -1,0 +1,80 @@
+@prefix : <http://www.w3id.org/hsu-aut/cask#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ISA88: <http://www.hsu-ifa.de/ontologies/ISA-TR88#> .
+@prefix VDI2206: <http://www.hsu-ifa.de/ontologies/VDI2206#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@base <http://www.w3id.org/hsu-aut/cask#> .
+
+:Division rdf:type owl:NamedIndividual ,
+                   CSS:Capability ;
+          CSS:isSpecifiedBy :dividend ,
+                            :divisor ,
+                            :quotient ;
+          rdfs:comment "Division is a capability for a conventional, mathematical division operation." .
+
+:dividend rdf:type owl:NamedIndividual ,
+                   CSS:Property ;
+          DINEN61360:has_Type_Description :dividend_TD ;
+          rdfs:comment "The dividend is an input for the division operation." .
+
+:dividend_TD rdf:type owl:NamedIndividual ,
+                      DINEN61360:Type_Description ;
+             DINEN61360:Code "dividend" ;
+             DINEN61360:Definition "The dividend is the number that is being divided in a division operation." ;
+             DINEN61360:Preferred_Name "dividend" ;
+             DINEN61360:Short_Name "dividend" ;
+             DINEN61360:Type_Description_has_Instance :dividend_ID .
+
+:dividend_ID rdf:type owl:NamedIndividual ,
+                      DINEN61360:Instance_Description ;
+             DINEN61360:Instance_Description_has_Type DINEN61360:Integer .
+
+:divisor rdf:type owl:NamedIndividual ,
+                  CSS:Property ;
+         DINEN61360:has_Type_Description :divisor_TD ;
+         rdfs:comment "The divisor is an input for the division operation." .
+
+:divisor_TD rdf:type owl:NamedIndividual ,
+                     DINEN61360:Type_Description ;
+            DINEN61360:Code "divisor" ;
+            DINEN61360:Definition "The divisor is the number that is dividing the dividend in a division operation." ;
+            DINEN61360:Preferred_Name "divisor" ;
+            DINEN61360:Short_Name "divisor" ;
+            DINEN61360:Type_Description_has_Instance :divisor_ID .
+
+:divisor_ID rdf:type owl:NamedIndividual ,
+                     DINEN61360:Instance_Description ;
+            DINEN61360:Instance_Description_has_Type DINEN61360:Integer ;
+            CSS:isRestrictedBy :divisor_constraint .
+
+:divisor_constraint rdf:type owl:NamedIndividual ,
+                             CSS:CapabilityConstraint ;
+                    <http://openmath.org/vocab/math#operator> <http://www.openmath.org/cd/arith1#unary_minus> ;
+                    <http://openmath.org/vocab/math#arguments> [ rdf:type <http://openmath.org/vocab/math#ObjectList> ;
+                                                                rdf:first :divisor_ID ;
+                                                                rdf:rest rdf:nil
+                                                              ] ;
+                    rdfs:comment "The divisor must not be equal to zero." .
+
+:quotient rdf:type owl:NamedIndividual ,
+                   CSS:Property ;
+          DINEN61360:has_Type_Description :quotient_TD ;
+          rdfs:comment "The quotient is the result of the division operation." .
+
+:quotient_TD rdf:type owl:NamedIndividual ,
+                      DINEN61360:Type_Description ;
+             DINEN61360:Code "quotient" ;
+             DINEN61360:Definition "The quotient is the result obtained by dividing the dividend by the divisor." ;
+             DINEN61360:Preferred_Name "quotient" ;
+             DINEN61360:Short_Name "quotient" ;
+             DINEN61360:Type_Description_has_Instance :quotient_ID .
+
+:quotient_ID rdf:type owl:NamedIndividual ,
+                      DINEN61360:Instance_Description ;
+             DINEN61360:Instance_Description_has_Type DINEN61360:Real .

@@ -1,0 +1,85 @@
+@prefix : <http://www.w3id.org/hsu-aut/cask#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ISA88: <http://www.hsu-ifa.de/ontologies/ISA-TR88#> .
+@prefix VDI2206: <http://www.hsu-ifa.de/ontologies/VDI2206#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@base <http://www.w3id.org/hsu-aut/cask#> .
+
+:Drilling rdf:type owl:NamedIndividual ,
+                   CSS:Capability ;
+          CSS:controls :DrillingProcess ;
+          CSS:isRestrictedBy :DiameterConstraint ,
+                             :DepthConstraint ;
+          CSS:isSpecifiedBy :DiameterProperty ,
+                            :DepthProperty .
+
+:DrillingProcess rdf:type owl:NamedIndividual ,
+                          CSS:Process ;
+                 CSS:hasInput :BlankProduct ,
+                              :DiameterInformation ,
+                              :DepthInformation ;
+                 CSS:hasOutput :DrilledProduct .
+
+:BlankProduct rdf:type owl:NamedIndividual ,
+                       CSS:Product .
+
+:DrilledProduct rdf:type owl:NamedIndividual ,
+                         CSS:Product ;
+                CSS:isSpecifiedBy :DrilledDiameterProperty ,
+                                  :DrilledDepthProperty .
+
+:DiameterInformation rdf:type owl:NamedIndividual ,
+                              VDI3682:Information ;
+                     CSS:isSpecifiedBy :DiameterProperty .
+
+:DepthInformation rdf:type owl:NamedIndividual ,
+                           VDI3682:Information ;
+                  CSS:isSpecifiedBy :DepthProperty .
+
+:DiameterProperty rdf:type owl:NamedIndividual ,
+                           CSS:Property .
+
+:DepthProperty rdf:type owl:NamedIndividual ,
+                        CSS:Property .
+
+:DrilledDiameterProperty rdf:type owl:NamedIndividual ,
+                                  CSS:Property .
+
+:DrilledDepthProperty rdf:type owl:NamedIndividual ,
+                               CSS:Property .
+
+:DiameterConstraint rdf:type owl:NamedIndividual ,
+                             CSS:CapabilityConstraint ;
+                    CSS:references :DiameterProperty ,
+                                   :DrilledDiameterProperty ;
+                    <http://openmath.org/vocab/math#operator> <http://www.openmath.org/cd/arith1#eq> .
+
+:DepthConstraint rdf:type owl:NamedIndividual ,
+                          CSS:CapabilityConstraint ;
+                 CSS:references :DepthProperty ,
+                                :DrilledDepthProperty ;
+                 <http://openmath.org/vocab/math#operator> <http://www.openmath.org/cd/arith1#eq> .
+
+:DiameterRequirement rdf:type owl:NamedIndividual ,
+                              CSS:CapabilityConstraint ;
+                     CSS:references :DiameterProperty ;
+                     <http://openmath.org/vocab/math#operator> <http://www.openmath.org/cd/arith1#gt> ;
+                     <http://openmath.org/vocab/math#arguments> [ rdf:first "1"^^xsd:double ;
+                                                                  rdf:rest [ rdf:first "20"^^xsd:double ;
+                                                                             rdf:rest rdf:nil
+                                                                           ]
+                                                                ] .
+
+:DepthRequirement rdf:type owl:NamedIndividual ,
+                           CSS:CapabilityConstraint ;
+                  CSS:references :DepthProperty ;
+                  <http://openmath.org/vocab/math#operator> <http://www.openmath.org/cd/arith1#lt> ;
+                  <http://openmath.org/vocab/math#arguments> [ rdf:first "80"^^xsd:double ;
+                                                               rdf:rest rdf:nil
+                                                             ] .

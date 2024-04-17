@@ -1,0 +1,188 @@
+@prefix : <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix Assembly: <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/assembly#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix openmath: <http://openmath.org/vocab/math#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@base <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+<http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/assembly> rdf:type owl:Ontology ;
+                                                                          owl:imports <https://w3id.org/hsu-aut/cask/2.5.3> .
+### Assembly
+Assembly:Assembly rdf:type owl:NamedIndividual ,
+                           VDI3682:ProcessOperator ,
+                           CSS:Capability ;
+                  VDI3682:hasInput Assembly:Assembly_A ,
+                                   Assembly:Assembly_B ;
+                  VDI3682:hasOutput Assembly:Assembly_Assembled_Product ;
+                  CSS:isRestrictedBy Assembly:Assembly_Constraint_Weight ;
+                  CSS:requiresCapability Assembly:Assembly .
+### Assembly_A
+Assembly:Assembly_A rdf:type owl:NamedIndividual ,
+                             VDI3682:Product ;
+                    DINEN61360:has_Data_Element Assembly:Assembly_A_Weight_DE .
+### Assembly_Assembled_Product
+Assembly:Assembly_Assembled_Product rdf:type owl:NamedIndividual ,
+                                             VDI3682:Product ;
+                                    DINEN61360:has_Data_Element Assembly:Assembly_Assembled_Product_Weight_DE .
+### Assembly_Assembled_Product_Weight_DE
+Assembly:Assembly_Assembled_Product_Weight_DE rdf:type owl:NamedIndividual ,
+                                                       DINEN61360:Data_Element ;
+                                              DINEN61360:has_Instance_Description Assembly:Assembly_Assembled_Product_Weight_ID ;
+                                              DINEN61360:has_Type_Description Assembly:Mass .
+### Assembly_Assembled_Product_Weight_ID
+Assembly:Assembly_Assembled_Product_Weight_ID rdf:type owl:NamedIndividual ,
+                                                       openmath:Variable ,
+                                                       DINEN61360:Instance_Description ;
+                                              openmath:name "http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/assembly#Assembly_Assembled_Product_Weight_ID" ;
+                                              DINEN61360:Expression_Goal "Assurance" ;
+                                              DINEN61360:Logic_Interpretation "=" .
+### Assembly_A_Weight_DE
+Assembly:Assembly_A_Weight_DE rdf:type owl:NamedIndividual ,
+                                       DINEN61360:Data_Element ;
+                              DINEN61360:has_Instance_Description Assembly:Assembly_A_Weight_ID ;
+                              DINEN61360:has_Type_Description Assembly:Mass .
+### Assembly_A_Weight_ID
+Assembly:Assembly_A_Weight_ID rdf:type owl:NamedIndividual ,
+                                       openmath:Variable ,
+                                       DINEN61360:Instance_Description ;
+                              openmath:name "http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/assembly#Assembly_A_Weight_ID" ;
+                              DINEN61360:Expression_Goal "Actual_Value" ;
+                              DINEN61360:Logic_Interpretation "=" .
+### Assembly_B
+Assembly:Assembly_B rdf:type owl:NamedIndividual ,
+                             VDI3682:Product ;
+                    DINEN61360:has_Data_Element Assembly:Assembly_B_Weight_DE .
+### Assembly_B_Weight_DE
+Assembly:Assembly_B_Weight_DE rdf:type owl:NamedIndividual ,
+                                       DINEN61360:Data_Element ;
+                              DINEN61360:has_Instance_Description Assembly:Assembly_B_Weight_ID ;
+                              DINEN61360:has_Type_Description Assembly:Mass .
+### Assembly_B_Weight_ID
+Assembly:Assembly_B_Weight_ID rdf:type owl:NamedIndividual ,
+                                       openmath:Variable ,
+                                       DINEN61360:Instance_Description ;
+                              openmath:name "http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/assembly#Assembly_B_Weight_ID" ;
+                              DINEN61360:Expression_Goal "Actual_Value" ;
+                              DINEN61360:Logic_Interpretation "=" .
+### Assembly_Constraint_Weight
+Assembly:Assembly_Constraint_Weight rdf:type owl:NamedIndividual ,
+                                             openmath:Application ,
+                                             CSS:CapabilityConstraint ;
+                                    openmath:arguments ( Assembly:Assembly_Assembled_Product_Weight_ID _:genid1 );
+                                    openmath:operator <http://www.openmath.org/cd/relation1#eq> ;
+                                    CSS:references Assembly:Assembly_A_Weight_ID ,
+                                                   Assembly:Assembly_Assembled_Product_Weight_ID ,
+                                                   Assembly:Assembly_B_Weight_ID .
+_:genid1 rdf:type openmath:Application ;
+         openmath:arguments ( Assembly:Assembly_A_Weight_ID Assembly:Assembly_B_Weight_ID );
+         openmath:operator <http://www.openmath.org/cd/arith1#plus> .
+### Mass
+Assembly:Mass rdf:type owl:NamedIndividual ,
+                       DINEN61360:Type_Description ;
+              DINEN61360:Definition "The mass of a subject measured in kg" ;
+              DINEN61360:Unit_of_Measure "kg" .
+--- Input Data ---
+There is a capability that takes a product "rawMaterial" as input. The capability returns a product "finishedProduct" as output. The input "rawMaterial" has a property "length" of type length in mm, which must be >= 100 and <= 1000 as a requirement. The output "finishedProduct" has a property "length" of type length in mm, which must be equal to the length of the input "rawMaterial" divided by 2 as an assurance.
+--- Output --- 
+OWL-Ontology:
+@prefix : <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix Processing: <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/processing#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix openmath: <http://openmath.org/vocab/math#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@base <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+<http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/processing> rdf:type owl:Ontology ;
+                                                                           owl:imports <https://w3id.org/hsu-aut/cask/2.5.3> .
+### Length
+Processing:Length rdf:type owl:NamedIndividual ,
+                           DINEN61360:Type_Description ;
+                  DINEN61360:Definition "The length of a subject measured in mm" ;
+                  DINEN61360:Unit_of_Measure "mm" .
+### Processing
+Processing:Processing rdf:type owl:NamedIndividual ,
+                               VDI3682:ProcessOperator ,
+                               CSS:Capability ;
+                      VDI3682:hasInput Processing:Processing_RawMaterial ;
+                      VDI3682:hasOutput Processing:Processing_FinishedProduct ;
+                      CSS:isRestrictedBy Processing:Processing_Constraint_Length ;
+                      CSS:requiresCapability Processing:Processing .
+### Processing_Constraint_Length
+Processing:Processing_Constraint_Length rdf:type owl:NamedIndividual ,
+                                                 openmath:Application ,
+                                                 CSS:CapabilityConstraint ;
+                                        openmath:arguments ( Processing:Processing_FinishedProduct_Length_ID _:genid1 );
+                                        openmath:operator <http://www.openmath.org/cd/relation1#eq> ;
+                                        CSS:references Processing:Processing_FinishedProduct_Length_ID ,
+                                                       Processing:Processing_RawMaterial_Length_ID .
+_:genid1 rdf:type openmath:Application ;
+         openmath:arguments ( Processing:Processing_RawMaterial_Length_ID 2 );
+         openmath:operator <http://www.openmath.org/cd/arith1#divide> .
+### Processing_FinishedProduct
+Processing:Processing_FinishedProduct rdf:type owl:NamedIndividual ,
+                                               VDI3682:Product ;
+                                      DINEN61360:has_Data_Element Processing:Processing_FinishedProduct_Length_DE .
+### Processing_FinishedProduct_Length_DE
+Processing:Processing_FinishedProduct_Length_DE rdf:type owl:NamedIndividual ,
+                                                         DINEN61360:Data_Element ;
+                                                DINEN61360:has_Instance_Description Processing:Processing_FinishedProduct_Length_ID ;
+                                                DINEN61360:has_Type_Description Processing:Length .
+### Processing_FinishedProduct_Length_ID
+Processing:Processing_FinishedProduct_Length_ID rdf:type owl:NamedIndividual ,
+                                                         openmath:Variable ,
+                                                         DINEN61360:Instance_Description ;
+                                                openmath:name "http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/processing#Processing_FinishedProduct_Length_ID" ;
+                                                DINEN61360:Expression_Goal "Assurance" ;
+                                                DINEN61360:Logic_Interpretation "=" .
+### Processing_RawMaterial
+Processing:Processing_RawMaterial rdf:type owl:NamedIndividual ,
+                                           VDI3682:Product ;
+                                  DINEN61360:has_Data_Element Processing:Processing_RawMaterial_Length_DE .
+### Processing_RawMaterial_Length_DE
+Processing:Processing_RawMaterial_Length_DE rdf:type owl:NamedIndividual ,
+                                                     DINEN61360:Data_Element ;
+                                            DINEN61360:has_Instance_Description Processing:Processing_RawMaterial_Length_ID ,
+                                                                                Processing:Processing_RawMaterial_Length_Req1 ,
+                                                                                Processing:Processing_RawMaterial_Length_Req2 ;
+                                            DINEN61360:has_Type_Description Processing:Length .
+### Processing_RawMaterial_Length_ID
+Processing:Processing_RawMaterial_Length_ID rdf:type owl:NamedIndividual ,
+                                                     openmath:Variable ,
+                                                     DINEN61360:Instance_Description ;
+                                            openmath:name "http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/processing#Processing_RawMaterial_Length_ID" ;
+                                            DINEN61360:Logic_Interpretation "=" .
+### Processing_RawMaterial_Length_Req1
+Processing:Processing_RawMaterial_Length_Req1 rdf:type owl:NamedIndividual ,
+                                                       DINEN61360:Instance_Description ;
+                                              DINEN61360:Expression_Goal "Requirement" ;
+                                              DINEN61360:Logic_Interpretation ">=" ;
+                                              DINEN61360:Value 100 .
+### Processing_RawMaterial_Length_Req2
+Processing:Processing_RawMaterial_Length_Req2 rdf:type owl:NamedIndividual ,
+                                                       DINEN61360:Instance_Description ;
+                                              DINEN61360:Expression_Goal "Requirement" ;
+                                              DINEN61360:Logic_Interpretation "<=" ;
+                                              DINEN61360:Value 1000 .
+--- Input Data ---
+There is a capability that takes a product "rawMaterial" as input. The capability returns a product "finishedProduct" as output. The input "rawMaterial" has a property "length" of type length in mm, which must be >= 100 and <= 1000 as a requirement. The output "finishedProduct" has a property "length" of type length in mm, which must be equal to the length of the input "rawMaterial" divided by 2 as an assurance. The input "rawMaterial" has a property "width" of type length in mm, which must be >= 50 and <= 500 as a requirement. The output "finishedProduct" has a property "width" of type length in mm, which must be equal to the width of the input "rawMaterial" divided by 2 as an assurance.
+--- Output --- 
+OWL-Ontology:
+@prefix : <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix Processing: <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/processing#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/V

@@ -1,0 +1,126 @@
+@prefix : <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+@prefix OM: <http://openmath.org/vocab/math#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix Mix: <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/mixing#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@base <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+<http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/mixing> rdf:type owl:Ontology ;
+                                                                        owl:imports <https://w3id.org/hsu-aut/cask/2.5.3> .
+### MixingConstraint_VolumeFractions
+Mix:Constraint_VolumeFractions rdf:type owl:NamedIndividual ,
+                                        OM:Application ,
+                                        CSS:CapabilityConstraint ;
+                               OM:operator <http://www.openmath.org/cd/relation1#eq> ;
+                               OM:arguments ( [ rdf:type OM:Application ;
+                                                OM:operator <http://www.openmath.org/cd/arith1#plus> ;
+                                                OM:arguments ( Mix:Mixing_input_volumeFraction1_ID 
+                                                               Mix:Mixing_input_volumeFraction2_ID
+                                                               Mix:Mixing_input_volumeFraction3_ID
+                                                             )
+                                              ]
+                                              1
+                                            ) .
+### MixingMixing
+Mix:Mixing rdf:type owl:NamedIndividual ,
+                    VDI3682:ProcessOperator ,
+                    CSS:Capability ;
+           VDI3682:hasInput Mix:Mixing_input_liquid1 ,
+                            Mix:Mixing_input_liquid2 ,
+                            Mix:Mixing_input_liquid3 ,
+                            Mix:Mixing_input_totalVolume ,
+                            Mix:Mixing_input_volumeFraction1 ,
+                            Mix:Mixing_input_volumeFraction2 ,
+                            Mix:Mixing_input_volumeFraction3 ;
+           VDI3682:hasOutput Mix:Mixing_output_liquidMixture ;
+           CSS:requiresCapability Mix:Mixing ;
+           CSS:isRestrictedBy Mix:Constraint_VolumeFractions .
+### MixingMixing_input_liquid1
+Mix:Mixing_input_liquid1 rdf:type owl:NamedIndividual ,
+                                  VDI3682:Product .
+### MixingMixing_input_liquid2
+Mix:Mixing_input_liquid2 rdf:type owl:NamedIndividual ,
+                                  VDI3682:Product .
+### MixingMixing_input_liquid3
+Mix:Mixing_input_liquid3 rdf:type owl:NamedIndividual ,
+                                  VDI3682:Product .
+### MixingMixing_input_totalVolume
+Mix:Mixing_input_totalVolume rdf:type owl:NamedIndividual ,
+                                      VDI3682:Information ;
+                             DINEN61360:has_Data_Element Mix:Mixing_input_totalVolume_DE .
+### MixingMixing_input_totalVolume_DE
+Mix:Mixing_input_totalVolume_DE rdf:type owl:NamedIndividual ,
+                                         DINEN61360:Data_Element ;
+                                DINEN61360:has_Instance_Description Mix:Mixing_input_totalVolume_ID ;
+                                DINEN61360:has_Type_Description Mix:Volume .
+### MixingMixing_input_totalVolume_ID
+Mix:Mixing_input_totalVolume_ID rdf:type owl:NamedIndividual ,
+                                         DINEN61360:Instance_Description ;
+                                DINEN61360:Expression_Goal "Requirement" ;
+                                DINEN61360:Logic_Interpretation "<=" ;
+                                DINEN61360:Value 10 .
+### MixingMixing_input_volumeFraction1
+Mix:Mixing_input_volumeFraction1 rdf:type owl:NamedIndividual ,
+                                          VDI3682:Information ;
+                                 DINEN61360:has_Data_Element Mix:Mixing_input_volumeFraction1_DE .
+### MixingMixing_input_volumeFraction1_DE
+Mix:Mixing_input_volumeFraction1_DE rdf:type owl:NamedIndividual ,
+                                             DINEN61360:Data_Element ;
+                                    DINEN61360:has_Instance_Description Mix:Mixing_input_volumeFraction1_ID ;
+                                    DINEN61360:has_Type_Description Mix:VolumeFraction .
+### MixingMixing_input_volumeFraction1_ID
+Mix:Mixing_input_volumeFraction1_ID rdf:type owl:NamedIndividual ,
+                                             DINEN61360:Instance_Description ;
+                                    DINEN61360:Logic_Interpretation "<=" ;
+                                    DINEN61360:Value 0.5 .
+### MixingMixing_input_volumeFraction2
+Mix:Mixing_input_volumeFraction2 rdf:type owl:NamedIndividual ,
+                                          VDI3682:Information ;
+                                 DINEN61360:has_Data_Element Mix:Mixing_input_volumeFraction2_DE .
+### MixingMixing_input_volumeFraction2_DE
+Mix:Mixing_input_volumeFraction2_DE rdf:type owl:NamedIndividual ,
+                                             DINEN61360:Data_Element ;
+                                    DINEN61360:has_Instance_Description Mix:Mixing_input_volumeFraction2_ID_Req1 ,
+                                                                        Mix:Mixing_input_volumeFraction2_ID_Req2 ;
+                                    DINEN61360:has_Type_Description Mix:VolumeFraction .
+### MixingMixing_input_volumeFraction2_ID_Req1
+Mix:Mixing_input_volumeFraction2_ID_Req1 rdf:type owl:NamedIndividual ,
+                                                  DINEN61360:Instance_Description ;
+                                         DINEN61360:Logic_Interpretation ">=" ;
+                                         DINEN61360:Value 0.2 .
+### MixingMixing_input_volumeFraction2_ID_Req2
+Mix:Mixing_input_volumeFraction2_ID_Req2 rdf:type owl:NamedIndividual ,
+                                                  DINEN61360:Instance_Description ;
+                                         DINEN61360:Logic_Interpretation "<=" ;
+                                         DINEN61360:Value 0.5 .
+### MixingMixing_input_volumeFraction3
+Mix:Mixing_input_volumeFraction3 rdf:type owl:NamedIndividual ,
+                                          VDI3682:Information ;
+                                 DINEN61360:has_Data_Element Mix:Mixing_input_volumeFraction3_DE .
+### MixingMixing_input_volumeFraction3_DE
+Mix:Mixing_input_volumeFraction3_DE rdf:type owl:NamedIndividual ,
+                                             DINEN61360:Data_Element ;
+                                    DINEN61360:has_Instance_Description Mix:Mixing_input_volumeFraction3_ID ;
+                                    DINEN61360:has_Type_Description Mix:VolumeFraction .
+### MixingMixing_input_volumeFraction3_ID
+Mix:Mixing_input_volumeFraction3_ID rdf:type owl:NamedIndividual ,
+                                             DINEN61360:Instance_Description ;
+                                    DINEN61360:Logic_Interpretation "<=" ;
+                                    DINEN61360:Value 0.1 .
+### MixingMixing_output_liquidMixture
+Mix:Mixing_output_liquidMixture rdf:type owl:NamedIndividual ,
+                                         VDI3682:Product .
+### MixingVolume
+Mix:Volume rdf:type owl:NamedIndividual ,
+                    DINEN61360:Type_Description ;
+           DINEN61360:Definition "Volume is the amount of three-dimensional space occupied by an object or substance. It is a derived quantity in the International System of Units (SI), expressed in cubic meters (m³)." ;
+           DINEN61360:Unit_of_Measure "m³" .
+### MixingVolumeFraction
+Mix:VolumeFraction rdf:type owl:NamedIndividual ,
+                            DINEN61360:Type_Description ;
+                   DINEN61360:Definition "Volume fraction is the ratio of the volume of a constituent to the total volume of the mixture. It is a dimensionless quantity, typically expressed as a decimal or percentage." .

@@ -1,0 +1,77 @@
+@prefix : <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+@prefix OM: <http://openmath.org/vocab/math#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix Div: <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/division#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@base <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+<http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/division> rdf:type owl:Ontology ;
+                                                                          owl:imports <https://w3id.org/hsu-aut/cask/2.5.3> .
+### DivisionConstraint_DivisorNotZero
+Div:Constraint_DivisorNotZero rdf:type owl:NamedIndividual ,
+                                       OM:Application ,
+                                       CSS:CapabilityConstraint ;
+                              OM:operator <http://www.openmath.org/cd/relation1#neq> ;
+                              OM:arguments ( Div:Division_input_divisor_ID "0"^^xsd:integer ) .
+### DivisionDivision
+Div:Division rdf:type owl:NamedIndividual ,
+                      VDI3682:ProcessOperator ,
+                      CSS:Capability ;
+             VDI3682:hasInput Div:Division_input_dividend ,
+                              Div:Division_input_divisor ;
+             VDI3682:hasOutput Div:Division_output_quotient ;
+             CSS:requiresCapability Div:Division ;
+             CSS:isRestrictedBy Div:Constraint_DivisorNotZero .
+### DivisionDivision_input_dividend
+Div:Division_input_dividend rdf:type owl:NamedIndividual ,
+                                     VDI3682:Information ;
+                            DINEN61360:has_Data_Element Div:Division_input_dividend_DE .
+### DivisionDivision_input_dividend_DE
+Div:Division_input_dividend_DE rdf:type owl:NamedIndividual ,
+                                        DINEN61360:Data_Element ;
+                               DINEN61360:has_Instance_Description Div:Division_input_dividend_ID ;
+                               DINEN61360:has_Type_Description Div:IntegerType .
+### DivisionDivision_input_dividend_ID
+Div:Division_input_dividend_ID rdf:type owl:NamedIndividual ,
+                                        DINEN61360:Instance_Description ;
+                               DINEN61360:Logic_Interpretation "=" .
+### DivisionDivision_input_divisor
+Div:Division_input_divisor rdf:type owl:NamedIndividual ,
+                                    VDI3682:Information ;
+                           DINEN61360:has_Data_Element Div:Division_input_divisor_DE .
+### DivisionDivision_input_divisor_DE
+Div:Division_input_divisor_DE rdf:type owl:NamedIndividual ,
+                                       DINEN61360:Data_Element ;
+                              DINEN61360:has_Instance_Description Div:Division_input_divisor_ID ;
+                              DINEN61360:has_Type_Description Div:IntegerType .
+### DivisionDivision_input_divisor_ID
+Div:Division_input_divisor_ID rdf:type owl:NamedIndividual ,
+                                       DINEN61360:Instance_Description ;
+                              DINEN61360:Logic_Interpretation "=" .
+### DivisionDivision_output_quotient
+Div:Division_output_quotient rdf:type owl:NamedIndividual ,
+                                      VDI3682:Information ;
+                             DINEN61360:has_Data_Element Div:Division_output_quotient_DE .
+### DivisionDivision_output_quotient_DE
+Div:Division_output_quotient_DE rdf:type owl:NamedIndividual ,
+                                         DINEN61360:Data_Element ;
+                                DINEN61360:has_Instance_Description Div:Division_output_quotient_ID_AS ;
+                                DINEN61360:has_Type_Description Div:RealType .
+### DivisionDivision_output_quotient_ID_AS
+Div:Division_output_quotient_ID_AS rdf:type owl:NamedIndividual ,
+                                            DINEN61360:Instance_Description ;
+                                   DINEN61360:Expression_Goal "Assurance" ;
+                                   DINEN61360:Logic_Interpretation "=" .
+### DivisionIntegerType
+Div:IntegerType rdf:type owl:NamedIndividual ,
+                         DINEN61360:Type_Description ;
+                DINEN61360:Definition "This type is for numbers of type integer" .
+### DivisionRealType
+Div:RealType rdf:type owl:NamedIndividual ,
+                      DINEN61360:Type_Description ;
+             DINEN61360:Definition "This type is for numbers of type real" .

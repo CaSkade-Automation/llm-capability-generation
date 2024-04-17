@@ -1,0 +1,199 @@
+@prefix : <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix Addition: <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/addition#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix openmath: <http://openmath.org/vocab/math#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@base <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+<http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/addition> rdf:type owl:Ontology ;
+                                                                          owl:imports <https://w3id.org/hsu-aut/cask/2.5.3> .
+### Addition
+Addition:Addition rdf:type owl:NamedIndividual ,
+                           VDI3682:ProcessOperator ,
+                           CSS:Capability ;
+                  VDI3682:hasInput Addition:Addition_A ,
+                                   Addition:Addition_B ;
+                  VDI3682:hasOutput Addition:Addition_Sum ;
+                  CSS:isRestrictedBy Addition:Addition_Constraint_Sum ;
+                  CSS:requiresCapability Addition:Addition .
+### Addition_A
+Addition:Addition_A rdf:type owl:NamedIndividual ,
+                             VDI3682:Information ;
+                    DINEN61360:has_Data_Element Addition:Addition_A_DE .
+### Addition_A_DE
+Addition:Addition_A_DE rdf:type owl:NamedIndividual ,
+                                DINEN61360:Data_Element ;
+                       DINEN61360:has_Instance_Description Addition:Addition_A_ID ;
+                       DINEN61360:has_Type_Description Addition:Integer .
+### Addition_A_ID
+Addition:Addition_A_ID rdf:type owl:NamedIndividual ,
+                                openmath:Variable ,
+                                DINEN61360:Instance_Description ,
+                                DINEN61360:Integer ;
+                       openmath:name "http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/addition#Addition_A_ID" ;
+                       DINEN61360:Logic_Interpretation "=" .
+### Addition_B
+Addition:Addition_B rdf:type owl:NamedIndividual ,
+                             VDI3682:Information ;
+                    DINEN61360:has_Data_Element Addition:Addition_B_DE .
+### Addition_B_DE
+Addition:Addition_B_DE rdf:type owl:NamedIndividual ,
+                                DINEN61360:Data_Element ;
+                       DINEN61360:has_Instance_Description Addition:Addition_B_ID ;
+                       DINEN61360:has_Type_Description Addition:Integer .
+### Addition_B_ID
+Addition:Addition_B_ID rdf:type owl:NamedIndividual ,
+                                openmath:Variable ,
+                                DINEN61360:Instance_Description ,
+                                DINEN61360:Integer ;
+                       openmath:name "http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/addition#Addition_B_ID" ;
+                       DINEN61360:Logic_Interpretation "=" .
+### Addition_Constraint_Sum
+Addition:Addition_Constraint_Sum rdf:type owl:NamedIndividual ,
+                                          openmath:Application ,
+                                          CSS:CapabilityConstraint ;
+                                 openmath:arguments ( Addition:Addition_Sum_ID _:genid1 );
+                                 openmath:operator <http://www.openmath.org/cd/relation1#eq> ;
+                                 CSS:references Addition:Addition_Sum_ID ,
+                                                Addition:Addition_A_ID ,
+                                                Addition:Addition_B_ID .
+_:genid1 rdf:type openmath:Application ;
+         openmath:arguments ( Addition:Addition_A_ID Addition:Addition_B_ID );
+         openmath:operator <http://www.openmath.org/cd/arith1#plus> .
+### Addition_Sum
+Addition:Addition_Sum rdf:type owl:NamedIndividual ,
+                               VDI3682:Information ;
+                      DINEN61360:has_Data_Element Addition:Addition_Sum_DE .
+### Addition_Sum_DE
+Addition:Addition_Sum_DE rdf:type owl:NamedIndividual ,
+                                  DINEN61360:Data_Element ;
+                         DINEN61360:has_Instance_Description Addition:Addition_Sum_ID ;
+                         DINEN61360:has_Type_Description Addition:Integer .
+### Addition_Sum_ID
+Addition:Addition_Sum_ID rdf:type owl:NamedIndividual ,
+                                  openmath:Variable ,
+                                  DINEN61360:Instance_Description ,
+                                  DINEN61360:Integer ;
+                         openmath:name "http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/addition#Addition_Sum_ID" ;
+                         DINEN61360:Expression_Goal "Assurance" ;
+                         DINEN61360:Logic_Interpretation "=" .
+### Integer
+Addition:Integer rdf:type owl:NamedIndividual ,
+                          DINEN61360:Type_Description ;
+                 DINEN61360:Definition "An integer value" .
+--- Input Data ---
+There is a capability that takes a product "rawMaterial" as input and returns a product "finishedProduct" as output. The input "rawMaterial" has a property "length" that must be >= 100 and <= 1000 as a requirement and is measured in millimeters (mm). The output "finishedProduct" has a property "length" that must be >= 50 and <= 500 as an assurance and is also measured in millimeters (mm). In addition, the output "finishedProduct" has a property "color" that must be one of the values "red", "green" or "blue" as an assurance.
+--- Output --- 
+OWL-Ontology:
+@prefix : <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix Manufacturing: <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/manufacturing#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix openmath: <http://openmath.org/vocab/math#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@base <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+<http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/manufacturing> rdf:type owl:Ontology ;
+                                                                               owl:imports <https://w3id.org/hsu-aut/cask/2.5.3> .
+### Color
+Manufacturing:Color rdf:type owl:NamedIndividual ,
+                             DINEN61360:Type_Description ;
+                    DINEN61360:Definition "The color of a product" ;
+                    DINEN61360:Value_List true ;
+                    DINEN61360:Value_List_Member "blue" ,
+                                                 "green" ,
+                                                 "red" .
+### Length
+Manufacturing:Length rdf:type owl:NamedIndividual ,
+                              DINEN61360:Type_Description ;
+                     DINEN61360:Definition "The length of a product in millimeters" ;
+                     DINEN61360:Unit_of_Measure "mm" .
+### Manufacturing
+Manufacturing:Manufacturing rdf:type owl:NamedIndividual ,
+                                      VDI3682:ProcessOperator ,
+                                      CSS:Capability ;
+                             VDI3682:hasInput Manufacturing:Manufacturing_RawMaterial ;
+                             VDI3682:hasOutput Manufacturing:Manufacturing_FinishedProduct ;
+                             CSS:requiresCapability Manufacturing:Manufacturing .
+### Manufacturing_FinishedProduct
+Manufacturing:Manufacturing_FinishedProduct rdf:type owl:NamedIndividual ,
+                                                     VDI3682:Product ;
+                                            DINEN61360:has_Data_Element Manufacturing:Manufacturing_FinishedProduct_Color_DE ,
+                                                                        Manufacturing:Manufacturing_FinishedProduct_Length_DE .
+### Manufacturing_FinishedProduct_Color_DE
+Manufacturing:Manufacturing_FinishedProduct_Color_DE rdf:type owl:NamedIndividual ,
+                                                              DINEN61360:Data_Element ;
+                                                     DINEN61360:has_Instance_Description Manufacturing:Manufacturing_FinishedProduct_Color_ID ;
+                                                     DINEN61360:has_Type_Description Manufacturing:Color .
+### Manufacturing_FinishedProduct_Color_ID
+Manufacturing:Manufacturing_FinishedProduct_Color_ID rdf:type owl:NamedIndividual ,
+                                                              DINEN61360:Instance_Description ;
+                                                     DINEN61360:Expression_Goal "Assurance" ;
+                                                     DINEN61360:Logic_Interpretation "=" .
+### Manufacturing_FinishedProduct_Length_DE
+Manufacturing:Manufacturing_FinishedProduct_Length_DE rdf:type owl:NamedIndividual ,
+                                                               DINEN61360:Data_Element ;
+                                                      DINEN61360:has_Instance_Description Manufacturing:Manufacturing_FinishedProduct_Length_ID ,
+                                                                                          Manufacturing:Manufacturing_FinishedProduct_Length_Req1 ,
+                                                                                          Manufacturing:Manufacturing_FinishedProduct_Length_Req2 ;
+                                                      DINEN61360:has_Type_Description Manufacturing:Length .
+### Manufacturing_FinishedProduct_Length_ID
+Manufacturing:Manufacturing_FinishedProduct_Length_ID rdf:type owl:NamedIndividual ,
+                                                               DINEN61360:Instance_Description ;
+                                                      DINEN61360:Logic_Interpretation "=" .
+### Manufacturing_FinishedProduct_Length_Req1
+Manufacturing:Manufacturing_FinishedProduct_Length_Req1 rdf:type owl:NamedIndividual ,
+                                                                 DINEN61360:Instance_Description ;
+                                                        DINEN61360:Expression_Goal "Assurance" ;
+                                                        DINEN61360:Logic_Interpretation ">=" ;
+                                                        DINEN61360:Value 50 .
+### Manufacturing_FinishedProduct_Length_Req2
+Manufacturing:Manufacturing_FinishedProduct_Length_Req2 rdf:type owl:NamedIndividual ,
+                                                                 DINEN61360:Instance_Description ;
+                                                        DINEN61360:Expression_Goal "Assurance" ;
+                                                        DINEN61360:Logic_Interpretation "<=" ;
+                                                        DINEN61360:Value 500 .
+### Manufacturing_RawMaterial
+Manufacturing:Manufacturing_RawMaterial rdf:type owl:NamedIndividual ,
+                                                 VDI3682:Product ;
+                                        DINEN61360:has_Data_Element Manufacturing:Manufacturing_RawMaterial_Length_DE .
+### Manufacturing_RawMaterial_Length_DE
+Manufacturing:Manufacturing_RawMaterial_Length_DE rdf:type owl:NamedIndividual ,
+                                                           DINEN61360:Data_Element ;
+                                                  DINEN61360:has_Instance_Description Manufacturing:Manufacturing_RawMaterial_Length_ID ,
+                                                                                      Manufacturing:Manufacturing_RawMaterial_Length_Req1 ,
+                                                                                      Manufacturing:Manufacturing_RawMaterial_Length_Req2 ;
+                                                  DINEN61360:has_Type_Description Manufacturing:Length .
+### Manufacturing_RawMaterial_Length_ID
+Manufacturing:Manufacturing_RawMaterial_Length_ID rdf:type owl:NamedIndividual ,
+                                                           DINEN61360:Instance_Description ;
+                                                  DINEN61360:Logic_Interpretation "=" .
+### Manufacturing_RawMaterial_Length_Req1
+Manufacturing:Manufacturing_RawMaterial_Length_Req1 rdf:type owl:NamedIndividual ,
+                                                             DINEN61360:Instance_Description ;
+                                                    DINEN61360:Expression_Goal "Requirement" ;
+                                                    DINEN61360:Logic_Interpretation ">=" ;
+                                                    DINEN61360:Value 100 .
+### Manufacturing_RawMaterial_Length_Req2
+Manufacturing:Manufacturing_RawMaterial_Length_Req2 rdf:type owl:NamedIndividual ,
+                                                             DINEN61360:Instance_Description ;
+                                                    DINEN61360:Expression_Goal "Requirement" ;
+                                                    DINEN61360:Logic_Interpretation "<=" ;
+                                                    DINEN61360:Value 1000 .
+--- Input Data ---
+There is a capability that takes a product "rawMaterial" as input and returns a product "finishedProduct" as output. The input "rawMaterial" has a property "length" that must be >= 100 and <= 1000 as a requirement and is measured in millimeters (mm). The output "finishedProduct" has a property "length" that must be >= 50 and <= 500 as an assurance and is also measured in millimeters (mm). In addition, the output "finishedProduct" has a property "color" that must be one of the values "red", "green" or "blue" as an assurance. The capability also takes an information "desiredColor" as input, which determines the desired color of the finished product. The "color" property of the output "finishedProduct" must be equal to the value of the "desiredColor" input.
+--- Output --- 
+OWL-Ontology:
+@prefix : <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http

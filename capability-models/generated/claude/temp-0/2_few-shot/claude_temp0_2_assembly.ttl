@@ -1,0 +1,83 @@
+@prefix : <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+@prefix OM: <http://openmath.org/vocab/math#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix Assembly: <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/assembly#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@base <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+<http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/assembly> rdf:type owl:Ontology ;
+                                                                           owl:imports <https://w3id.org/hsu-aut/cask/2.5.3> .
+### Assembly
+Assembly:Assembly rdf:type owl:NamedIndividual ,
+                           VDI3682:ProcessOperator ,
+                           CSS:Capability ;
+                  VDI3682:hasInput Assembly:Assembly_Input_A ,
+                                   Assembly:Assembly_Input_B ;
+                  VDI3682:hasOutput Assembly:Assembly_Output_Assembled_Product ;
+                  CSS:isRestrictedBy Assembly:Assembly_Constraint_Weight ;
+                  CSS:requiresCapability Assembly:Assembly .
+### Assembly_Constraint_Weight
+Assembly:Assembly_Constraint_Weight rdf:type owl:NamedIndividual ,
+                                             OM:Application ,
+                                             CSS:CapabilityConstraint ;
+                                    OM:operator <http://www.openmath.org/cd/relation1#eq> ;
+                                    OM:arguments ( Assembly:Assembly_Output_Assembled_Product_Weight_ID
+                                                   [ rdf:type OM:Application ;
+                                                     OM:operator <http://www.openmath.org/cd/arith1#plus> ;
+                                                     OM:arguments ( Assembly:Assembly_Input_A_Weight_ID
+                                                                    Assembly:Assembly_Input_B_Weight_ID
+                                                                  )
+                                                   ]
+                                                 ) .
+### Assembly_Input_A
+Assembly:Assembly_Input_A rdf:type owl:NamedIndividual ,
+                                   VDI3682:Product ;
+                          DINEN61360:has_Data_Element Assembly:Assembly_Input_A_Weight_DE .
+### Assembly_Input_A_Weight_DE
+Assembly:Assembly_Input_A_Weight_DE rdf:type owl:NamedIndividual ,
+                                             DINEN61360:Data_Element ;
+                                    DINEN61360:has_Instance_Description Assembly:Assembly_Input_A_Weight_ID ;
+                                    DINEN61360:has_Type_Description Assembly:Weight .
+### Assembly_Input_A_Weight_ID
+Assembly:Assembly_Input_A_Weight_ID rdf:type owl:NamedIndividual ,
+                                             DINEN61360:Instance_Description ;
+                                    DINEN61360:Expression_Goal "Actual_Value" ;
+                                    DINEN61360:Logic_Interpretation "=" .
+### Assembly_Input_B
+Assembly:Assembly_Input_B rdf:type owl:NamedIndividual ,
+                                   VDI3682:Product ;
+                          DINEN61360:has_Data_Element Assembly:Assembly_Input_B_Weight_DE .
+### Assembly_Input_B_Weight_DE
+Assembly:Assembly_Input_B_Weight_DE rdf:type owl:NamedIndividual ,
+                                             DINEN61360:Data_Element ;
+                                    DINEN61360:has_Instance_Description Assembly:Assembly_Input_B_Weight_ID ;
+                                    DINEN61360:has_Type_Description Assembly:Weight .
+### Assembly_Input_B_Weight_ID
+Assembly:Assembly_Input_B_Weight_ID rdf:type owl:NamedIndividual ,
+                                             DINEN61360:Instance_Description ;
+                                    DINEN61360:Expression_Goal "Actual_Value" ;
+                                    DINEN61360:Logic_Interpretation "=" .
+### Assembly_Output_Assembled_Product
+Assembly:Assembly_Output_Assembled_Product rdf:type owl:NamedIndividual ,
+                                                    VDI3682:Product ;
+                                           DINEN61360:has_Data_Element Assembly:Assembly_Output_Assembled_Product_Weight_DE .
+### Assembly_Output_Assembled_Product_Weight_DE
+Assembly:Assembly_Output_Assembled_Product_Weight_DE rdf:type owl:NamedIndividual ,
+                                                              DINEN61360:Data_Element ;
+                                                     DINEN61360:has_Instance_Description Assembly:Assembly_Output_Assembled_Product_Weight_ID ;
+                                                     DINEN61360:has_Type_Description Assembly:Weight .
+### Assembly_Output_Assembled_Product_Weight_ID
+Assembly:Assembly_Output_Assembled_Product_Weight_ID rdf:type owl:NamedIndividual ,
+                                                              DINEN61360:Instance_Description ;
+                                                     DINEN61360:Expression_Goal "Assurance" ;
+                                                     DINEN61360:Logic_Interpretation "=" .
+### Weight
+Assembly:Weight rdf:type owl:NamedIndividual ,
+                         DINEN61360:Type_Description ;
+                DINEN61360:Definition "The weight of an object, measured in kg." ;
+                DINEN61360:Unit_of_Measure "kg" .
