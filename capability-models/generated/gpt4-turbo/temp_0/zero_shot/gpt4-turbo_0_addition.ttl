@@ -1,0 +1,62 @@
+```turtle
+@prefix : <http://www.w3id.org/hsu-aut/cask#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+
+### AdditionCapability
+:AdditionCapability rdf:type CSS:Capability ;
+                    rdfs:label "Addition Capability" ;
+                    CSS:isRealizedBySkill :AdditionSkill .
+
+### AdditionSkill
+:AdditionSkill rdf:type CSS:Skill ;
+               rdfs:label "Addition Skill" ;
+               CSS:hasParameter :InputA ;
+               CSS:hasParameter :InputB ;
+               CSS:hasOutput :OutputSum ;
+               CSS:controls :AdditionProcess .
+
+### AdditionProcess
+:AdditionProcess rdf:type CSS:Process ;
+                 rdfs:label "Addition Process" ;
+                 CSS:hasInput :InputA ;
+                 CSS:hasInput :InputB ;
+                 CSS:hasOutput :OutputSum .
+
+### InputA
+:InputA rdf:type VDI3682:Information ;
+         rdfs:label "Input A" ;
+         DINEN61360:has_Instance_Description :InputA_Instance .
+
+### InputB
+:InputB rdf:type VDI3682:Information ;
+         rdfs:label "Input B" ;
+         DINEN61360:has_Instance_Description :InputB_Instance .
+
+### OutputSum
+:OutputSum rdf:type VDI3682:Information ;
+            rdfs:label "Output Sum" ;
+            DINEN61360:has_Instance_Description :OutputSum_Instance .
+
+### InputA_Instance
+:InputA_Instance rdf:type DINEN61360:Instance_Description ;
+                 DINEN61360:Expression_Goal "Actual_Value" ;
+                 DINEN61360:Value "Value of A"^^xsd:int .
+
+### InputB_Instance
+:InputB_Instance rdf:type DINEN61360:Instance_Description ;
+                 DINEN61360:Expression_Goal "Actual_Value" ;
+                 DINEN61360:Value "Value of B"^^xsd:int .
+
+### OutputSum_Instance
+:OutputSum_Instance rdf:type DINEN61360:Instance_Description ;
+                    DINEN61360:Expression_Goal "Assurance" ;
+                    DINEN61360:Value "Result of A + B"^^xsd:int .
+```
+
+This OWL ontology in Turtle syntax defines an addition capability, skill, and process, along with the necessary inputs and outputs. Each input and output is modeled as an instance of `VDI3682:Information` and linked to instance descriptions that specify their values. The capability is realized by a skill, which controls a process that takes two inputs and produces an output. The values of the inputs and the output are specified as instance descriptions with appropriate goals and values.

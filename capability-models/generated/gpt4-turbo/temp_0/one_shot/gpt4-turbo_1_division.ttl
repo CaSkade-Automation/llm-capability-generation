@@ -1,0 +1,77 @@
+@prefix : <http://www.hsu-hh.de/aut/ontologies/division-capability#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@base <http://www.hsu-hh.de/aut/ontologies/division-capability#> .
+
+<http://www.hsu-hh.de/aut/ontologies/division-capability> rdf:type owl:Ontology ;
+                                                          owl:imports <https://w3id.org/hsu-aut/cask/2.5.3> .
+
+### DivisionCapability
+:DivisionCapability rdf:type owl:NamedIndividual ,
+                             VDI3682:ProcessOperator ,
+                             CSS:Capability ;
+                    VDI3682:hasInput :Dividend ,
+                                     :Divisor ;
+                    VDI3682:hasOutput :Quotient ;
+                    CSS:isRestrictedBy :NonZeroDivisorConstraint .
+
+### Dividend
+:Dividend rdf:type owl:NamedIndividual ,
+                   VDI3682:Product ;
+          DINEN61360:has_Data_Element :Dividend_DE .
+
+### Divisor
+:Divisor rdf:type owl:NamedIndividual ,
+                  VDI3682:Product ;
+         DINEN61360:has_Data_Element :Divisor_DE .
+
+### Quotient
+:Quotient rdf:type owl:NamedIndividual ,
+                   VDI3682:Product ;
+          DINEN61360:has_Data_Element :Quotient_DE .
+
+### Dividend_DE
+:Dividend_DE rdf:type owl:NamedIndividual ,
+                       DINEN61360:Data_Element ;
+              DINEN61360:has_Type_Description :IntegerType .
+
+### Divisor_DE
+:Divisor_DE rdf:type owl:NamedIndividual ,
+                      DINEN61360:Data_Element ;
+             DINEN61360:has_Type_Description :IntegerType ;
+             DINEN61360:has_Instance_Description :Divisor_ID .
+
+### Quotient_DE
+:Quotient_DE rdf:type owl:NamedIndividual ,
+                       DINEN61360:Data_Element ;
+              DINEN61360:has_Type_Description :RealType .
+
+### Divisor_ID
+:Divisor_ID rdf:type owl:NamedIndividual ,
+                     DINEN61360:Instance_Description ;
+            DINEN61360:Expression_Goal "Requirement" ;
+            DINEN61360:Logic_Interpretation "!=" ;
+            DINEN61360:Value 0 .
+
+### NonZeroDivisorConstraint
+:NonZeroDivisorConstraint rdf:type owl:NamedIndividual ,
+                                   CSS:CapabilityConstraint ;
+                          CSS:references :Divisor_DE .
+
+### IntegerType
+:IntegerType rdf:type owl:NamedIndividual ,
+                       DINEN61360:Type_Description ;
+              DINEN61360:Definition "An integer value." ;
+              DINEN61360:Preferred_Name "Integer" .
+
+### RealType
+:RealType rdf:type owl:NamedIndividual ,
+                    DINEN61360:Type_Description ;
+           DINEN61360:Definition "A real number value." ;
+           DINEN61360:Preferred_Name "Real" .

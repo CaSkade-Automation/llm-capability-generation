@@ -1,0 +1,74 @@
+@prefix : <http://www.w3id.org/hsu-aut/cask#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+
+### Division Capability
+:DivisionCapability rdf:type CSS:Capability ;
+                    rdfs:label "Division Capability" ;
+                    CSS:isSpecifiedBy :DividendProperty, :DivisorProperty, :QuotientProperty ;
+                    CSS:isRealizedBy :DivisionSkill .
+
+### Dividend Property
+:DividendProperty rdf:type DINEN61360:Data_Element ;
+                  DINEN61360:has_Type_Description :IntegerTypeDescription ;
+                  rdfs:label "Dividend" .
+
+### Divisor Property
+:DivisorProperty rdf:type DINEN61360:Data_Element ;
+                 DINEN61360:has_Type_Description :IntegerTypeDescription ;
+                 rdfs:label "Divisor" ;
+                 DINEN61360:has_Instance_Description :NonZeroInstanceDescription .
+
+### Quotient Property
+:QuotientProperty rdf:type DINEN61360:Data_Element ;
+                  DINEN61360:has_Type_Description :RealTypeDescription ;
+                  rdfs:label "Quotient" .
+
+### Integer Type Description
+:IntegerTypeDescription rdf:type DINEN61360:Type_Description ;
+                        DINEN61360:Preferred_Name "Integer" ;
+                        DINEN61360:Definition "An integer value." .
+
+### Real Type Description
+:RealTypeDescription rdf:type DINEN61360:Type_Description ;
+                     DINEN61360:Preferred_Name "Real" ;
+                     DINEN61360:Definition "A real number value." .
+
+### Non-Zero Instance Description
+:NonZeroInstanceDescription rdf:type DINEN61360:Instance_Description ;
+                            DINEN61360:Expression_Goal "Requirement" ;
+                            DINEN61360:Logic_Interpretation "!=" ;
+                            DINEN61360:Value "0"^^xsd:int ;
+                            rdfs:label "Non-zero requirement" .
+
+### Division Skill
+:DivisionSkill rdf:type CSS:Skill ;
+               rdfs:label "Division Skill" ;
+               CSS:isRealizedBy :DivisionMethod ;
+               CSS:hasParameter :DividendParameter, :DivisorParameter ;
+               CSS:hasOutput :QuotientOutput .
+
+### Division Method
+:DivisionMethod rdf:type :SkillMethod ;
+                rdfs:label "Perform Division" ;
+                :invokes <http://www.openmath.org/cd/arith1#divide> .
+
+### Dividend Parameter
+:DividendParameter rdf:type CSS:SkillParameter ;
+                   rdfs:label "Dividend Parameter" ;
+                   :hasVariableType "Integer" .
+
+### Divisor Parameter
+:DivisorParameter rdf:type CSS:SkillParameter ;
+                  rdfs:label "Divisor Parameter" ;
+                  :hasVariableType "Integer" ;
+                  :isRequired "true"^^xsd:boolean .
+
+### Quotient Output
+:QuotientOutput rdf:type :SkillOutput ;
+                rdfs:label "Quotient Output" ;
+                :hasVariableType "Real" .

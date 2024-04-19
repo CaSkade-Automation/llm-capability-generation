@@ -1,0 +1,83 @@
+@prefix : <http://www.hsu-hh.de/aut/ontologies/addition-capability#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@prefix math: <http://openmath.org/vocab/math#> .
+@base <http://www.hsu-hh.de/aut/ontologies/addition-capability#> .
+
+<http://www.hsu-hh.de/aut/ontologies/addition-capability> rdf:type owl:Ontology ;
+                                                          owl:imports <https://w3id.org/hsu-aut/cask/2.5.3> .
+
+### IntegerType
+:IntegerType rdf:type owl:NamedIndividual ,
+                       DINEN61360:Type_Description ;
+              DINEN61360:Definition "This type is for numbers of type integer." .
+
+### AdditionCapability
+:AdditionCapability rdf:type owl:NamedIndividual ,
+                             VDI3682:ProcessOperator ,
+                             CSS:Capability ;
+                    VDI3682:hasInput :Addition_InputA ,
+                                     :Addition_InputB ;
+                    VDI3682:hasOutput :Addition_OutputSum ;
+                    CSS:requiresCapability :AdditionCapability .
+
+### Addition_InputA
+:Addition_InputA rdf:type owl:NamedIndividual ,
+                          VDI3682:Information ;
+                 DINEN61360:has_Data_Element :Addition_InputA_DE .
+
+### Addition_InputA_DE
+:Addition_InputA_DE rdf:type owl:NamedIndividual ,
+                             DINEN61360:Data_Element ;
+                    DINEN61360:has_Instance_Description :Addition_InputA_ID ;
+                    DINEN61360:has_Type_Description :IntegerType .
+
+### Addition_InputA_ID
+:Addition_InputA_ID rdf:type owl:NamedIndividual ,
+                             DINEN61360:Instance_Description ;
+                    DINEN61360:Logic_Interpretation "=" .
+
+### Addition_InputB
+:Addition_InputB rdf:type owl:NamedIndividual ,
+                          VDI3682:Information ;
+                 DINEN61360:has_Data_Element :Addition_InputB_DE .
+
+### Addition_InputB_DE
+:Addition_InputB_DE rdf:type owl:NamedIndividual ,
+                             DINEN61360:Data_Element ;
+                    DINEN61360:has_Instance_Description :Addition_InputB_ID ;
+                    DINEN61360:has_Type_Description :IntegerType .
+
+### Addition_InputB_ID
+:Addition_InputB_ID rdf:type owl:NamedIndividual ,
+                             DINEN61360:Instance_Description ;
+                    DINEN61360:Logic_Interpretation "=" .
+
+### Addition_OutputSum
+:Addition_OutputSum rdf:type owl:NamedIndividual ,
+                             VDI3682:Information ;
+                    DINEN61360:has_Data_Element :Addition_OutputSum_DE .
+
+### Addition_OutputSum_DE
+:Addition_OutputSum_DE rdf:type owl:NamedIndividual ,
+                                DINEN61360:Data_Element ;
+                       DINEN61360:has_Instance_Description :Addition_OutputSum_ID ;
+                       DINEN61360:has_Type_Description :IntegerType .
+
+### Addition_OutputSum_ID
+:Addition_OutputSum_ID rdf:type owl:NamedIndividual ,
+                                DINEN61360:Instance_Description ;
+                       DINEN61360:Expression_Goal "Assurance" ;
+                       DINEN61360:Logic_Interpretation "=" .
+
+### Addition_Operation
+:Addition_Operation rdf:type owl:NamedIndividual ,
+                             math:Application ;
+                    math:operator <http://www.openmath.org/cd/arith1#plus> ;
+                    math:arguments (:Addition_InputA_ID :Addition_InputB_ID :Addition_OutputSum_ID) .

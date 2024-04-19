@@ -1,0 +1,67 @@
+@prefix : <http://www.w3id.org/hsu-aut/cask#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ISA88: <http://www.hsu-ifa.de/ontologies/ISA-TR88#> .
+@prefix VDI2206: <http://www.hsu-ifa.de/ontologies/VDI2206#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@base <http://www.w3id.org/hsu-aut/cask#> .
+
+<http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/number-even> rdf:type owl:Ontology ;
+                                                                             owl:imports <https://w3id.org/hsu-aut/cask/2.5.3> .
+
+### Capability to Determine Parity
+:ParityDetermination rdf:type CSS:Capability ;
+                     rdfs:label "Parity Determination" ;
+                     rdfs:comment "Capability to determine if an integer is even or odd." .
+
+### Skill to Implement Parity Determination
+:ParityDeterminationSkill rdf:type CSS:Skill ;
+                          rdfs:label "Parity Determination Skill" ;
+                          CSS:isRealizedBy :ParityDetermination ;
+                          CSS:hasParameter :InputA ;
+                          CSS:hasOutput :OutputIsEven .
+
+### Skill Interface for Parity Determination
+:ParityDeterminationSkillInterface rdf:type CSS:SkillInterface ;
+                                   CSS:exposes :InputA ;
+                                   CSS:exposes :OutputIsEven .
+
+### Input Parameter "a"
+:InputA rdf:type CSS:SkillParameter ;
+        rdfs:label "Input Integer a" ;
+        DINEN61360:has_Type_Description :Integer_TD ;
+        DINEN61360:has_Instance_Description :InputA_ID .
+
+### Type Description for Integer
+:Integer_TD rdf:type DINEN61360:Type_Description ;
+            DINEN61360:Preferred_Name "Integer" ;
+            DINEN61360:Definition "Type for integer values." .
+
+### Instance Description for Input "a"
+:InputA_ID rdf:type DINEN61360:Instance_Description ;
+           DINEN61360:Expression_Goal "Actual_Value" ;
+           DINEN61360:Logic_Interpretation "=" .
+
+### Output Parameter "isEven"
+:OutputIsEven rdf:type CSS:SkillParameter ;
+              rdfs:label "Output Boolean isEven" ;
+              DINEN61360:has_Type_Description :Boolean_TD ;
+              DINEN61360:has_Instance_Description :OutputIsEven_ID .
+
+### Type Description for Boolean
+:Boolean_TD rdf:type DINEN61360:Type_Description ;
+            DINEN61360:Preferred_Name "Boolean" ;
+            DINEN61360:Definition "Type for boolean values." .
+
+### Instance Description for Output "isEven"
+:OutputIsEven_ID rdf:type DINEN61360:Instance_Description ;
+                 DINEN61360:Expression_Goal "Assurance" ;
+                 DINEN61360:Logic_Interpretation "=" .
+
+### Linking Skill Interface to Skill
+:ParityDeterminationSkill CSS:accessibleThrough :ParityDeterminationSkillInterface .

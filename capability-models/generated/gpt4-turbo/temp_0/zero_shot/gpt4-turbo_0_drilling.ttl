@@ -1,0 +1,80 @@
+```turtle
+@prefix : <http://www.w3id.org/hsu-aut/cask#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix VDI2206: <http://www.hsu-ifa.de/ontologies/VDI2206#> .
+
+### Drilling Capability
+:Drilling rdf:type CSS:Capability ;
+          rdfs:label "Drilling" ;
+          CSS:isSpecifiedBy :DrillingDepthProperty, :DrillingDiameterProperty ;
+          CSS:requiresCapability :DrillingMachineCapability .
+
+### Drilling Machine Capability
+:DrillingMachineCapability rdf:type :RequiredCapability ;
+                           rdfs:label "Drilling Machine Capability" .
+
+### Drilling Depth Property
+:DrillingDepthProperty rdf:type CSS:Property ;
+                       rdfs:label "Drilling Depth" ;
+                       DINEN61360:has_Type_Description :DepthTypeDescription ;
+                       DINEN61360:has_Instance_Description :DepthInstanceDescription .
+
+### Drilling Diameter Property
+:DrillingDiameterProperty rdf:type CSS:Property ;
+                          rdfs:label "Drilling Diameter" ;
+                          DINEN61360:has_Type_Description :DiameterTypeDescription ;
+                          DINEN61360:has_Instance_Description :DiameterInstanceDescription .
+
+### Depth Type Description
+:DepthTypeDescription rdf:type DINEN61360:Type_Description ;
+                      DINEN61360:Preferred_Name "Depth" ;
+                      DINEN61360:Definition "Depth of the hole to be drilled, must be less than 80 mm." ;
+                      DINEN61360:Unit_of_Measure "mm" .
+
+### Diameter Type Description
+:DiameterTypeDescription rdf:type DINEN61360:Type_Description ;
+                         DINEN61360:Preferred_Name "Diameter" ;
+                         DINEN61360:Definition "Diameter of the hole to be drilled, must be between 1mm and 20 mm." ;
+                         DINEN61360:Unit_of_Measure "mm" .
+
+### Depth Instance Description
+:DepthInstanceDescription rdf:type DINEN61360:Instance_Description ;
+                          DINEN61360:Value "80"^^xsd:int ;
+                          DINEN61360:Logic_Interpretation "<" .
+
+### Diameter Instance Description
+:DiameterInstanceDescription rdf:type DINEN61360:Instance_Description ;
+                             DINEN61360:Value "1"^^xsd:int ;
+                             DINEN61360:Logic_Interpretation ">=" ;
+                             DINEN61360:Value "20"^^xsd:int ;
+                             DINEN61360:Logic_Interpretation "<=" .
+
+### Capability Constraints
+:DepthEqualityConstraint rdf:type CSS:CapabilityConstraint ;
+                         rdfs:label "Depth Equality Constraint" ;
+                         CSS:references :DrillingDepthProperty .
+
+:DiameterEqualityConstraint rdf:type CSS:CapabilityConstraint ;
+                            rdfs:label "Diameter Equality Constraint" ;
+                            CSS:references :DrillingDiameterProperty .
+
+### Products
+:BlankProduct rdf:type VDI2206:Product ;
+              rdfs:label "Blank Product" .
+
+:DrilledProduct rdf:type VDI2206:Product ;
+                rdfs:label "Drilled Product" .
+
+### Process
+:DrillingProcess rdf:type CSS:Process ;
+                 rdfs:label "Simple Drilling Process" ;
+                 CSS:hasInput :BlankProduct ;
+                 CSS:hasOutput :DrilledProduct ;
+                 CSS:requiresCapability :DrillingMachineCapability .
+```
+
+This OWL ontology describes the "Drilling" capability, including its specifications, constraints, and related properties. It defines the types and instances for depth and diameter, and it links these properties to the capability through constraints that ensure the output properties match the input specifications. The ontology also models the drilling process, specifying the required capabilities, inputs, and outputs.
