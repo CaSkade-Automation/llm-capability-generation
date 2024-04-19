@@ -1,0 +1,67 @@
+@prefix : <http://www.hsu-hh.de/aut/ontologies/parity-determination#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@prefix math: <http://openmath.org/vocab/math#> .
+@base <http://www.hsu-hh.de/aut/ontologies/parity-determination#> .
+
+<http://www.hsu-hh.de/aut/ontologies/parity-determination> rdf:type owl:Ontology ;
+                                                           owl:imports <https://w3id.org/hsu-aut/cask/2.5.3> .
+
+### IntegerType
+:IntegerType rdf:type owl:NamedIndividual ,
+                      DINEN61360:Type_Description ;
+             DINEN61360:Definition "This type is for numbers of type integer." .
+
+### BooleanType
+:BooleanType rdf:type owl:NamedIndividual ,
+                      DINEN61360:Type_Description ;
+             DINEN61360:Definition "This type is for boolean values, true or false." .
+
+### ParityDetermination
+:ParityDetermination rdf:type owl:NamedIndividual ,
+                              VDI3682:ProcessOperator ,
+                              CSS:Capability ;
+                     VDI3682:hasInput :ParityDetermination_InputA ;
+                     VDI3682:hasOutput :ParityDetermination_OutputIsEven ;
+                     CSS:requiresCapability :ParityDetermination .
+
+### ParityDetermination_InputA
+:ParityDetermination_InputA rdf:type owl:NamedIndividual ,
+                                     VDI3682:Information ;
+                            DINEN61360:has_Data_Element :ParityDetermination_InputA_DE .
+
+### ParityDetermination_InputA_DE
+:ParityDetermination_InputA_DE rdf:type owl:NamedIndividual ,
+                                        DINEN61360:Data_Element ;
+                               DINEN61360:has_Instance_Description :ParityDetermination_InputA_ID ;
+                               DINEN61360:has_Type_Description :IntegerType .
+
+### ParityDetermination_InputA_ID
+:ParityDetermination_InputA_ID rdf:type owl:NamedIndividual ,
+                                        DINEN61360:Instance_Description ;
+                               DINEN61360:Logic_Interpretation "=" .
+
+### ParityDetermination_OutputIsEven
+:ParityDetermination_OutputIsEven rdf:type owl:NamedIndividual ,
+                                           VDI3682:Information ;
+                                  DINEN61360:has_Data_Element :ParityDetermination_OutputIsEven_DE .
+
+### ParityDetermination_OutputIsEven_DE
+:ParityDetermination_OutputIsEven_DE rdf:type owl:NamedIndividual ,
+                                              DINEN61360:Data_Element ;
+                                     DINEN61360:has_Instance_Description :ParityDetermination_OutputIsEven_ID ;
+                                     DINEN61360:has_Type_Description :BooleanType .
+
+### ParityDetermination_OutputIsEven_ID
+:ParityDetermination_OutputIsEven_ID rdf:type owl:NamedIndividual ,
+                                              DINEN61360:Instance_Description ;
+                                     DINEN61360:Expression_Goal "Assurance" ;
+                                     DINEN61360:Logic_Interpretation "=" .
+
+This ontology defines a capability for determining the parity of an integer. It includes the necessary data elements, instance descriptions, and type descriptions for the input integer and the output boolean indicating whether the integer is even. The process operator "ParityDetermination" is linked to these inputs and outputs, and it requires the capability itself, ensuring that the system knows this process is capable of determining parity.
