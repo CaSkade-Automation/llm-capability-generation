@@ -1,0 +1,120 @@
+@prefix : <http://www.hsu-hh.de/aut/ontologies/drilling#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@base <http://www.hsu-hh.de/aut/ontologies/drilling#> .
+@prefix OM: <http://openmath.org/vocab/math#> .
+
+<http://www.hsu-hh.de/aut/ontologies/drilling> rdf:type owl:Ontology ;
+                                               owl:imports <https://w3id.org/hsu-aut/cask/2.5.3> .
+
+### Drilling
+:Drilling rdf:type owl:NamedIndividual ,
+                   VDI3682:ProcessOperator ,
+                   CSS:Capability ;
+          VDI3682:hasInput :Drilling_BlankProduct ,
+                           :Drilling_Diameter ,
+                           :Drilling_Depth ;
+          VDI3682:hasOutput :Drilling_DrilledProduct ;
+          CSS:requiresCapability :Drilling ;
+          CSS:isRestrictedBy :Drilling_Constraint_Diameter ,
+                              :Drilling_Constraint_Depth .
+
+### Drilling_BlankProduct
+:Drilling_BlankProduct rdf:type owl:NamedIndividual ,
+                                VDI3682:Product .
+
+### Drilling_DrilledProduct
+:Drilling_DrilledProduct rdf:type owl:NamedIndividual ,
+                                  VDI3682:Product ;
+                         DINEN61360:has_Data_Element :Drilling_DrilledProduct_Diameter_DE ,
+                                                     :Drilling_DrilledProduct_Depth_DE .
+
+### Drilling_Diameter
+:Drilling_Diameter rdf:type owl:NamedIndividual ,
+                            VDI3682:Information ;
+                   DINEN61360:has_Data_Element :Drilling_Diameter_DE .
+
+### Drilling_Diameter_DE
+:Drilling_Diameter_DE rdf:type owl:NamedIndividual ,
+                               DINEN61360:Data_Element ;
+                      DINEN61360:has_Instance_Description :Drilling_Diameter_ID ,
+                                                          :Drilling_Diameter_Req .
+
+### Drilling_Diameter_ID
+:Drilling_Diameter_ID rdf:type owl:NamedIndividual ,
+                               DINEN61360:Instance_Description ;
+                      DINEN61360:Logic_Interpretation "=" .
+
+### Drilling_Diameter_Req
+:Drilling_Diameter_Req rdf:type owl:NamedIndividual ,
+                                DINEN61360:Instance_Description ;
+                       DINEN61360:Expression_Goal "Requirement" ;
+                       DINEN61360:Logic_Interpretation ">=" ;
+                       DINEN61360:Value 1 ;
+                       DINEN61360:Logic_Interpretation "<=" ;
+                       DINEN61360:Value 20 .
+
+### Drilling_Depth
+:Drilling_Depth rdf:type owl:NamedIndividual ,
+                         VDI3682:Information ;
+                DINEN61360:has_Data_Element :Drilling_Depth_DE .
+
+### Drilling_Depth_DE
+:Drilling_Depth_DE rdf:type owl:NamedIndividual ,
+                            DINEN61360:Data_Element ;
+                   DINEN61360:has_Instance_Description :Drilling_Depth_ID ,
+                                                       :Drilling_Depth_Req .
+
+### Drilling_Depth_ID
+:Drilling_Depth_ID rdf:type owl:NamedIndividual ,
+                            DINEN61360:Instance_Description ;
+                   DINEN61360:Logic_Interpretation "=" .
+
+### Drilling_Depth_Req
+:Drilling_Depth_Req rdf:type owl:NamedIndividual ,
+                             DINEN61360:Instance_Description ;
+                    DINEN61360:Expression_Goal "Requirement" ;
+                    DINEN61360:Logic_Interpretation "<" ;
+                    DINEN61360:Value 80 .
+
+### Drilling_DrilledProduct_Diameter_DE
+:Drilling_DrilledProduct_Diameter_DE rdf:type owl:NamedIndividual ,
+                                              DINEN61360:Data_Element ;
+                                     DINEN61360:has_Instance_Description :Drilling_DrilledProduct_Diameter_ID_AS .
+
+### Drilling_DrilledProduct_Diameter_ID_AS
+:Drilling_DrilledProduct_Diameter_ID_AS rdf:type owl:NamedIndividual ,
+                                                 DINEN61360:Instance_Description ;
+                                        DINEN61360:Expression_Goal "Assurance" ;
+                                        DINEN61360:Logic_Interpretation "=" .
+
+### Drilling_DrilledProduct_Depth_DE
+:Drilling_DrilledProduct_Depth_DE rdf:type owl:NamedIndividual ,
+                                           DINEN61360:Data_Element ;
+                                  DINEN61360:has_Instance_Description :Drilling_DrilledProduct_Depth_ID_AS .
+
+### Drilling_DrilledProduct_Depth_ID_AS
+:Drilling_DrilledProduct_Depth_ID_AS rdf:type owl:NamedIndividual ,
+                                              DINEN61360:Instance_Description ;
+                                     DINEN61360:Expression_Goal "Assurance" ;
+                                     DINEN61360:Logic_Interpretation "=" .
+
+### Drilling_Constraint_Diameter
+:Drilling_Constraint_Diameter rdf:type owl:NamedIndividual ,
+                                       OM:Application ,
+                                       CSS:CapabilityConstraint ;
+                              OM:operator <http://www.openmath.org/cd/relation1#eq> ;
+                              OM:arguments (:Drilling_Diameter_ID :Drilling_DrilledProduct_Diameter_ID_AS) .
+
+### Drilling_Constraint_Depth
+:Drilling_Constraint_Depth rdf:type owl:NamedIndividual ,
+                                    OM:Application ,
+                                    CSS:CapabilityConstraint ;
+                           OM:operator <http://www.openmath.org/cd/relation1#eq> ;
+                           OM:arguments (:Drilling_Depth_ID :Drilling_DrilledProduct_Depth_ID_AS) .

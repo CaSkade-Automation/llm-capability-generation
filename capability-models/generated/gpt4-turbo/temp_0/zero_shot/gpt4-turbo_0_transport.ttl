@@ -1,0 +1,72 @@
+```turtle
+@prefix : <http://www.w3id.org/hsu-aut/cask#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@prefix VDI2206: <http://www.hsu-ifa.de/ontologies/VDI2206#> .
+
+### TransportCapability
+:TransportCapability rdf:type owl:NamedIndividual ,
+                             CSS:Capability ;
+                    CSS:requiresProduct :ProductA ;
+                    CSS:requiresProduct :InformationGoal ;
+                    CSS:providesCapability :ProductAGoal .
+
+### AGV
+:AGV rdf:type owl:NamedIndividual ,
+             VDI2206:System ;
+     CSS:providesCapability :TransportCapability .
+
+### ProductA
+:ProductA rdf:type owl:NamedIndividual ,
+                   VDI2206:Product ;
+          DINEN61360:has_Instance_Description :ProductAPosition .
+
+### InformationGoal
+:InformationGoal rdf:type owl:NamedIndividual ,
+                          VDI2206:Information ;
+                 DINEN61360:has_Instance_Description :GoalPosition .
+
+### ProductAGoal
+:ProductAGoal rdf:type owl:NamedIndividual ,
+                      VDI2206:Product ;
+             DINEN61360:has_Instance_Description :ProductAGoalPosition .
+
+### ProductAPosition
+:ProductAPosition rdf:type owl:NamedIndividual ,
+                           DINEN61360:Instance_Description ;
+                  DINEN61360:Expression_Goal "Actual_Value" ;
+                  DINEN61360:Logic_Interpretation "=" ;
+                  DINEN61360:Value "Position of Product A" .
+
+### GoalPosition
+:GoalPosition rdf:type owl:NamedIndividual ,
+                       DINEN61360:Instance_Description ;
+              DINEN61360:Expression_Goal "Freely_Selectable" ;
+              DINEN61360:Logic_Interpretation "=" ;
+              DINEN61360:Value "Position of Goal" .
+
+### ProductAGoalPosition
+:ProductAGoalPosition rdf:type owl:NamedIndividual ,
+                               DINEN61360:Instance_Description ;
+                      DINEN61360:Expression_Goal "Assurance" ;
+                      DINEN61360:Logic_Interpretation "=" ;
+                      DINEN61360:Value "Position of Product A at Goal" .
+
+### PositionType
+:PositionType rdf:type owl:NamedIndividual ,
+                       DINEN61360:Type_Description ;
+              DINEN61360:Preferred_Name "Position" ;
+              DINEN61360:Definition "Specifies the position in coordinates consisting of longitude and latitude measured in decimal degrees." ;
+              DINEN61360:Unit_of_Measure "Decimal Degrees" .
+
+### Connect Position Type to Instance Descriptions
+:ProductAPosition DINEN61360:Instance_Description_has_Type :PositionType .
+:GoalPosition DINEN61360:Instance_Description_has_Type :PositionType .
+:ProductAGoalPosition DINEN61360:Instance_Description_has_Type :PositionType .
+```
+
+This OWL ontology describes a transport capability provided by an automated guided vehicle (AGV) that involves transporting a product to a specified goal location. The ontology defines the relationships between the capability, the AGV, the product, and the information about the goal, including the positions associated with each entity.

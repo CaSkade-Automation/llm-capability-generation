@@ -5,6 +5,10 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix VDI2206: <http://www.hsu-ifa.de/ontologies/VDI2206#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+
+<http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/drilling> rdf:type owl:Ontology ;
+                                                                           owl:imports <http://www.w3id.org/hsu-aut/cask/2.5.3> .
 
 ### Drilling Capability
 :Drilling rdf:type CSS:Capability ;
