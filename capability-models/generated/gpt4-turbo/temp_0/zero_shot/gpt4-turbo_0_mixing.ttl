@@ -1,0 +1,70 @@
+```turtle
+@prefix : <http://www.w3id.org/hsu-aut/cask#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix VDI2206: <http://www.hsu-ifa.de/ontologies/VDI2206#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+
+### Mixing Capability
+:Mixture rdf:type CSS:Capability ;
+         rdfs:label "Mixing Capability" ;
+         CSS:isSpecifiedBy :MixingProcess .
+
+### Mixing Process
+:MixingProcess rdf:type VDI3682:Process ;
+               rdfs:label "Mixing Process" ;
+               VDI3682:hasInput :Liquid1, :Liquid2, :Liquid3, :TotalVolume, :VolumeFraction1, :VolumeFraction2, :VolumeFraction3 ;
+               VDI3682:hasOutput :LiquidMixture .
+
+### Inputs
+:Liquid1 rdf:type VDI2206:Product ;
+         rdfs:label "Liquid 1".
+
+:Liquid2 rdf:type VDI2206:Product ;
+         rdfs:label "Liquid 2".
+
+:Liquid3 rdf:type VDI2206:Product ;
+         rdfs:label "Liquid 3".
+
+:TotalVolume rdf:type CSS:SkillParameter ;
+             rdfs:label "Total Volume" ;
+             :isRequired true ;
+             :hasVariableType xsd:float ;
+             :hasDefaultValue "10"^^xsd:float .
+
+:VolumeFraction1 rdf:type CSS:SkillParameter ;
+                 rdfs:label "Volume Fraction of Liquid 1" ;
+                 :hasVariableType xsd:float ;
+                 :hasOptionValue "0.5"^^xsd:float .
+
+:VolumeFraction2 rdf:type CSS:SkillParameter ;
+                 rdfs:label "Volume Fraction of Liquid 2" ;
+                 :hasVariableType xsd:float ;
+                 :hasOptionValue "0.2"^^xsd:float ;
+                 :hasOptionValue "0.5"^^xsd:float .
+
+:VolumeFraction3 rdf:type CSS:SkillParameter ;
+                 rdfs:label "Volume Fraction of Liquid 3" ;
+                 :hasVariableType xsd:float ;
+                 :hasOptionValue "0.1"^^xsd:float .
+
+### Output
+:LiquidMixture rdf:type VDI2206:Product ;
+               rdfs:label "Liquid Mixture".
+
+### Capability Constraint
+:VolumeFractionConstraint rdf:type CSS:CapabilityConstraint ;
+                          rdfs:label "Volume Fraction Constraint" ;
+                          rdfs:comment "The sum of the three input volume fractions must be equal to 1." ;
+                          CSS:references :VolumeFraction1, :VolumeFraction2, :VolumeFraction3 .
+
+### Linking Capability with Process
+:Mixture CSS:isRealizedBy :MixingProcess .
+
+### Linking Capability Constraint with Capability
+:Mixture CSS:isRestrictedBy :VolumeFractionConstraint .
+```
+
+This OWL ontology in Turtle syntax defines the "Mixing" capability, its associated process, inputs, outputs, and constraints. It uses classes and properties from the provided namespaces to model the relationships and constraints involved in the mixing process.
