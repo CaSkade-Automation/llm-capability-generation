@@ -30,6 +30,7 @@ Mix:Mixing rdf:type owl:NamedIndividual ,
                             Mix:Mixing_input_liquid3_volumeFraction ,
                             Mix:Mixing_input_totalVolume ;
            VDI3682:hasOutput Mix:Mixing_output ;
+		   CSS:requiresCapability Mix:Mixing;
            CSS:isRestrictedBy Mix:TotalVolumeConstraint .
 
 
@@ -199,15 +200,18 @@ Mix:TotalVolumeConstraint rdf:type owl:NamedIndividual ,
 							OM:arguments ( 
 								[
 									rdf:type OM:Literal ;
-									OM:value 1 .
+									OM:value 1 
 								]
 								[
 									rdf:type OM:Application ;
 									OM:arguments ( Mix:Mixing_input_liquid1_volumeFraction_ID Mix:Mixing_input_liquid2_volumeFraction_ID Mix:Mixing_input_liquid3_volumeFraction_ID ) ;
-									OM:operator <http://www.openmath.org/cd/arith1#plus> .
+									OM:operator <http://www.openmath.org/cd/arith1#plus> 
 								]
 							  ) ;
-							OM:operator <http://www.openmath.org/cd/relation1#eq> .
+							OM:operator <http://www.openmath.org/cd/relation1#eq> ;
+							CSS:references Mix:Mixing_input_liquid1_volumeFraction_ID,
+						 					Mix:Mixing_input_liquid2_volumeFraction_ID,
+											Mix:Mixing_input_liquid3_volumeFraction_ID.
 
 
 ###  http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/mixing#Volume
