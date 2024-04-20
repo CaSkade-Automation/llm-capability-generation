@@ -5,6 +5,7 @@
 @prefix : <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/constraints#>	.	# Namespace of all constraints
 @prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
 @prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
 
 :CapabilityShape
   a sh:NodeShape ;
@@ -34,7 +35,10 @@
   ];
   sh:property [
     sh:path CSS:isSpecifiedBy;  # allows any number of properties 
-    sh:class CSS:Property ;
+    sh:or (
+      [ sh:class CSS:Property ]
+      [ sh:class DINEN61360:Data_Element ]
+    ) ;
     sh:minCount 0 ;
   ];
   sh:property [ # TODO: funktioniert so nicht! 

@@ -36,7 +36,10 @@
   ];
   sh:property [
     sh:path CSS:isSpecifiedBy;  # allows any number of properties
-    sh:class CSS:Property ;
+    sh:or (
+      [ sh:class CSS:Property ]
+      [ sh:class DINEN61360:Data_Element ]
+    ) ;
     sh:minCount 0 ;
   ];
   sh:property [
