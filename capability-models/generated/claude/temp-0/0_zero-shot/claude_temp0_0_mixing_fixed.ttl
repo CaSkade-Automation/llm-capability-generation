@@ -1,0 +1,83 @@
+@prefix : <http://www.w3id.org/hsu-aut/cask#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ISA88: <http://www.hsu-ifa.de/ontologies/ISA-TR88#> .
+@prefix VDI2206: <http://www.hsu-ifa.de/ontologies/VDI2206#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@base <http://www.w3id.org/hsu-aut/cask#> .
+
+<http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/mixing> rdf:type owl:Ontology ;
+                                                                        owl:imports <https://w3id.org/hsu-aut/cask/2.5.3> .
+
+:Mixing rdf:type owl:NamedIndividual ,
+                 CSS:Capability ;
+        CSS:isRestrictedBy :MixingConstraint ;
+        CSS:isSpecifiedBy :TotalVolume ,
+                          :VolumeFractionLiquid1 ,
+                          :VolumeFractionLiquid2 ,
+                          :VolumeFractionLiquid3 ;
+        CSS:hasInput :Liquid1 ,
+                     :Liquid2 ,
+                     :Liquid3 ;
+        CSS:hasOutput :LiquidMixture .
+
+:MixingConstraint rdf:type owl:NamedIndividual ,
+                           CSS:CapabilityConstraint ;
+                  <http://openmath.org/vocab/math#operator> <http://www.openmath.org/cd/arith1#eq> ;
+                  <http://openmath.org/vocab/math#arguments> [ rdf:type <http://openmath.org/vocab/math#ObjectList> ;
+                                                               rdf:first [ rdf:type <http://openmath.org/vocab/math#Application> ;
+                                                                           <http://openmath.org/vocab/math#operator> <http://www.openmath.org/cd/arith1#plus> ;
+                                                                           <http://openmath.org/vocab/math#arguments> [ rdf:type <http://openmath.org/vocab/math#ObjectList> ;
+                                                                                                                        rdf:first :VolumeFractionLiquid1 ;
+                                                                                                                        rdf:rest [ rdf:type <http://openmath.org/vocab/math#ObjectList> ;
+                                                                                                                                   rdf:first :VolumeFractionLiquid2 ;
+                                                                                                                                   rdf:rest [ rdf:type <http://openmath.org/vocab/math#ObjectList> ;
+                                                                                                                                              rdf:first :VolumeFractionLiquid3 ;
+                                                                                                                                              rdf:rest rdf:nil
+                                                                                                                                            ]
+                                                                                                                                 ]
+                                                                                                                      ]
+                                                                         ] ;
+                                                               rdf:rest [ rdf:type <http://openmath.org/vocab/math#ObjectList> ;
+                                                                          rdf:first "1"^^xsd:integer ;
+                                                                          rdf:rest rdf:nil
+                                                                        ]
+                                                             ] .
+
+:TotalVolume rdf:type owl:NamedIndividual ,
+                      CSS:Property ;
+             DINEN61360:Value_List "true"^^xsd:boolean ;
+             DINEN61360:Value_List_Member "10"^^xsd:integer .
+
+:VolumeFractionLiquid1 rdf:type owl:NamedIndividual ,
+                               CSS:Property ;
+                      DINEN61360:Value_List "true"^^xsd:boolean ;
+                      DINEN61360:Value_List_Member "0.5"^^xsd:float .
+
+:VolumeFractionLiquid2 rdf:type owl:NamedIndividual ,
+                               CSS:Property ;
+                      DINEN61360:Value_List "true"^^xsd:boolean ;
+                      DINEN61360:Value_List_Member "0.2"^^xsd:float ,
+                                                  "0.5"^^xsd:float .
+
+:VolumeFractionLiquid3 rdf:type owl:NamedIndividual ,
+                               CSS:Property ;
+                      DINEN61360:Value_List "true"^^xsd:boolean ;
+                      DINEN61360:Value_List_Member "0.1"^^xsd:float .
+
+:Liquid1 rdf:type owl:NamedIndividual ,
+                  VDI2206:Product .
+
+:Liquid2 rdf:type owl:NamedIndividual ,
+                  VDI2206:Product .
+
+:Liquid3 rdf:type owl:NamedIndividual ,
+                  VDI2206:Product .
+
+:LiquidMixture rdf:type owl:NamedIndividual ,
+                        VDI2206:Product .

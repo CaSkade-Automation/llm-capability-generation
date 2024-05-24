@@ -1,0 +1,70 @@
+@prefix : <http://www.w3id.org/hsu-aut/cask#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ISA88: <http://www.hsu-ifa.de/ontologies/ISA-TR88#> .
+@prefix VDI2206: <http://www.hsu-ifa.de/ontologies/VDI2206#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@base <http://www.w3id.org/hsu-aut/cask#> .
+
+<http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/transport> rdf:type owl:Ontology ;
+                                                                           owl:imports <http://www.w3id.org/hsu-aut/cask/2.5.3> .
+
+:agv rdf:type owl:NamedIndividual ,
+              CSS:Resource ;
+     CSS:providesCapability :transportCapability .
+
+:transportCapability rdf:type owl:NamedIndividual ,
+                              CSS:Capability ;
+                     CSS:hasInput :productA ,
+                                  :goalInfo ;
+                     CSS:hasOutput :productAGoal .
+
+:productA rdf:type owl:NamedIndividual ,
+                   CSS:Product ;
+          DINEN61360:has_Data_Element :productAPosition .
+
+:productAPosition rdf:type owl:NamedIndividual ,
+                           DINEN61360:Data_Element ;
+                  DINEN61360:has_Type_Description :positionType ;
+                  DINEN61360:has_Instance_Description [ rdf:type DINEN61360:Instance_Description ;
+                                                        DINEN61360:Expression_Goal "Actual_Value" ;
+                                                        DINEN61360:Logic_Interpretation "=" ;
+                                                        DINEN61360:Value "agvPosition"
+                                                      ] .
+
+:goalInfo rdf:type owl:NamedIndividual ,
+                   VDI3682:Information ;
+          DINEN61360:has_Data_Element :goalPosition .
+
+:goalPosition rdf:type owl:NamedIndividual ,
+                       DINEN61360:Data_Element ;
+              DINEN61360:has_Type_Description :positionType .
+
+:productAGoal rdf:type owl:NamedIndividual ,
+                       CSS:Product ;
+              DINEN61360:has_Data_Element :productAGoalPosition .
+
+:productAGoalPosition rdf:type owl:NamedIndividual ,
+                               DINEN61360:Data_Element ;
+                      DINEN61360:has_Type_Description :positionType ;
+                      DINEN61360:has_Instance_Description [ rdf:type DINEN61360:Instance_Description ;
+                                                            DINEN61360:Expression_Goal "Assurance" ;
+                                                            DINEN61360:Logic_Interpretation "=" ;
+                                                            DINEN61360:Value "goalPosition"
+                                                          ] .
+
+:positionType rdf:type owl:NamedIndividual ,
+                       DINEN61360:Type_Description ;
+              DINEN61360:Definition "The position in coordinates consisting of longitude and latitude measured in decimal degrees." .
+
+:agvPosition rdf:type owl:NamedIndividual ,
+                      DINEN61360:Data_Element ;
+             DINEN61360:has_Type_Description :positionType ;
+             DINEN61360:has_Instance_Description [ rdf:type DINEN61360:Instance_Description ;
+                                                   DINEN61360:Expression_Goal "Actual_Value"
+                                                 ] .
