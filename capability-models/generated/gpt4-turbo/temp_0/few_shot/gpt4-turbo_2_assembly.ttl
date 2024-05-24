@@ -1,0 +1,97 @@
+@prefix : <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix assembly: <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/assembly#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@prefix OM: <http://openmath.org/vocab/math#> .
+@base <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+
+<http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/assembly> rdf:type owl:Ontology ;
+                                                                         owl:imports <https://w3id.org/hsu-aut/cask/2.5.3> .
+
+### Mass
+assembly:Mass rdf:type owl:NamedIndividual ,
+                       DINEN61360:Type_Description ;
+              DINEN61360:Definition "Mass is a measure of the amount of matter in an object, typically measured in kg." ;
+              DINEN61360:Unit_of_Measure "kg" .
+
+### AssemblyCapability
+assembly:AssemblyCapability rdf:type owl:NamedIndividual ,
+                                     VDI3682:ProcessOperator ,
+                                     CSS:Capability ;
+                            VDI3682:hasInput assembly:InputA ,
+                                             assembly:InputB ;
+                            VDI3682:hasOutput assembly:AssembledProduct ;
+                            CSS:requiresCapability assembly:AssemblyCapability ;
+                            CSS:isRestrictedBy assembly:AssemblyConstraint_TotalMass .
+
+### InputA
+assembly:InputA rdf:type owl:NamedIndividual ,
+                         VDI3682:Product ;
+                DINEN61360:has_Data_Element assembly:InputA_Mass_DE .
+
+### InputB
+assembly:InputB rdf:type owl:NamedIndividual ,
+                         VDI3682:Product ;
+                DINEN61360:has_Data_Element assembly:InputB_Mass_DE .
+
+### AssembledProduct
+assembly:AssembledProduct rdf:type owl:NamedIndividual ,
+                                   VDI3682:Product ;
+                          DINEN61360:has_Data_Element assembly:AssembledProduct_Mass_DE .
+
+### InputA_Mass_DE
+assembly:InputA_Mass_DE rdf:type owl:NamedIndividual ,
+                                 DINEN61360:Data_Element ;
+                        DINEN61360:has_Instance_Description assembly:InputA_Mass_ID ;
+                        DINEN61360:has_Type_Description assembly:Mass .
+
+### InputA_Mass_ID
+assembly:InputA_Mass_ID rdf:type owl:NamedIndividual ,
+                                 DINEN61360:Instance_Description ;
+                        DINEN61360:Expression_Goal "Actual_Value" ;
+                        DINEN61360:Logic_Interpretation "=" .
+
+### InputB_Mass_DE
+assembly:InputB_Mass_DE rdf:type owl:NamedIndividual ,
+                                 DINEN61360:Data_Element ;
+                        DINEN61360:has_Instance_Description assembly:InputB_Mass_ID ;
+                        DINEN61360:has_Type_Description assembly:Mass .
+
+### InputB_Mass_ID
+assembly:InputB_Mass_ID rdf:type owl:NamedIndividual ,
+                                 DINEN61360:Instance_Description ;
+                        DINEN61360:Expression_Goal "Actual_Value" ;
+                        DINEN61360:Logic_Interpretation "=" .
+
+### AssembledProduct_Mass_DE
+assembly:AssembledProduct_Mass_DE rdf:type owl:NamedIndividual ,
+                                           DINEN61360:Data_Element ;
+                                  DINEN61360:has_Instance_Description assembly:AssembledProduct_Mass_ID ;
+                                  DINEN61360:has_Type_Description assembly:Mass .
+
+### AssembledProduct_Mass_ID
+assembly:AssembledProduct_Mass_ID rdf:type owl:NamedIndividual ,
+                                           DINEN61360:Instance_Description ;
+                                  DINEN61360:Expression_Goal "Assurance" ;
+                                  DINEN61360:Logic_Interpretation "=" .
+
+### AssemblyConstraint_TotalMass
+assembly:AssemblyConstraint_TotalMass rdf:type owl:NamedIndividual ,
+                                               OM:Application ,
+                                               CSS:CapabilityConstraint ;
+                                      OM:operator <http://www.openmath.org/cd/arith1#eq> ;
+                                      OM:arguments 
+                                      ( 
+                                        [
+                                          rdf:type OM:Application;
+                                          OM:operator <http://www.openmath.org/cd/arith1#plus>;
+                                          OM:arguments (assembly:InputA_Mass_ID assembly:InputB_Mass_ID)
+                                        ]
+                                        assembly:AssembledProduct_Mass_ID
+                                      ) .

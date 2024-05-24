@@ -1,0 +1,88 @@
+@prefix : <http://www.hsu-hh.de/aut/ontologies/assembly-capability#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix openmath: <http://openmath.org/vocab/math#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@base <http://www.hsu-hh.de/aut/ontologies/assembly-capability#> .
+
+<http://www.hsu-hh.de/aut/ontologies/assembly-capability> rdf:type owl:Ontology ;
+                                                          owl:imports <https://w3id.org/hsu-aut/cask/2.5.3> .
+
+### AssemblyCapability
+:AssemblyCapability rdf:type owl:NamedIndividual ,
+                             VDI3682:ProcessOperator ,
+                             CSS:Capability ;
+                    VDI3682:hasInput :AssemblyCapability_ProductA ,
+                                     :AssemblyCapability_ProductB ;
+                    VDI3682:hasOutput :AssemblyCapability_AssembledProduct ;
+                    CSS:isRestrictedBy :AssemblyCapability_WeightConstraint .
+
+### ProductA
+:AssemblyCapability_ProductA rdf:type owl:NamedIndividual ,
+                                      VDI3682:Product ;
+                             DINEN61360:has_Data_Element :AssemblyCapability_ProductA_Weight_DE .
+
+### ProductB
+:AssemblyCapability_ProductB rdf:type owl:NamedIndividual ,
+                                      VDI3682:Product ;
+                             DINEN61360:has_Data_Element :AssemblyCapability_ProductB_Weight_DE .
+
+### AssembledProduct
+:AssemblyCapability_AssembledProduct rdf:type owl:NamedIndividual ,
+                                              VDI3682:Product ;
+                                     DINEN61360:has_Data_Element :AssemblyCapability_AssembledProduct_Weight_DE .
+
+### ProductA_Weight_DE
+:AssemblyCapability_ProductA_Weight_DE rdf:type owl:NamedIndividual ,
+                                                DINEN61360:Data_Element ;
+                                       DINEN61360:has_Instance_Description :AssemblyCapability_ProductA_Weight_ID ;
+                                       DINEN61360:has_Type_Description :Weight .
+
+### ProductB_Weight_DE
+:AssemblyCapability_ProductB_Weight_DE rdf:type owl:NamedIndividual ,
+                                                DINEN61360:Data_Element ;
+                                       DINEN61360:has_Instance_Description :AssemblyCapability_ProductB_Weight_ID ;
+                                       DINEN61360:has_Type_Description :Weight .
+
+### AssembledProduct_Weight_DE
+:AssemblyCapability_AssembledProduct_Weight_DE rdf:type owl:NamedIndividual ,
+                                                        DINEN61360:Data_Element ;
+                                               DINEN61360:has_Instance_Description :AssemblyCapability_AssembledProduct_Weight_ID ;
+                                               DINEN61360:has_Type_Description :Weight .
+
+### ProductA_Weight_ID
+:AssemblyCapability_ProductA_Weight_ID rdf:type owl:NamedIndividual ,
+                                                DINEN61360:Instance_Description ;
+                                       DINEN61360:Expression_Goal "Actual_Value" .
+
+### ProductB_Weight_ID
+:AssemblyCapability_ProductB_Weight_ID rdf:type owl:NamedIndividual ,
+                                                DINEN61360:Instance_Description ;
+                                       DINEN61360:Expression_Goal "Actual_Value" .
+
+### AssembledProduct_Weight_ID
+:AssemblyCapability_AssembledProduct_Weight_ID rdf:type owl:NamedIndividual ,
+                                                        DINEN61360:Instance_Description ;
+                                               DINEN61360:Expression_Goal "Assurance" ;
+                                               DINEN61360:Logic_Interpretation "=" .
+
+### WeightConstraint
+:AssemblyCapability_WeightConstraint rdf:type owl:NamedIndividual ,
+                                              openmath:Application ,
+                                              CSS:CapabilityConstraint ;
+                                     openmath:arguments ( :AssemblyCapability_AssembledProduct_Weight_ID :AssemblyCapability_ProductA_Weight_ID :AssemblyCapability_ProductB_Weight_ID ) ;
+                                     openmath:operator <http://www.openmath.org/cd/arith1#plus> ;
+                                     CSS:references :AssemblyCapability_AssembledProduct_Weight_ID ,
+                                                    :AssemblyCapability_ProductA_Weight_ID ,
+                                                    :AssemblyCapability_ProductB_Weight_ID .
+
+### Weight
+:Weight rdf:type owl:NamedIndividual ,
+                 DINEN61360:Type_Description ;
+        DINEN61360:Definition "The weight of a product measured in kilograms." ;
+        DINEN61360:Unit_of_Measure "kg" .

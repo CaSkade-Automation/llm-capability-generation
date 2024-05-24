@@ -1,0 +1,105 @@
+@prefix : <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+@prefix CSS: <http://www.w3id.org/hsu-aut/css#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix VDI3682: <http://www.w3id.org/hsu-aut/VDI3682#> .
+@prefix DINEN61360: <http://www.hsu-ifa.de/ontologies/DINEN61360#> .
+@prefix Mixing: <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/mixing#> .
+@base <http://www.hsu-hh.de/aut/ontologies/llm-capability-generation#> .
+@prefix OM: <http://openmath.org/vocab/math#> .
+
+<http://www.hsu-hh.de/aut/ontologies/llm-capability-generation/mixing> rdf:type owl:Ontology ;
+                                                                       owl:imports <https://w3id.org/hsu-aut/cask/2.5.3> .
+
+### MixingCapability
+Mixing:MixingCapability rdf:type owl:NamedIndividual ,
+                                 VDI3682:ProcessOperator ,
+                                 CSS:Capability ;
+                        VDI3682:hasInput Mixing:Liquid1 ,
+                                         Mixing:Liquid2 ,
+                                         Mixing:Liquid3 ;
+                        VDI3682:hasOutput Mixing:LiquidMixture ;
+                        CSS:requiresCapability Mixing:MixingCapability ;
+                        CSS:isRestrictedBy Mixing:VolumeFractionConstraint .
+
+### Liquid1
+Mixing:Liquid1 rdf:type owl:NamedIndividual ,
+                        VDI3682:Product ;
+               DINEN61360:has_Data_Element Mixing:Liquid1_VolumeFraction_DE .
+
+### Liquid2
+Mixing:Liquid2 rdf:type owl:NamedIndividual ,
+                        VDI3682:Product ;
+               DINEN61360:has_Data_Element Mixing:Liquid2_VolumeFraction_DE .
+
+### Liquid3
+Mixing:Liquid3 rdf:type owl:NamedIndividual ,
+                        VDI3682:Product ;
+               DINEN61360:has_Data_Element Mixing:Liquid3_VolumeFraction_DE .
+
+### LiquidMixture
+Mixing:LiquidMixture rdf:type owl:NamedIndividual ,
+                              VDI3682:Product ;
+                     rdfs:comment "A mixture created by combining Liquid1, Liquid2, and Liquid3." .
+
+### Liquid1_VolumeFraction_DE
+Mixing:Liquid1_VolumeFraction_DE rdf:type owl:NamedIndividual ,
+                                          DINEN61360:Data_Element ;
+                                 DINEN61360:has_Instance_Description Mixing:Liquid1_VolumeFraction_ID ;
+                                 DINEN61360:has_Type_Description Mixing:VolumeFraction .
+
+### Liquid1_VolumeFraction_ID
+Mixing:Liquid1_VolumeFraction_ID rdf:type owl:NamedIndividual ,
+                                          DINEN61360:Instance_Description ;
+                                 DINEN61360:Expression_Goal "Parameter" ;
+                                 DINEN61360:Logic_Interpretation "<=" ;
+                                 DINEN61360:Value 0.5 .
+
+### Liquid2_VolumeFraction_DE
+Mixing:Liquid2_VolumeFraction_DE rdf:type owl:NamedIndividual ,
+                                          DINEN61360:Data_Element ;
+                                 DINEN61360:has_Instance_Description Mixing:Liquid2_VolumeFraction_ID ;
+                                 DINEN61360:has_Type_Description Mixing:VolumeFraction .
+
+### Liquid2_VolumeFraction_ID
+Mixing:Liquid2_VolumeFraction_ID rdf:type owl:NamedIndividual ,
+                                          DINEN61360:Instance_Description ;
+                                 DINEN61360:Expression_Goal "Parameter" ;
+                                 DINEN61360:Logic_Interpretation ">=" ;
+                                 DINEN61360:Value 0.2 .
+
+### Liquid3_VolumeFraction_DE
+Mixing:Liquid3_VolumeFraction_DE rdf:type owl:NamedIndividual ,
+                                          DINEN61360:Data_Element ;
+                                 DINEN61360:has_Instance_Description Mixing:Liquid3_VolumeFraction_ID ;
+                                 DINEN61360:has_Type_Description Mixing:VolumeFraction .
+
+### Liquid3_VolumeFraction_ID
+Mixing:Liquid3_VolumeFraction_ID rdf:type owl:NamedIndividual ,
+                                          DINEN61360:Instance_Description ;
+                                 DINEN61360:Expression_Goal "Parameter" ;
+                                 DINEN61360:Logic_Interpretation "<=" ;
+                                 DINEN61360:Value 0.1 .
+
+### VolumeFraction
+Mixing:VolumeFraction rdf:type owl:NamedIndividual ,
+                               DINEN61360:Type_Description ;
+                      DINEN61360:Definition "Volume fraction of a liquid in a mixture, defined as the volume of the liquid divided by the total volume of the mixture." ;
+                      DINEN61360:Unit_of_Measure "ratio" .
+
+### VolumeFractionConstraint
+Mixing:VolumeFractionConstraint rdf:type owl:NamedIndividual ,
+                                         OM:Application ,
+                                         CSS:CapabilityConstraint ;
+                                OM:operator <http://www.openmath.org/cd/relation1#eq> ;
+                                OM:arguments ( [ rdf:type OM:Application ;
+                                                 OM:operator <http://www.openmath.org/cd/arith1#plus> ;
+                                                 OM:arguments ( Mixing:Liquid1_VolumeFraction_ID Mixing:Liquid2_VolumeFraction_ID Mixing:Liquid3_VolumeFraction_ID )
+                                               ]
+                                               [ rdf:type OM:Literal ;
+                                                 OM:value "1"^^xsd:decimal
+                                               ]
+                                             ) .
